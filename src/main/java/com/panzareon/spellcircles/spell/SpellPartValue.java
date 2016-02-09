@@ -5,48 +5,41 @@ import net.minecraft.util.Vec3;
 
 public class SpellPartValue
 {
-    Entity entity = null;
-    BlockPos block = null;
-    Vec3 direction = null;
-    boolean isset_Number = false;
-    float number;
-    boolean isset_Bool = false;
-    boolean bool;
-    Vec3 position = null;
-    boolean isset_Dimension = false;
-    int dimension;
+    Entity entity[] = null;
+    BlockPos block[] = null;
+    Vec3 direction[] = null;
+    float number[] = null;
+    boolean bool[] = null;
+    Vec3 position[] = null;
+    int dimension[] = null;
 
     //setter
-    public  void setEntity(Entity e)
+    public  void setEntity(Entity[] e)
     {
         entity = e;
     }
-    public  void setBlock(BlockPos b)
+    public  void setBlock(BlockPos[] b)
     {
         block = b;
     }
-    public void setDirection(Vec3 dir)
+    public void setDirection(Vec3[] dir)
     {
         direction = dir;
     }
-    public void setNumber(float f)
+    public void setNumber(float[] f)
     {
         number = f;
-        isset_Number = true;
     }
-    public void setBool(boolean b)
-    {
+    public void setBool(boolean[] b) {
         bool = b;
-        isset_Bool = true;
     }
-    public void setPosition(Vec3 pos)
+    public void setPosition(Vec3[] pos)
     {
         position = pos;
     }
-    public void setDimension(int d)
+    public void setDimension(int[] d)
     {
         dimension = d;
-        isset_Dimension = true;
     }
 
     //check if set
@@ -60,6 +53,8 @@ public class SpellPartValue
             return true;
         if(position != null)
             return true;
+        if(entity != null)
+            return true;
         return false;
     }
     public boolean issetDirection()
@@ -68,11 +63,11 @@ public class SpellPartValue
     }
     public boolean issetNumber()
     {
-        return isset_Number;
+        return number != null;
     }
     public boolean issetBool()
     {
-        return isset_Bool;
+        return bool != null;
     }
     public boolean issetPosition()
     {
@@ -86,65 +81,75 @@ public class SpellPartValue
     }
     public boolean issetDimension()
     {
-        return isset_Dimension;
+        return dimension != null;
     }
 
 
     //getter
-    public Entity getEntity()
+    public Entity[] getEntity()
     {
         return entity;
     }
-    public BlockPos getBlock()
+    public BlockPos[] getBlock()
     {
         if(block != null)
             return block;
         if(position != null)
-            return new BlockPos(position);
+        {
+            BlockPos[] ret = new BlockPos[position.length];
+            for(int i = 0; i < position.length; i++)
+            {
+                ret[i] = new BlockPos(position[i]);
+            }
+            return ret;
+        }
+        if(entity != null)
+        {
+            BlockPos[] ret = new BlockPos[entity.length];
+            for (int i = 0; i < entity.length; i++) {
+                ret[i] = entity[i].getPosition();
+            }
+            return ret;
+        }
         return null;
     }
-    public Vec3 getDirection()
+    public Vec3[] getDirection()
     {
         return direction;
     }
-    public float getNumber()
+    public float[] getNumber()
     {
-        if(isset_Number)
-            return number;
-        else
-        {
-            //maybe throw exception?
-            return 0.0f;
-        }
+        return number;
     }
-    public boolean getBool()
+    public boolean[] getBool()
     {
-        if(isset_Bool)
-            return bool;
-        else
-        {
-            //maybe throw exception?
-            return false;
-        }
+        return bool;
     }
-    public Vec3 getPosition()
+    public Vec3[] getPosition()
     {
         if(position != null)
             return position;
         if(block != null)
-            return new Vec3(block);
+        {
+            Vec3[] ret = new Vec3[block.length];
+            for(int i = 0; i < block.length; i++)
+            {
+                ret[i] = new Vec3(block[i]);
+            }
+            return ret;
+        }
         if(entity != null)
-            return entity.getPositionVector();
+        {
+            Vec3[] ret = new Vec3[entity.length];
+            for (int i = 0; i < entity.length; i++) {
+                ret[i] = entity[i].getPositionVector();
+            }
+            return ret;
+        }
         return null;
     }
-    public int getDimension()
+    public int[] getDimension()
     {
-        if(isset_Dimension)
-            return dimension;
-        else
-        {
-            //maybe throw exception?
-            return 0;
-        }
+        return dimension;
     }
 }

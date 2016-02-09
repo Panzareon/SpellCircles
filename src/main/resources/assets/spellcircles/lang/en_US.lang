@@ -1,0 +1,11 @@
+
+
+#Creative Tabs
+itemGroup.spellcircles=Spell Circles
+
+#Items
+item.spellcircles:chalk.name=Chalk
+item.spellcircles:spell_rune.name=Spell Rune
+
+#Blocks
+tile.spellcircles:placing_default.name=Placing Default
