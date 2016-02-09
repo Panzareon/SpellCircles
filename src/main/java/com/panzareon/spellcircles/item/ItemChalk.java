@@ -1,6 +1,6 @@
 package com.panzareon.spellcircles.item;
 
-public class ItemChalk extends ItemSpellCircles
+public class ItemChalk extends SpellCirclesItem
 {
     public ItemChalk()
     {

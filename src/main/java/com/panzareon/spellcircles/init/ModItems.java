@@ -1,9 +1,7 @@
 package com.panzareon.spellcircles.init;
 
 import com.panzareon.spellcircles.item.ItemChalk;
-import com.panzareon.spellcircles.item.ItemSpellCircles;
-import com.panzareon.spellcircles.reference.Reference;
-import com.panzareon.spellcircles.utility.LogHelper;
+import com.panzareon.spellcircles.item.SpellCirclesItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -11,7 +9,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModItems
 {
-    public static final ItemSpellCircles chalk = new ItemChalk();
+    public static final SpellCirclesItem chalk = new ItemChalk();
 
     public static void init() {
         GameRegistry.registerItem(chalk, "chalk");

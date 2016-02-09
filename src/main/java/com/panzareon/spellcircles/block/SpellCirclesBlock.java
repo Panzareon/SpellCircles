@@ -5,13 +5,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 
-public class BlockSpellCircles extends Block
+public class SpellCirclesBlock extends Block
 {
-    public BlockSpellCircles(Material material)
+    public SpellCirclesBlock(Material material)
     {
         super(material);
     }
-    public BlockSpellCircles()
+    public SpellCirclesBlock()
     {
         super(Material.rock);
     }
