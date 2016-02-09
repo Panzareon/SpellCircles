@@ -1,0 +1,15 @@
+/eclipse
+/out
+
+/*.iml
+/*.ipr
+/*.iws
+
+## gradle
+/.gradle
+/build
+/gradle
+/run
+
+/gradlew
+/gradlew.bat

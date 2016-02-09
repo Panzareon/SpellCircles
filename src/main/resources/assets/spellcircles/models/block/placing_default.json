@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "spellcircles:blocks/placing_default"
+    }
+}
