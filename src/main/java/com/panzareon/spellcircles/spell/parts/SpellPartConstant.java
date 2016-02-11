@@ -27,8 +27,10 @@ public class SpellPartConstant extends SpellPart
         return 0;
     }
 
+    @Override
     public void additionalValues(String value)
     {
+        super.additionalValues(value);
         String[] valueParts = value.split(":");
         fValue = new float[valueParts.length];
         for(int i = 0; i < valueParts.length; i++)

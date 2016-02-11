@@ -24,28 +24,11 @@ public class ItemSpellRune extends ItemSpell
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        if(itemStackIn.getTagCompound() != null)
+        SpellEnviron environ = super.getEnvironFromNBT(itemStackIn);
+        if(environ != null)
         {
-            if(itemStackIn.getTagCompound().hasKey("spellcircles"))
-            {
-                NBTTagCompound nbt = (NBTTagCompound) itemStackIn.getTagCompound().getTag("spellcircles");
-                if(nbt.hasKey("spell"))
-                {
-                    String spell = nbt.getString("spell");
-                    SpellEnviron environ = new SpellEnviron(spell);
-                    environ.cast();
-                }
-            }
-            //get spell from nbt
+            environ.cast();
         }
         return itemStackIn;
-    }
-
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
-    {
-
     }
 }

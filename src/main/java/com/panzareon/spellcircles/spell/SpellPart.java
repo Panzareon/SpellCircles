@@ -5,6 +5,8 @@ public abstract class SpellPart
     protected SpellPart[] children;
     protected SpellEnviron environ;
 
+    protected String additionalValuesString = null;
+
     public abstract String getSpellName();
 
     public abstract int getNrOfChildren();
@@ -46,7 +48,39 @@ public abstract class SpellPart
 
     public void additionalValues(String value)
     {
-        //NOOP
+        additionalValuesString = value;
     }
 
+    public boolean isFinished()
+    {
+        if(children[children.length - 1] == null)
+        {
+            return false;
+        }
+        for(SpellPart child: children)
+        {
+            if(!child.isFinished())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String getSpellString()
+    {
+        String ret = getSpellName();
+        if(additionalValuesString != null)
+        {
+            ret += ":" + additionalValuesString;
+        }
+        for(SpellPart child: children)
+        {
+            if(child != null)
+            {
+                ret += " " + child.getSpellString();
+            }
+        }
+        return ret;
+    }
 }

@@ -18,7 +18,6 @@ public class ModGuiConfig extends GuiConfig
                 false,
                 false,
                 GuiConfig.getAbridgedConfigPath(ConfigurationHandler.configuration.toString()));
-        LogHelper.info(ConfigurationHandler.configuration.getCategory(Configuration.CATEGORY_GENERAL));
     }
 
 }

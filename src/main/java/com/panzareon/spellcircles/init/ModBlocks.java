@@ -1,6 +1,7 @@
 package com.panzareon.spellcircles.init;
 
 import com.panzareon.spellcircles.block.BlockPlacingDefault;
+import com.panzareon.spellcircles.block.BlockSpellCircle;
 import com.panzareon.spellcircles.block.SpellCirclesBlock;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.block.Block;
@@ -12,14 +13,17 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModBlocks
 {
     public static final SpellCirclesBlock placingDefault = new BlockPlacingDefault();
+    public static final SpellCirclesBlock spellCircle = new BlockSpellCircle();
 
     public static void init() {
         GameRegistry.registerBlock(placingDefault, "placing_default");
+        GameRegistry.registerBlock(spellCircle, "spell_circle");
     }
 
     public static void registerRender()
     {
         registerRender(placingDefault);
+        registerRender(spellCircle);
     }
 
     public static void registerRender(Block block)

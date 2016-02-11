@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.client.gui;
 
+import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
@@ -11,7 +12,6 @@ public class GuiFactory implements IModGuiFactory
     @Override
     public void initialize(Minecraft minecraftInstance)
     {
-
     }
 
     @Override
