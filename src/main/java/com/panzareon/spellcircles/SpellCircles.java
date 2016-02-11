@@ -2,6 +2,7 @@ package com.panzareon.spellcircles;
 
 import com.panzareon.spellcircles.handler.ConfigurationHandler;
 import com.panzareon.spellcircles.init.ModBlocks;
+import com.panzareon.spellcircles.init.ModGui;
 import com.panzareon.spellcircles.init.ModItems;
 import com.panzareon.spellcircles.init.ModTileEntity;
 import com.panzareon.spellcircles.proxy.IProxy;
@@ -40,6 +41,7 @@ public class SpellCircles
     public void init(FMLInitializationEvent event)
     {
         proxy.registerRenders();
+        ModGui.init();
     }
 
     @Mod.EventHandler

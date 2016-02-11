@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.block;
 
+import com.panzareon.spellcircles.SpellCircles;
 import com.panzareon.spellcircles.item.ItemSpell;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import net.minecraft.block.ITileEntityProvider;
@@ -48,6 +49,7 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.getCurrentEquippedItem();
+        boolean openGui = true;
         if(stack != null)
         {
             Item item = stack.getItem();
@@ -55,7 +57,12 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
             {
                 TileEntitySpellCircle tileEntity = (TileEntitySpellCircle) worldIn.getTileEntity(pos);
                 ((ItemSpell) item).setSpellString(stack, tileEntity.getEnviron().getSpellString());
+                openGui = false;
             }
+        }
+        if(openGui && worldIn.isRemote)
+        {
+            playerIn.openGui(SpellCircles.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }
