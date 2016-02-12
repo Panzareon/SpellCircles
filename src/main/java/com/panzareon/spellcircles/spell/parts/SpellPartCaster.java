@@ -2,6 +2,7 @@ package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
+import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
 
 public class SpellPartCaster extends SpellPart
@@ -25,8 +26,20 @@ public class SpellPartCaster extends SpellPart
     }
 
     @Override
+    public String getSpellId() {
+        return "Caster";
+    }
+
+    @Override
     public int getNrOfChildren() {
         return 0;
     }
+
+    @Override
+    public SpellReturnTypes[] getReturnValueTypes() {
+        SpellReturnTypes[] ret = {SpellReturnTypes.ENTITY,SpellReturnTypes.ACTION};
+        return ret;
+    }
+
 
 }

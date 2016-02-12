@@ -11,7 +11,16 @@ public class SpellEnviron
     protected ArrayList<SpellPart> spells;
     int nextSpaceIndex = 0;
 
+    public SpellEnviron()
+    {
+        spells = new ArrayList<SpellPart>();
+    }
     public SpellEnviron(String spell)
+    {
+        spells = new ArrayList<SpellPart>();
+        addSpellPart(spell);
+    }
+    public SpellEnviron(SpellPart spell)
     {
         spells = new ArrayList<SpellPart>();
         addSpellPart(spell);
@@ -23,6 +32,7 @@ public class SpellEnviron
         for(int i = 0; SpellPartsString.length > 0; i++)
         {
             SpellPart part = SpellList.getSpellPart(SpellPartsString[i]);
+            part.setEnviron(this);
             while(true)
             {
                 if(spells.size() <= nextSpaceIndex)
@@ -37,6 +47,23 @@ public class SpellEnviron
                 nextSpaceIndex++;
             }
 
+        }
+    }
+    public void addSpellPart(SpellPart part)
+    {
+        part.setEnviron(this);
+        while(true)
+        {
+            if(spells.size() <= nextSpaceIndex)
+            {
+                spells.set(nextSpaceIndex, part);
+                break;
+            }
+            if(spells.get(nextSpaceIndex).addChild(part))
+            {
+                break;
+            }
+            nextSpaceIndex++;
         }
     }
 
@@ -60,6 +87,8 @@ public class SpellEnviron
 
     public boolean isFinished()
     {
+        if(spells.size() == 0)
+            return false;
         return spells.get(nextSpaceIndex).isFinished();
     }
     public String getSpellString()
@@ -72,4 +101,13 @@ public class SpellEnviron
         return ret;
     }
 
+    public SpellPart getLastNodeWithSpace()
+    {
+        if(spells.size() == 0)
+            return null;
+        SpellPart lastSpell = spells.get(spells.size()-1);
+        if(lastSpell == null)
+            return null;
+        return lastSpell.getLastNodeWithSpace();
+    }
 }

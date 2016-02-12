@@ -1,10 +1,7 @@
 package com.panzareon.spellcircles;
 
 import com.panzareon.spellcircles.handler.ConfigurationHandler;
-import com.panzareon.spellcircles.init.ModBlocks;
-import com.panzareon.spellcircles.init.ModGui;
-import com.panzareon.spellcircles.init.ModItems;
-import com.panzareon.spellcircles.init.ModTileEntity;
+import com.panzareon.spellcircles.init.*;
 import com.panzareon.spellcircles.proxy.IProxy;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
@@ -42,6 +39,7 @@ public class SpellCircles
     {
         proxy.registerRenders();
         ModGui.init();
+        ModSpell.init();
     }
 
     @Mod.EventHandler

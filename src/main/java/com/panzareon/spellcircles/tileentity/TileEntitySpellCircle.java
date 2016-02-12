@@ -1,6 +1,9 @@
 package com.panzareon.spellcircles.tileentity;
 
 import com.panzareon.spellcircles.spell.SpellEnviron;
+import com.panzareon.spellcircles.spell.SpellList;
+import com.panzareon.spellcircles.spell.SpellPart;
+import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -20,9 +23,36 @@ public class TileEntitySpellCircle extends TileEntity
         }
     }
 
+    public void addSpellPart(SpellPart part)
+    {
+        if(environ == null)
+        {
+            environ = new SpellEnviron(part);
+        }
+        else
+        {
+            environ.addSpellPart(part);
+        }
+    }
+
     public SpellEnviron getEnviron()
     {
+        if(environ == null)
+            environ = new SpellEnviron();
         return environ;
+    }
+
+    public SpellPart[] getPossibleNextSpellParts()
+    {
+        SpellReturnTypes needed = SpellReturnTypes.ACTION;
+        SpellPart lastNode = getEnviron().getLastNodeWithSpace();
+        if(lastNode != null)
+        {
+            needed = lastNode.getChildType(lastNode.getNrOfSetChildren());
+        }
+
+
+        return SpellList.getSpellWithReturnType(needed);
     }
 
     @Override
