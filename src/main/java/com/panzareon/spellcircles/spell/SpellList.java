@@ -33,6 +33,8 @@ public class SpellList
         SpellPart ret = null;
         try
         {
+            if(spells.get(nameParts[0]) == null)
+                return null;
             ret = spells.get(nameParts[0]).getClass().newInstance();
         }
         catch (Exception e)

@@ -74,9 +74,13 @@ public class TileEntitySpellCircle extends TileEntity
         super.writeToNBT(compound);
         if(environ != null)
         {
-            NBTTagCompound nbt = new NBTTagCompound();
-            nbt.setString("spell", environ.getSpellString());
-            compound.setTag("spellcircles", nbt);
+            String spell = environ.getSpellString();
+            if(spell != null && !spell.isEmpty())
+            {
+                NBTTagCompound nbt = new NBTTagCompound();
+                nbt.setString("spell", spell);
+                compound.setTag("spellcircles", nbt);
+            }
         }
     }
 }

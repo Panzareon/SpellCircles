@@ -56,8 +56,12 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
             if(item instanceof ItemSpell)
             {
                 TileEntitySpellCircle tileEntity = (TileEntitySpellCircle) worldIn.getTileEntity(pos);
-                ((ItemSpell) item).setSpellString(stack, tileEntity.getEnviron().getSpellString());
-                openGui = false;
+                String spell = tileEntity.getEnviron().getSpellString();
+                if(spell != null)
+                {
+                    ((ItemSpell) item).setSpellString(stack, spell);
+                    openGui = false;
+                }
             }
         }
         if(openGui && worldIn.isRemote)

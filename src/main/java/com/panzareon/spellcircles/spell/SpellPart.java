@@ -83,6 +83,10 @@ public abstract class SpellPart
 
     public boolean isFinished()
     {
+        if(children.length == 0)
+        {
+            return true;
+        }
         if(children[children.length - 1] == null)
         {
             return false;

@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.spell;
 
+import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.entity.EntityLivingBase;
 
 import java.util.ArrayList;
@@ -18,35 +19,40 @@ public class SpellEnviron
     public SpellEnviron(String spell)
     {
         spells = new ArrayList<SpellPart>();
-        addSpellPart(spell);
+        if(spell != null && !spell.isEmpty())
+            addSpellPart(spell);
     }
     public SpellEnviron(SpellPart spell)
     {
         spells = new ArrayList<SpellPart>();
-        addSpellPart(spell);
+        if(spell != null)
+            addSpellPart(spell);
     }
 
     public void addSpellPart(String spell)
     {
         String[] SpellPartsString = spell.split(" ");
-        for(int i = 0; SpellPartsString.length > 0; i++)
+        for(int i = 0; i < SpellPartsString.length; i++)
         {
             SpellPart part = SpellList.getSpellPart(SpellPartsString[i]);
-            part.setEnviron(this);
-            while(true)
+            if(part != null)
             {
-                if(spells.size() <= nextSpaceIndex)
-                {
-                    spells.set(nextSpaceIndex, part);
-                    break;
+                part.setEnviron(this);
+                while (true) {
+                    if (spells.size() <= nextSpaceIndex) {
+                        spells.add(nextSpaceIndex, part);
+                        break;
+                    }
+                    if (spells.get(nextSpaceIndex).addChild(part)) {
+                        break;
+                    }
+                    nextSpaceIndex++;
                 }
-                if(spells.get(nextSpaceIndex).addChild(part))
-                {
-                    break;
-                }
-                nextSpaceIndex++;
             }
-
+            else
+            {
+                LogHelper.warn("No Spellpart with Name " + SpellPartsString[i]);
+            }
         }
     }
     public void addSpellPart(SpellPart part)
@@ -56,7 +62,7 @@ public class SpellEnviron
         {
             if(spells.size() <= nextSpaceIndex)
             {
-                spells.set(nextSpaceIndex, part);
+                spells.add(nextSpaceIndex, part);
                 break;
             }
             if(spells.get(nextSpaceIndex).addChild(part))
@@ -93,10 +99,13 @@ public class SpellEnviron
     }
     public String getSpellString()
     {
-        String ret = "";
+        String ret = null;
         for(SpellPart spell: spells)
         {
-            ret += spell.getSpellString() + " ";
+            if(ret == null)
+                ret = spell.getSpellString();
+            else
+                ret += " " + spell.getSpellString();
         }
         return ret;
     }
