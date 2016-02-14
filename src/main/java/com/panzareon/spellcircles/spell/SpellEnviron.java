@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.spell;
 
+import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.entity.EntityLivingBase;
 
@@ -29,6 +30,10 @@ public class SpellEnviron
             addSpellPart(spell);
     }
 
+    public void setCaster(EntityLivingBase casterEntity)
+    {
+        caster = casterEntity;
+    }
     public void addSpellPart(String spell)
     {
         String[] SpellPartsString = spell.split(" ");
@@ -75,8 +80,14 @@ public class SpellEnviron
 
     public void cast()
     {
-        for (SpellPart spell : spells) {
-            spell.cast();
+        try {
+            for (SpellPart spell : spells) {
+                spell.cast();
+            }
+        }
+        catch (MissingAuraException ex)
+        {
+            LogHelper.info("Not enough Aura for Spellpart: " + ex.spellPart.getSpellId());
         }
     }
 

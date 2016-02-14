@@ -37,7 +37,7 @@ public class SpellPartCaster extends SpellPart
 
     @Override
     public SpellReturnTypes[] getReturnValueTypes() {
-        SpellReturnTypes[] ret = {SpellReturnTypes.ENTITY,SpellReturnTypes.ACTION};
+        SpellReturnTypes[] ret = {SpellReturnTypes.ENTITY};
         return ret;
     }
 

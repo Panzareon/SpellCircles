@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.spell;
 
+import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.utility.LogHelper;
 
 public abstract class SpellPart
@@ -26,7 +27,7 @@ public abstract class SpellPart
 
 
 
-    protected abstract SpellPartValue cast(SpellPartValue[] childValues);
+    protected abstract SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException;
 
     public void setEnviron(SpellEnviron env)
     {
@@ -37,6 +38,7 @@ public abstract class SpellPart
     {
         additionalValuesString = value;
     }
+    public boolean needAdditionalValues(){return false;}
 
     public int getNrOfSetChildren()
     {
@@ -50,8 +52,7 @@ public abstract class SpellPart
 
 
     //Traversing Tree Methods
-    public SpellPartValue cast()
-    {
+    public SpellPartValue cast() throws MissingAuraException {
         SpellPartValue[] childValues = new SpellPartValue[children.length];
 
         for(int i = 0; i < children.length; i++)

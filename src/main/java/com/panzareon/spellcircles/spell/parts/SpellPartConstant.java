@@ -36,10 +36,15 @@ public class SpellPartConstant extends SpellPart
 
     @Override
     public SpellReturnTypes[] getReturnValueTypes() {
-        SpellReturnTypes[] ret = {SpellReturnTypes.NUMBER,SpellReturnTypes.ACTION};
+        SpellReturnTypes[] ret = {SpellReturnTypes.NUMBER};
         return ret;
     }
 
+    @Override
+    public boolean needAdditionalValues()
+    {
+        return true;
+    }
 
     @Override
     public void additionalValues(String value)
