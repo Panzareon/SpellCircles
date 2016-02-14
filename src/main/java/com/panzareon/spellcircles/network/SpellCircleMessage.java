@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IThreadListener;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -55,8 +56,11 @@ public class SpellCircleMessage implements IMessage
                 @Override
                 public void run()
                 {
-                    TileEntitySpellCircle spellCircle = (TileEntitySpellCircle) ((WorldServer) ctx.getServerHandler().playerEntity.worldObj).getTileEntity(message.spellCirclePos);
+                    WorldServer world = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
+                    TileEntitySpellCircle spellCircle = (TileEntitySpellCircle) (world.getTileEntity(message.spellCirclePos));
                     spellCircle.addSpellPart(message.newSpellText);
+                    world.markBlockForUpdate(message.spellCirclePos);
+                    spellCircle.markDirty();
                 }
             });
             return null;

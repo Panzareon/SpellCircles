@@ -1,7 +1,8 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "all": "spellcircles:blocks/spell_circle"
+        "all": "spellcircles:blocks/spell_circle",
+        "particle": "spellcircles:blocks/spell_circle"
     },
     "elements": [
         {   "from": [ 0, 0.25, 0 ],

@@ -1,10 +1,14 @@
 package com.panzareon.spellcircles.tileentity;
 
+import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.spell.SpellList;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntitySpellCircle extends TileEntity
@@ -58,9 +62,9 @@ public class TileEntitySpellCircle extends TileEntity
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        if(compound.hasKey("spellcircles"))
+        if(compound.hasKey(Reference.MOD_ID))
         {
-            NBTTagCompound nbt = (NBTTagCompound) compound.getTag("spellcircles");
+            NBTTagCompound nbt = (NBTTagCompound) compound.getTag(Reference.MOD_ID);
             if(nbt.hasKey("spell"))
             {
                 String spell = nbt.getString("spell");
@@ -79,9 +83,23 @@ public class TileEntitySpellCircle extends TileEntity
             {
                 NBTTagCompound nbt = new NBTTagCompound();
                 nbt.setString("spell", spell);
-                compound.setTag("spellcircles", nbt);
+                compound.setTag(Reference.MOD_ID, nbt);
             }
         }
+    }
+
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        NBTTagCompound syncData = new NBTTagCompound();
+        this.writeToNBT(syncData);
+        return new S35PacketUpdateTileEntity(this.getPos(),1 ,syncData);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        readFromNBT(pkt.getNbtCompound());
     }
 }
 

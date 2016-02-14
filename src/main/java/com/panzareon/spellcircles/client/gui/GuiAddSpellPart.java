@@ -19,6 +19,8 @@ public class GuiAddSpellPart extends GuiScreen
 {
     private GuiButton okButton;
 
+    private ResourceLocation guiTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/add_spell_parts.png");;
+
     private int selectedTextfield = -1;
     private boolean hasSelectedElementAdditionalValues = false;
 
@@ -107,7 +109,7 @@ public class GuiAddSpellPart extends GuiScreen
         int guiX = (width - guiWidth) / 2;
         int guiY = (height - guiHeight) /2;
         GL11.glColor4f(1, 1, 1, 1);
-        mc.renderEngine.bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/add_spell_parts.png"));
+        mc.renderEngine.bindTexture(guiTexture);
         //Draw Main Gui
         drawTexturedModalRect(guiX, guiY,0,0,guiWidth, guiHeight);
         //Draw Selected SpellPart Background
@@ -156,6 +158,7 @@ public class GuiAddSpellPart extends GuiScreen
         int guiY = (height - guiHeight) /2;
         buttonList.clear();
         okButton = new GuiButton(0, guiX + 25, guiY + guiHeight - 23, 50, 20, "Add");
+        okButton.enabled = false;
         buttonList.add(okButton);
     }
 
@@ -167,6 +170,7 @@ public class GuiAddSpellPart extends GuiScreen
                 AddSpellPart();
             }
             spellPartToAdd = -1;
+            okButton.enabled = false;
             updateSpells();
         }
     }
@@ -185,6 +189,14 @@ public class GuiAddSpellPart extends GuiScreen
             {
                 spellPartToAdd = element;
                 hasSelectedElementAdditionalValues = possibleSpellParts[spellPartToAdd].needAdditionalValues();
+                if(hasSelectedElementAdditionalValues)
+                {
+                    okButton.enabled = false;
+                }
+                else
+                {
+                    okButton.enabled = true;
+                }
             }
         }
         else if(guiX + searchBarPosX <= mouseX && mouseX <= guiX + searchBarPosX + searchBarWidth && guiY + searchBarPosY <= mouseY && mouseY <= guiY + searchBarPosY + searchBarHeight)
@@ -230,6 +242,10 @@ public class GuiAddSpellPart extends GuiScreen
             else if (selectedTextfield == 1)
             {
                 edit = toEdit;
+                if(edit.length() > 0)
+                {
+                    okButton.enabled = true;
+                }
             }
         }
     }

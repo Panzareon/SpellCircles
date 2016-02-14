@@ -1,8 +1,10 @@
 package com.panzareon.spellcircles.spell;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.ArrayList;
 
@@ -96,10 +98,25 @@ public class SpellEnviron
         return caster;
     }
 
-    public boolean useAura(float amount)
+    public boolean useAura(int amount)
     {
-        //Todo: remove aura from Player and return true if he had enough
-        return true;
+        NBTTagCompound nbt = caster.getEntityData();
+        if(nbt.hasKey(Reference.MOD_ID))
+        {
+            NBTTagCompound scNBT = nbt.getCompoundTag(Reference.MOD_ID);
+            int Aura = scNBT.getInteger("Aura");
+            if(Aura >= amount)
+            {
+                scNBT.setInteger("Aura", Aura - amount);
+                return true;
+            }
+            else
+            {
+                scNBT.setInteger("Aura", 0);
+                return false;
+            }
+        }
+        return false;
     }
 
     public boolean isFinished()

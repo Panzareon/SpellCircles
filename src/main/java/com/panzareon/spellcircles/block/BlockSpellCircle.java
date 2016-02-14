@@ -21,6 +21,7 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     {
         super();
         this.setUnlocalizedName("spell_circle");
+        this.setBlockBounds(0.0f, 0.0f, 0.0f , 1.0f, 0.015f, 1.0f);
     }
 
     @Override
@@ -79,4 +80,6 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntitySpellCircle();
     }
+
+
 }

@@ -10,7 +10,7 @@ import net.minecraft.util.DamageSource;
 
 public class SpellPartDamage extends SpellPart
 {
-    private float AuraUse = 50f;
+    private float AuraUse = 100f;
 
     @Override
     public String getSpellName() {
@@ -45,7 +45,7 @@ public class SpellPartDamage extends SpellPart
             {
                 //calculate Aura expense
                 auraMultiplier = (float) player.getDistanceSqToEntity(e);
-                if(environ.useAura((AuraUse + auraMultiplier)*dmg))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
                 {
                     e.attackEntityFrom(DamageSource.magic,dmg);
                 }

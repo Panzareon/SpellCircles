@@ -14,6 +14,8 @@ public class ItemChalk extends SpellCirclesItem
     {
         super();
         this.setUnlocalizedName("chalk");
+        this.setHasSubtypes(true);
+        this.setMaxDamage(64);
     }
 
     @Override
@@ -21,6 +23,7 @@ public class ItemChalk extends SpellCirclesItem
         if(side == EnumFacing.UP)
         {
             worldIn.setBlockState(pos.up(), ModBlocks.spellCircle.getDefaultState());
+            stack.damageItem(1 , playerIn);
         }
         return false;
     }
