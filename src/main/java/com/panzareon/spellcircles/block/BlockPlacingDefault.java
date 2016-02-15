@@ -1,5 +1,7 @@
 package com.panzareon.spellcircles.block;
 
+import java.util.Random;
+
 public class BlockPlacingDefault extends SpellCirclesBlock
 {
     public BlockPlacingDefault()
@@ -8,5 +10,10 @@ public class BlockPlacingDefault extends SpellCirclesBlock
         this.setUnlocalizedName("placing_default");
     }
 
+    @Override
+    public int quantityDropped(Random random)
+    {
+        return 0;
+    }
 
 }

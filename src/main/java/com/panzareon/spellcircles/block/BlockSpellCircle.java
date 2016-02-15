@@ -15,6 +15,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityProvider
 {
     public BlockSpellCircle()
@@ -81,5 +83,9 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
         return new TileEntitySpellCircle();
     }
 
-
+    @Override
+    public int quantityDropped(Random random)
+    {
+        return 0;
+    }
 }

@@ -7,12 +7,12 @@ import java.util.*;
 public class SpellList
 {
     private static HashMap<String, SpellPart> spells = new HashMap<String, SpellPart>();
-    private static EnumMap<SpellReturnTypes, ArrayList<SpellPart>> spellsByReturnType = new EnumMap<SpellReturnTypes, ArrayList<SpellPart>>(SpellReturnTypes.class);
+    private static EnumMap<SpellReturnTypes, HashSet<SpellPart>> spellsByReturnType = new EnumMap<SpellReturnTypes, HashSet<SpellPart>>(SpellReturnTypes.class);
 
     static {
         for(SpellReturnTypes type: SpellReturnTypes.values())
         {
-            spellsByReturnType.put(type,new ArrayList<SpellPart>());
+            spellsByReturnType.put(type,new HashSet<SpellPart>());
         }
     }
 
