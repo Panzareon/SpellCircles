@@ -11,12 +11,19 @@ public class ModSpell
         //Constants
         SpellList.registerSpell(new SpellPartCaster());
         SpellList.registerSpell(new SpellPartConstant());
+        SpellList.registerSpell(new SpellPartDirectionSouth());
+        SpellList.registerSpell(new SpellPartDirectionDown());
+        SpellList.registerSpell(new SpellPartDirectionEast());
+        SpellList.registerSpell(new SpellPartDirectionNorth());
+        SpellList.registerSpell(new SpellPartDirectionUp());
+        SpellList.registerSpell(new SpellPartDirectionWest());
 
         //Operations
-        SpellList.registerSpell(new SpellPartLookingDirection());
 
         //Actions
         SpellList.registerSpell(new SpellPartDamage());
         SpellList.registerSpell(new SpellPartMotion());
+        SpellList.registerSpell(new SpellPartStopMotion());
+        SpellList.registerSpell(new SpellPartStopMotionInDirection());
     }
 }

@@ -27,7 +27,7 @@ public class SpellPartCaster extends SpellPart
 
     @Override
     public String getSpellId() {
-        return "Caster";
+        return "caster";
     }
 
     @Override

@@ -3,12 +3,14 @@ package com.panzareon.spellcircles.client.gui;
 import com.panzareon.spellcircles.init.ModNetwork;
 import com.panzareon.spellcircles.network.SpellCircleMessage;
 import com.panzareon.spellcircles.reference.Reference;
+import com.panzareon.spellcircles.reference.SpellRune;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import sun.rmi.runtime.Log;
@@ -19,7 +21,8 @@ public class GuiAddSpellPart extends GuiScreen
 {
     private GuiButton okButton;
 
-    private ResourceLocation guiTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/add_spell_parts.png");;
+    private ResourceLocation guiTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/add_spell_parts.png");
+    private ResourceLocation spelLRuneTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/spell_runes.png");
 
     private int selectedTextfield = -1;
     private boolean hasSelectedElementAdditionalValues = false;
@@ -28,15 +31,15 @@ public class GuiAddSpellPart extends GuiScreen
     private String search = "";
     private String edit = "";
 
-    private int guiWidth = 200;
+    private int guiWidth = 240;
     private int guiHeight = 150;
 
 
-    private int leftSideWidth = 100;
+    private int leftSideWidth = 120;
     private int leftSideHeight = guiHeight;
     private int listPosX = 5;
     private int listPosY = 15;
-    private int listWidth = 90;
+    private int listWidth = 110;
     private int listHeight = 90;
     private int listElementHeight = 9;
     private int nrOfListElements = listHeight / listElementHeight;
@@ -60,14 +63,17 @@ public class GuiAddSpellPart extends GuiScreen
     private int editBarDisabledU = 0;
     private int editBarDisabledV = 159;
 
-    private int rightSideWidth = 100;
-    private int rightSideHeight = 80;
+    private int rightSideWidth = 120;
+    private int rightSideHeight = guiHeight;
 
     private TileEntitySpellCircle spellCircle;
+    private String fullSpellText = "";
 
     private int spellPartToAdd = -1;
+    private String toAddDesc = "";
 
     private SpellPart[] possibleSpellParts;
+    private String[] possibleSpellPartsNames;
     private boolean isFinished;
 
 
@@ -80,7 +86,13 @@ public class GuiAddSpellPart extends GuiScreen
     private void updateSpells()
     {
         possibleSpellParts = spellCircle.getPossibleNextSpellParts();
+        possibleSpellPartsNames = new String[possibleSpellParts.length];
+        for(int i = 0; i < possibleSpellPartsNames.length; i++)
+        {
+            possibleSpellPartsNames[i] = StatCollector.translateToLocal("spell." + Reference.MOD_ID.toLowerCase() + ":" + possibleSpellParts[i].getSpellId() + ".name");
+        }
         isFinished = spellCircle.getEnviron().isFinished();
+        fullSpellText = spellCircle.getEnviron().getSpellString();
     }
 
     private void AddSpellPart()
@@ -136,13 +148,35 @@ public class GuiAddSpellPart extends GuiScreen
         String SpellId;
         for(int i = scrollPosition; i < possibleSpellParts.length && i < nrOfListElements + scrollPosition; i++)
         {
-            SpellId = possibleSpellParts[i].getSpellId();
+            SpellId = possibleSpellPartsNames[i];
             if(SpellId.toLowerCase().contains(search.toLowerCase()))
                 color = 0xFFFFFF;
             else
                 color = 0xAAAAAA;
-            fontRendererObj.drawString(SpellId,xPos, yPos, color);
+            fontRendererObj.drawString(SpellId, xPos, yPos, color);
             yPos += listElementHeight;
+        }
+        if(spellPartToAdd != -1)
+        {
+            fontRendererObj.drawSplitString(toAddDesc, guiX + leftSideWidth + 2, guiY + 2,rightSideWidth,0xFFFFFF);
+        }
+        if(fullSpellText != null)
+        {
+            mc.renderEngine.bindTexture(spelLRuneTexture);
+            xPos = guiX;
+            yPos = guiY + guiHeight + 3;
+            for (int i = 0; i < fullSpellText.length(); i++)
+            {
+                SpellRune.uvCoords uv = SpellRune.getUV(fullSpellText.charAt(i));
+                if(uv != null)
+                    drawTexturedModalRect(xPos, yPos, uv.u, uv.v, 7, 7);
+                xPos += 7;
+                if (xPos > guiX + guiWidth)
+                {
+                    xPos = guiX;
+                    yPos += 7;
+                }
+            }
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -196,6 +230,15 @@ public class GuiAddSpellPart extends GuiScreen
                 else
                 {
                     okButton.enabled = true;
+                }
+                toAddDesc = StatCollector.translateToLocal("spellDesc." + Reference.MOD_ID.toLowerCase() + ":aurause.name") + " ";
+                String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + possibleSpellParts[spellPartToAdd].getSpellId();
+                toAddDesc += StatCollector.translateToLocal(prefix + ".aurause") + "\n";
+                toAddDesc += StatCollector.translateToLocal(prefix + ".desc") + "\n";
+                for(int i = 1; i <= possibleSpellParts[spellPartToAdd].getNrOfChildren(); i++)
+                {
+                    toAddDesc += StatCollector.translateToLocalFormatted("spellDesc." + Reference.MOD_ID.toLowerCase() + ":child.name", i) + " ";
+                    toAddDesc += StatCollector.translateToLocal(prefix + ".child" + String.valueOf(i)) + "\n";
                 }
             }
         }

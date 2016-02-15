@@ -8,26 +8,26 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
 
-public class SpellPartMotion extends SpellPart
+public class SpellPartStopMotion extends SpellPart
 {
     private float AuraUse = 500f;
 
     @Override
     public String getSpellName()
     {
-        return "DKRP";
+        return "SDKVHNF";
     }
 
     @Override
     public String getSpellId()
     {
-        return "add_motion";
+        return "stop_motion";
     }
 
     @Override
     public int getNrOfChildren()
     {
-        return 3;
+        return 1;
     }
 
     @Override
@@ -41,31 +41,23 @@ public class SpellPartMotion extends SpellPart
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException
     {
         int nr = childValues[0].getEntityLength();
-        int nr2 = childValues[1].getDirectionLength();
-        int nr3 = childValues[2].getNumberLength();
-        if(nr > 0 && nr2 > 0 && nr3 > 0)
+        if(nr > 0)
         {
-            if(nr < nr2)
-                nr = nr2;
-            if(nr < nr3)
-                nr = nr3;
             EntityLivingBase player = environ.getCaster();
-            Vec3 dir;
-            float speed;
-            Vec3 dirMultiplied;
-            float auraAdd;
+            Vec3 movement;
             Entity entity;
+            float auraAdd;
+            float speed;
             for(int i = 0; i < nr; i++)
             {
                 entity = childValues[0].getEntity(i);
-                dir = childValues[1].getDirection(i);
-                dir = dir.normalize();
-                speed = childValues[2].getNumber(i);
-                dirMultiplied = new Vec3(dir.xCoord * speed, dir.yCoord *speed, dir.zCoord * speed);
+                movement = new Vec3(entity.motionX, entity.motionY, entity.motionZ);
+                speed = (float)movement.lengthVector();
                 auraAdd = (float) player.getDistanceSqToEntity(entity);
                 if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed)))
                 {
-                    entity.addVelocity(dirMultiplied.xCoord, dirMultiplied.yCoord, dirMultiplied.zCoord);
+                    entity.setVelocity(0.0, 0.0, 0.0);
+                    entity.fallDistance = 0.0f;
                 }
                 else
                 {
@@ -82,14 +74,6 @@ public class SpellPartMotion extends SpellPart
         if(childId == 0)
         {
             return SpellReturnTypes.ENTITY;
-        }
-        else if(childId == 1)
-        {
-            return SpellReturnTypes.DIRECTION;
-        }
-        else if(childId == 2)
-        {
-            return SpellReturnTypes.NUMBER;
         }
         return super.getChildType(childId);
     }

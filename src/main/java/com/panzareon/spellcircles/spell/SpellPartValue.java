@@ -13,6 +13,70 @@ public class SpellPartValue
     Vec3 position[] = null;
     int dimension[] = null;
 
+
+
+    //check if set
+    public int getEntityLength()
+    {
+        if(entity != null)
+            return entity.length;
+        else
+            return 0;
+    }
+    public int getBlockLength()
+    {
+        if(block != null)
+            return block.length;
+        else if(position != null)
+            return position.length;
+        else if(entity != null)
+            return entity.length;
+        else
+            return 0;
+    }
+    public int getDirectionLength()
+    {
+        if(direction != null)
+            return direction.length;
+        else if(entity != null)
+            return entity.length;
+        else
+            return 0;
+    }
+    public int getNumberLength()
+    {
+        if(number != null)
+            return number.length;
+        else
+            return 0;
+    }
+    public int getBoolLength()
+    {
+        if(bool != null)
+            return bool.length;
+        else
+            return 0;
+    }
+    public int getPositionLength()
+    {
+        if(position != null)
+            return position.length;
+        else if(block != null)
+            return block.length;
+        else if(entity != null)
+            return entity.length;
+        else
+            return 0;
+    }
+    public int getDimensionLength()
+    {
+        if(dimension != null)
+            return dimension.length;
+        else
+            return 0;
+    }
+
+
     //setter
     public  void setEntity(Entity[] e)
     {
@@ -42,114 +106,78 @@ public class SpellPartValue
         dimension = d;
     }
 
-    //check if set
-    public boolean issetEntity()
-    {
-        return entity != null;
-    }
-    public boolean issetBlock()
-    {
-        if(block != null)
-            return true;
-        if(position != null)
-            return true;
-        if(entity != null)
-            return true;
-        return false;
-    }
-    public boolean issetDirection()
-    {
-        return direction != null;
-    }
-    public boolean issetNumber()
-    {
-        return number != null;
-    }
-    public boolean issetBool()
-    {
-        return bool != null;
-    }
-    public boolean issetPosition()
-    {
-        if(position != null)
-            return true;
-        if(block != null)
-            return true;
-        if(entity != null)
-            return true;
-        return false;
-    }
-    public boolean issetDimension()
-    {
-        return dimension != null;
-    }
-
 
     //getter
-    public Entity[] getEntity()
+    public Entity getEntity(int index)
     {
-        return entity;
+        index = index % entity.length;
+        return entity[index];
     }
-    public BlockPos[] getBlock()
+    public BlockPos getBlock(int index)
     {
         if(block != null)
-            return block;
+        {
+            index = index % block.length;
+            return block[index];
+        }
         if(position != null)
         {
-            BlockPos[] ret = new BlockPos[position.length];
-            for(int i = 0; i < position.length; i++)
-            {
-                ret[i] = new BlockPos(position[i]);
-            }
-            return ret;
+            index = index % position.length;
+            return new BlockPos(position[index]);
         }
         if(entity != null)
         {
-            BlockPos[] ret = new BlockPos[entity.length];
-            for (int i = 0; i < entity.length; i++) {
-                ret[i] = entity[i].getPosition();
-            }
-            return ret;
+            index = index % entity.length;
+            return entity[index].getPosition();
         }
         return null;
     }
-    public Vec3[] getDirection()
+    public Vec3 getDirection(int index)
     {
-        return direction;
-    }
-    public float[] getNumber()
-    {
-        return number;
-    }
-    public boolean[] getBool()
-    {
-        return bool;
-    }
-    public Vec3[] getPosition()
-    {
-        if(position != null)
-            return position;
-        if(block != null)
+        if(direction != null)
         {
-            Vec3[] ret = new Vec3[block.length];
-            for(int i = 0; i < block.length; i++)
-            {
-                ret[i] = new Vec3(block[i]);
-            }
-            return ret;
+            index = index % direction.length;
+            return direction[index];
         }
         if(entity != null)
         {
-            Vec3[] ret = new Vec3[entity.length];
-            for (int i = 0; i < entity.length; i++) {
-                ret[i] = entity[i].getPositionVector();
-            }
-            return ret;
+            index = index % entity.length;
+            return entity[index].getLookVec();
         }
         return null;
     }
-    public int[] getDimension()
+    public float getNumber(int index)
     {
-        return dimension;
+        index = index % number.length;
+        return number[index];
+    }
+    public boolean getBool(int index)
+    {
+        index = index % bool.length;
+        return bool[index];
+    }
+    public Vec3 getPosition(int index)
+    {
+        if(position != null)
+        {
+            index = index % position.length;
+            return position[index];
+        }
+        if(block != null)
+        {
+            index = index % block.length;
+            return new Vec3(block[index]);
+        }
+        if(entity != null)
+        {
+            index = index % entity.length;
+            return entity[index].getPositionVector();
+        }
+        return null;
+    }
+    public int getDimension(int index)
+    {
+        index = index % dimension.length;
+        return dimension[index];
     }
 }

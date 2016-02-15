@@ -25,7 +25,7 @@ public class SpellPartConstant extends SpellPart
 
     @Override
     public String getSpellId() {
-        return "Constant";
+        return "constant";
     }
 
     @Override

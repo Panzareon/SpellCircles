@@ -1,4 +1,62 @@
+#Spells
+spellDesc.spellcircles:child.name=Child %d:
+spellDesc.spellcircles:aurause.name=Aura:
 
+spell.spellcircles:caster.name=Caster
+spell.spellcircles:caster.desc=Get entity of caster
+spell.spellcircles:caster.aurause=0
+
+spell.spellcircles:constant.name=Constant
+spell.spellcircles:constant.desc=Get number given in argument
+spell.spellcircles:constant.aurause=0
+
+spell.spellcircles:damage.name=Damage
+spell.spellcircles:damage.desc=Deals Damage to Entity
+spell.spellcircles:damage.child1=Entity to damage
+spell.spellcircles:damage.child2=Amount of damage
+spell.spellcircles:damage.aurause=Depends on amount of damage and distance to the entity
+
+spell.spellcircles:direction_down.name=Direction Down
+spell.spellcircles:direction_down.desc=Get direction downwards
+spell.spellcircles:direction_down.aurause=0
+
+spell.spellcircles:direction_east.name=Direction East
+spell.spellcircles:direction_east.desc=Get direction east
+spell.spellcircles:direction_east.aurause=0
+
+spell.spellcircles:direction_north.name=Direction North
+spell.spellcircles:direction_north.desc=Get direction north
+spell.spellcircles:direction_north.aurause=0
+
+spell.spellcircles:direction_south.name=Direction South
+spell.spellcircles:direction_south.desc=Get direction south
+spell.spellcircles:direction_south.aurause=0
+
+spell.spellcircles:direction_up.name=Direction Up
+spell.spellcircles:direction_up.desc=Get direction upwards
+spell.spellcircles:direction_up.aurause=0
+
+spell.spellcircles:direction_west.name=Direction West
+spell.spellcircles:direction_west.desc=Get direction west
+spell.spellcircles:direction_west.aurause=0
+
+spell.spellcircles:add_motion.name=Add Motion
+spell.spellcircles:add_motion.desc=Accelerates entity in direction
+spell.spellcircles:add_motion.child1=Entity to accelerate
+spell.spellcircles:add_motion.child2=Direction
+spell.spellcircles:add_motion.child3=Speed
+spell.spellcircles:add_motion.aurause=Depends on Speed and distance to the entity
+
+spell.spellcircles:stop_motion.name=Stop Motion
+spell.spellcircles:stop_motion.desc=Reduces motion of entity to 0
+spell.spellcircles:stop_motion.child1=Entity to stop
+spell.spellcircles:stop_motion.aurause=Depends on the speed the entity had and distance to the entity
+
+spell.spellcircles:stop_motion_directional.name=Stop Motion towards
+spell.spellcircles:stop_motion_directional.desc=Reduces motion of entity in one Direction to 0
+spell.spellcircles:stop_motion_directional.child1=Entity to stop
+spell.spellcircles:stop_motion_directional.child2=Direction in which Momentum should be stopped
+spell.spellcircles:stop_motion_directional.aurause=Depends on the speed the entity had and distance to the entity
 
 #Creative Tabs
 itemGroup.spellcircles=Spell Circles

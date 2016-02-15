@@ -19,7 +19,7 @@ public class SpellPartDamage extends SpellPart
 
     @Override
     public String getSpellId() {
-        return "Damage";
+        return "damage";
     }
 
     @Override
@@ -35,19 +35,25 @@ public class SpellPartDamage extends SpellPart
 
     @Override
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException {
-        if(childValues[0].issetEntity() && childValues[1].issetNumber())
+        int nr = childValues[0].getEntityLength();
+        int nr2 = childValues[1].getNumberLength();
+        if(nr > 0 && nr2 > 0)
         {
-            Entity[] target = childValues[0].getEntity();
+            if(nr < nr2)
+                nr = nr2;
             EntityLivingBase player = environ.getCaster();
             float auraMultiplier;
-            float dmg = childValues[1].getNumber()[0];
-            for(Entity e : target)
+            float dmg;
+            Entity target;
+            for(int i = 0; i < nr; i++)
             {
+                dmg = childValues[1].getNumber(i);
+                target = childValues[0].getEntity(i);
                 //calculate Aura expense
-                auraMultiplier = (float) player.getDistanceSqToEntity(e);
+                auraMultiplier = (float) player.getDistanceSqToEntity(target);
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
                 {
-                    e.attackEntityFrom(DamageSource.magic,dmg);
+                    target.attackEntityFrom(DamageSource.magic,dmg);
                 }
                 else
                 {

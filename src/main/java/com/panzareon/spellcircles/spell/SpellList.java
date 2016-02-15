@@ -24,6 +24,20 @@ public class SpellList
         for(SpellReturnTypes type: types)
         {
             spellsByReturnType.get(type).add(part);
+            if(type == SpellReturnTypes.BLOCK)
+            {
+                spellsByReturnType.get(SpellReturnTypes.POSITION).add(part);
+            }
+            else if(type == SpellReturnTypes.ENTITY)
+            {
+                spellsByReturnType.get(SpellReturnTypes.POSITION).add(part);
+                spellsByReturnType.get(SpellReturnTypes.BLOCK).add(part);
+                spellsByReturnType.get(SpellReturnTypes.DIRECTION).add(part);
+            }
+            else if(type == SpellReturnTypes.POSITION)
+            {
+                spellsByReturnType.get(SpellReturnTypes.BLOCK).add(part);
+            }
         }
     }
 
