@@ -13,17 +13,18 @@ public class VectorUtil
 {
     public static MovingObjectPosition raycast(World worldIn, Vec3 start, Vec3 end)
     {
+        double additionalCheckSpace = 5.0;
         MovingObjectPosition mop = worldIn.rayTraceBlocks(start, end);
         double closestHit = 0.0;
         if(mop != null)
             closestHit = mop.hitVec.distanceTo(start);
         int minX, minY, minZ, maxX, maxY, maxZ;
-        minX = (int) Math.floor(Math.min(start.xCoord, end.xCoord));
-        maxX = (int) Math.floor(Math.max(start.xCoord, end.xCoord));
-        minY = (int) Math.floor(Math.min(start.yCoord, end.yCoord));
-        maxY = (int) Math.floor(Math.max(start.yCoord, end.yCoord));
-        minZ = (int) Math.floor(Math.min(start.zCoord, end.zCoord));
-        maxZ = (int) Math.floor(Math.max(start.zCoord, end.zCoord));
+        minX = (int) Math.floor(Math.min(start.xCoord, end.xCoord) - additionalCheckSpace);
+        maxX = (int) Math.floor(Math.max(start.xCoord, end.xCoord) + additionalCheckSpace);
+        minY = (int) Math.floor(Math.min(start.yCoord, end.yCoord) - additionalCheckSpace);
+        maxY = (int) Math.floor(Math.max(start.yCoord, end.yCoord) + additionalCheckSpace);
+        minZ = (int) Math.floor(Math.min(start.zCoord, end.zCoord) - additionalCheckSpace);
+        maxZ = (int) Math.floor(Math.max(start.zCoord, end.zCoord) + additionalCheckSpace);
         AxisAlignedBB bb = new AxisAlignedBB(minX,minY,minZ,maxX,maxY,maxZ);
         List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class, bb);
 
@@ -45,6 +46,8 @@ public class VectorUtil
                         {
                             closestHit = currentHit;
                             mop = mopTest;
+                            mop.typeOfHit = MovingObjectPosition.MovingObjectType.ENTITY;
+                            mop.entityHit = ent;
                         }
                     }
                 }
