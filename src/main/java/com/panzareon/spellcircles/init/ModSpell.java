@@ -21,6 +21,7 @@ public class ModSpell
         //Operations
         SpellList.registerSpell(new SpellPartLookingAt());
         SpellList.registerSpell(new SpellPartExpandPositionList());
+        SpellList.registerSpell(new SpellPartMovePositions());
 
         //Actions
         SpellList.registerSpell(new SpellPartDamage());
@@ -28,5 +29,6 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartStopMotion());
         SpellList.registerSpell(new SpellPartStopMotionInDirection());
         SpellList.registerSpell(new SpellPartBreakBlock());
+        SpellList.registerSpell(new SpellPartPlaceBlock());
     }
 }

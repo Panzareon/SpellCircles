@@ -61,7 +61,12 @@ spell.spellcircles:stop_motion_directional.aurause=Depends on the speed the enti
 spell.spellcircles:break_block.name=Break Block
 spell.spellcircles:break_block.desc=Breaks a block
 spell.spellcircles:break_block.child1=Block to break
-spell.spellcircles:break_block.aurause=Depends on the hardness of the block and distance to the entity
+spell.spellcircles:break_block.aurause=Depends on the hardness of the block and distance to the block
+
+spell.spellcircles:place_block.name=Place Block
+spell.spellcircles:place_block.desc=Places a block
+spell.spellcircles:place_block.child1=Block Position to place
+spell.spellcircles:place_block.aurause=Depends on the distance to the block
 
 spell.spellcircles:looking_at.name=Looking At
 spell.spellcircles:looking_at.desc=Gets Block or Entity a given Entity is looking at
@@ -74,6 +79,13 @@ spell.spellcircles:expand_position_list.child1=Position
 spell.spellcircles:expand_position_list.child2=Direction
 spell.spellcircles:expand_position_list.child3=Distance
 spell.spellcircles:expand_position_list.aurause=0
+
+spell.spellcircles:move_positions.name=Move Positions
+spell.spellcircles:move_positions.desc=Get positions moved by a distance in a given direction
+spell.spellcircles:move_positions.child1=Position
+spell.spellcircles:move_positions.child2=Direction
+spell.spellcircles:move_positions.child3=Distance
+spell.spellcircles:move_positions.aurause=0
 
 
 
