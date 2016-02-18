@@ -5,11 +5,14 @@ import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 
 import java.util.ArrayList;
 
 public class SpellEnviron
 {
+    protected Vec3 castPos;
     protected EntityLivingBase caster;
 
     protected ArrayList<SpellPart> spells;
@@ -146,5 +149,14 @@ public class SpellEnviron
         if(lastSpell == null)
             return null;
         return lastSpell.getLastNodeWithSpace();
+    }
+
+    public Vec3 getCastPosition()
+    {
+        if(castPos == null)
+        {
+            return caster.getPositionVector();
+        }
+        return castPos;
     }
 }

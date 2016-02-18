@@ -17,7 +17,7 @@ public class SpellPartDirectionWest extends SpellPart
     @Override
     public String getSpellId()
     {
-        return "Direction West";
+        return "direction_west";
     }
 
     @Override

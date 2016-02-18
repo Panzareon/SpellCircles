@@ -49,7 +49,7 @@ public class SpellPartMotion extends SpellPart
                 nr = nr2;
             if(nr < nr3)
                 nr = nr3;
-            EntityLivingBase player = environ.getCaster();
+            Vec3 castPos = environ.getCastPosition();
             Vec3 dir;
             float speed;
             Vec3 dirMultiplied;
@@ -62,7 +62,7 @@ public class SpellPartMotion extends SpellPart
                 dir = dir.normalize();
                 speed = childValues[2].getNumber(i);
                 dirMultiplied = new Vec3(dir.xCoord * speed, dir.yCoord *speed, dir.zCoord * speed);
-                auraAdd = (float) player.getDistanceSqToEntity(entity);
+                auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed)))
                 {
                     entity.addVelocity(dirMultiplied.xCoord, dirMultiplied.yCoord, dirMultiplied.zCoord);

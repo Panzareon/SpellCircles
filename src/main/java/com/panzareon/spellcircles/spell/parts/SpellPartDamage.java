@@ -6,7 +6,9 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Vec3;
 
 public class SpellPartDamage extends SpellPart
 {
@@ -41,7 +43,7 @@ public class SpellPartDamage extends SpellPart
         {
             if(nr < nr2)
                 nr = nr2;
-            EntityLivingBase player = environ.getCaster();
+            Vec3 castPos = environ.getCastPosition();
             float auraMultiplier;
             float dmg;
             Entity target;
@@ -50,7 +52,7 @@ public class SpellPartDamage extends SpellPart
                 dmg = childValues[1].getNumber(i);
                 target = childValues[0].getEntity(i);
                 //calculate Aura expense
-                auraMultiplier = (float) player.getDistanceSqToEntity(target);
+                auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
                 {
                     target.attackEntityFrom(DamageSource.magic,dmg);

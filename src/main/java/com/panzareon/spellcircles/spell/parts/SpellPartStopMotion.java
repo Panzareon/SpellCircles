@@ -43,7 +43,7 @@ public class SpellPartStopMotion extends SpellPart
         int nr = childValues[0].getEntityLength();
         if(nr > 0)
         {
-            EntityLivingBase player = environ.getCaster();
+            Vec3 castPos = environ.getCastPosition();
             Vec3 movement;
             Entity entity;
             float auraAdd;
@@ -53,7 +53,7 @@ public class SpellPartStopMotion extends SpellPart
                 entity = childValues[0].getEntity(i);
                 movement = new Vec3(entity.motionX, entity.motionY, entity.motionZ);
                 speed = (float)movement.lengthVector();
-                auraAdd = (float) player.getDistanceSqToEntity(entity);
+                auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed)))
                 {
                     entity.setVelocity(0.0, 0.0, 0.0);

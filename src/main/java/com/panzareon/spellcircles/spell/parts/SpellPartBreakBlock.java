@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class SpellPartBreakBlock extends SpellPart
@@ -50,6 +51,7 @@ public class SpellPartBreakBlock extends SpellPart
             IBlockState blockState;
             float blockHardness;
             EntityLivingBase player = environ.getCaster();
+            Vec3 castPos = environ.getCastPosition();
             float auraAdd;
             World world = player.getEntityWorld();
 
@@ -61,7 +63,8 @@ public class SpellPartBreakBlock extends SpellPart
                 blockState = world.getBlockState(blockPos);
                 block = blockState.getBlock();
                 blockHardness = block.getBlockHardness(world,blockPos);
-                auraAdd = (float) player.getDistanceSq(blockPos);
+
+                auraAdd = (float) castPos.squareDistanceTo(new Vec3(blockPos));
                 if(environ.useAura((int) ((AuraUse + auraAdd)*blockHardness)))
                 {
                     world.destroyBlock(blockPos,true);
