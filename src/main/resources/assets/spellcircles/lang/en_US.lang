@@ -2,6 +2,8 @@
 spellDesc.spellcircles:child.name=Child %d:
 spellDesc.spellcircles:aurause.name=Aura:
 
+spellDesc.spellcircles:addAction.name=Write action the spell should do
+
 spell.spellcircles:caster.name=Caster
 spell.spellcircles:caster.desc=Get entity of caster
 spell.spellcircles:caster.aurause=0

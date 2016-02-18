@@ -32,13 +32,14 @@ public class GuiAddSpellPart extends GuiScreen
     private String edit = "";
 
     private int guiWidth = 240;
-    private int guiHeight = 150;
+    private int guiHeight = 169;
 
+    private int topHeight = 19;
 
     private int leftSideWidth = 120;
-    private int leftSideHeight = guiHeight;
+    private int leftSideHeight = guiHeight - topHeight;
     private int listPosX = 5;
-    private int listPosY = 15;
+    private int listPosY = 15 + topHeight;
     private int listWidth = 110;
     private int listHeight = 90;
     private int listElementHeight = 9;
@@ -48,20 +49,20 @@ public class GuiAddSpellPart extends GuiScreen
     private int scrollPosition = 0;
 
     private int selectedElementU = 0;
-    private int selectedElementV = 150;
+    private int selectedElementV = 169;
 
     private int searchBarPosX = 5;
-    private int searchBarPosY = 3;
+    private int searchBarPosY = 3 + topHeight;
     private int searchBarWidth = listWidth;
     private int searchBarHeight = 9;
 
     private int editBarPosX = 5;
-    private int editBarPosY = 115;
+    private int editBarPosY = 115 + topHeight;
     private int editBarWidth = listWidth;
     private int editBarHeight = 9;
 
     private int editBarDisabledU = 0;
-    private int editBarDisabledV = 159;
+    private int editBarDisabledV = 178;
 
     private int rightSideWidth = 120;
     private int rightSideHeight = guiHeight;
@@ -73,6 +74,7 @@ public class GuiAddSpellPart extends GuiScreen
     private String toAddDesc = "";
 
     private SpellPart[] possibleSpellParts;
+    private String nextSpellPartDesc = "";
     private String[] possibleSpellPartsNames;
     private boolean isFinished;
 
@@ -93,6 +95,18 @@ public class GuiAddSpellPart extends GuiScreen
         }
         isFinished = spellCircle.getEnviron().isFinished();
         fullSpellText = spellCircle.getEnviron().getSpellString();
+        SpellPart lastSpell = spellCircle.getEnviron().getLastNodeWithSpace();
+        if(lastSpell != null)
+        {
+            String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + lastSpell.getSpellId();
+            nextSpellPartDesc = StatCollector.translateToLocal(prefix + ".name") + ": ";
+            int i = lastSpell.getNrOfSetChildren() + 1;
+            nextSpellPartDesc += StatCollector.translateToLocal(prefix + ".child" + String.valueOf(i));
+        }
+        else
+        {
+            nextSpellPartDesc = StatCollector.translateToLocal("spellDesc." + Reference.MOD_ID.toLowerCase() + ":addAction.name");
+        }
     }
 
     private void AddSpellPart()
@@ -139,6 +153,7 @@ public class GuiAddSpellPart extends GuiScreen
             //Draw Edit String
             fontRendererObj.drawString(edit, guiX + editBarPosX + 1, guiY + editBarPosY + 1, 0xFFFFFF);
         }
+        fontRendererObj.drawSplitString(nextSpellPartDesc, guiX + 2, guiY + 2, guiWidth - 4, 0xFFFFFF);
         //Draw Search String
         fontRendererObj.drawString(search, guiX + searchBarPosX + 1, guiY + searchBarPosY + 1, 0xFFFFFF);
         //Draw Possible Spell Names
@@ -158,7 +173,7 @@ public class GuiAddSpellPart extends GuiScreen
         }
         if(spellPartToAdd != -1)
         {
-            fontRendererObj.drawSplitString(toAddDesc, guiX + leftSideWidth + 2, guiY + 2,rightSideWidth,0xFFFFFF);
+            fontRendererObj.drawSplitString(toAddDesc, guiX + leftSideWidth + 2, guiY + topHeight + 2,rightSideWidth,0xFFFFFF);
         }
         if(fullSpellText != null)
         {
