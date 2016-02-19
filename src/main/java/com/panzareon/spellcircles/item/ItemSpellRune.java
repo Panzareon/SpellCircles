@@ -11,8 +11,8 @@ public class ItemSpellRune extends ItemSpell
     {
         super();
         this.setUnlocalizedName("spell_rune");
+        this.setMaxDamage(0);
     }
-
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
@@ -21,8 +21,12 @@ public class ItemSpellRune extends ItemSpell
         if(environ != null)
         {
             environ.setCaster(playerIn);
+            environ.castItem = itemStackIn;
             environ.cast();
         }
         return itemStackIn;
     }
+
+
+
 }

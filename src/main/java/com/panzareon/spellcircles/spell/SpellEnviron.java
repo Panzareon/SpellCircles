@@ -4,6 +4,7 @@ import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -12,9 +13,12 @@ import java.util.ArrayList;
 
 public class SpellEnviron
 {
-    protected Vec3 castPos;
+    public Vec3 castPos;
     protected EntityLivingBase caster;
+    public ItemStack castItem;
 
+
+    public int chargedAura = 0;
     protected ArrayList<SpellPart> spells;
     int nextSpaceIndex = 0;
 
@@ -103,6 +107,16 @@ public class SpellEnviron
 
     public boolean useAura(int amount)
     {
+        if(chargedAura >= amount)
+        {
+            chargedAura -= amount;
+            return true;
+        }
+        else
+        {
+            amount -= chargedAura;
+            chargedAura = 0;
+        }
         NBTTagCompound nbt = caster.getEntityData();
         if(nbt.hasKey(Reference.MOD_ID))
         {
