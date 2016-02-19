@@ -90,6 +90,13 @@ spell.spellcircles:move_positions.child3=Distance
 spell.spellcircles:move_positions.aurause=0
 
 
+spell.spellcircles:charge.name=Charge
+spell.spellcircles:charge.desc=Charges for some time and then cast the Action with less Aurause
+spell.spellcircles:charge.child1=Seconds to charge
+spell.spellcircles:charge.child2=Action after charge
+spell.spellcircles:charge.aurause=0
+
+
 
 #Creative Tabs
 itemGroup.spellcircles=Spell Circles
