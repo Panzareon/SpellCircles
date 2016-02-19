@@ -25,8 +25,9 @@ public class ItemSpell extends SpellCirclesItem
         if(itemNbt.hasKey(Reference.MOD_ID))
         {
             NBTTagCompound scNbt = itemNbt.getCompoundTag(Reference.MOD_ID);
-            if(scNbt.hasKey("toCast"))
+            if(scNbt.hasKey("toCastTime"))
             {
+                scNbt.removeTag("toCastTime");
                 scNbt.removeTag("toCast");
             }
         }
@@ -55,7 +56,7 @@ public class ItemSpell extends SpellCirclesItem
         }
         NBTTagCompound scNbt = itemNbt.getCompoundTag(Reference.MOD_ID);
         scNbt.setTag("toCast", nbt);
-        stack.setItemDamage(nrOfTicks);
+        scNbt.setInteger("toCastTime", nrOfTicks);
     }
 
     public void callAdditionalSpell(ItemStack stack, World world)
@@ -85,6 +86,7 @@ public class ItemSpell extends SpellCirclesItem
                 environ.chargedAura = chargedAura;
                 environ.castItem = stack;
                 scNbt.removeTag("toCast");
+                scNbt.removeTag("toCastTime");
                 environ.cast();
             }
         }
@@ -125,18 +127,29 @@ public class ItemSpell extends SpellCirclesItem
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-        if(stack.getMetadata() > 0)
+        if(stack.hasTagCompound())
         {
-            if(!isSelected)
+            NBTTagCompound itemNBT = stack.getTagCompound();
+            if(itemNBT.hasKey(Reference.MOD_ID))
             {
-                resetSpellCasting(stack);
-            }
-            int time = stack.getMetadata();
-            time--;
-            stack.setItemDamage(time);
-            if(time <= 0)
-            {
-                callAdditionalSpell(stack, worldIn);
+                NBTTagCompound scNBT = itemNBT.getCompoundTag(Reference.MOD_ID);
+                if(scNBT.hasKey("toCastTime"))
+                {
+                    if(!isSelected)
+                    {
+                        resetSpellCasting(stack);
+                    }
+                    else
+                    {
+                        int time = scNBT.getInteger("toCastTime");
+                        time--;
+                        scNBT.setInteger("toCastTime",time);
+                        if(time <= 0)
+                        {
+                            callAdditionalSpell(stack, worldIn);
+                        }
+                    }
+                }
             }
         }
     }

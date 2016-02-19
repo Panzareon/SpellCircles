@@ -11,7 +11,6 @@ public class ItemSpellRune extends ItemSpell
     {
         super();
         this.setUnlocalizedName("spell_rune");
-        this.setMaxDamage(0);
     }
 
     @Override
