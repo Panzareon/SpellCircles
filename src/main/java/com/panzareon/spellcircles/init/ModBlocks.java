@@ -3,11 +3,14 @@ package com.panzareon.spellcircles.init;
 import com.panzareon.spellcircles.block.BlockPlacingDefault;
 import com.panzareon.spellcircles.block.BlockSpellCircle;
 import com.panzareon.spellcircles.block.SpellCirclesBlock;
+import com.panzareon.spellcircles.client.renderer.TileEntitySpellCircleRenderer;
+import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks
@@ -24,6 +27,8 @@ public class ModBlocks
     {
         registerRender(placingDefault);
         registerRender(spellCircle);
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpellCircle.class, new TileEntitySpellCircleRenderer());
     }
 
     public static void registerRender(Block block)

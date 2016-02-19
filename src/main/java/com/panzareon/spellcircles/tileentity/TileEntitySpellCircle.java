@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntitySpellCircle extends TileEntity
 {
     private SpellEnviron environ = null;
+    public String spellText = "";
 
     public void addSpellPart(String name)
     {
@@ -25,6 +26,7 @@ public class TileEntitySpellCircle extends TileEntity
         {
             environ.addSpellPart(name);
         }
+        spellText = environ.getSpellString();
     }
 
     public void addSpellPart(SpellPart part)
@@ -37,6 +39,7 @@ public class TileEntitySpellCircle extends TileEntity
         {
             environ.addSpellPart(part);
         }
+        spellText = environ.getSpellString();
     }
 
     public SpellEnviron getEnviron()
@@ -67,8 +70,8 @@ public class TileEntitySpellCircle extends TileEntity
             NBTTagCompound nbt = (NBTTagCompound) compound.getTag(Reference.MOD_ID);
             if(nbt.hasKey("spell"))
             {
-                String spell = nbt.getString("spell");
-                environ = new SpellEnviron(spell);
+                spellText = nbt.getString("spell");
+                environ = new SpellEnviron(spellText);
             }
         }
     }
@@ -78,11 +81,11 @@ public class TileEntitySpellCircle extends TileEntity
         super.writeToNBT(compound);
         if(environ != null)
         {
-            String spell = environ.getSpellString();
-            if(spell != null && !spell.isEmpty())
+            //String spell = environ.getSpellString();
+            if(spellText != null && !spellText.isEmpty())
             {
                 NBTTagCompound nbt = new NBTTagCompound();
-                nbt.setString("spell", spell);
+                nbt.setString("spell", spellText);
                 compound.setTag(Reference.MOD_ID, nbt);
             }
         }

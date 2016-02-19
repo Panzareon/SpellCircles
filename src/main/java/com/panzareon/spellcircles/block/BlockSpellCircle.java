@@ -88,4 +88,9 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     {
         return 0;
     }
+
+    @Override
+    public int getRenderType() {
+        return -1;
+    }
 }
