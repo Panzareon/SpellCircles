@@ -8,6 +8,7 @@ import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +23,7 @@ public class ItemChalk extends SpellCirclesItem
         this.setUnlocalizedName("chalk");
         this.setHasSubtypes(true);
         this.setMaxDamage(64);
+        this.maxStackSize = 1;
     }
 
     @Override
@@ -34,8 +36,8 @@ public class ItemChalk extends SpellCirclesItem
             IBlockState state;
             int radius = 0;
             boolean increase = true;
-            Block lapis = GameRegistry.findBlock("minecraft", "lapis_block");
-            Block stone = GameRegistry.findBlock("minecraft", "stonebrick");
+            Block lapis = Blocks.lapis_block;
+            Block stone = Blocks.stonebrick;
             //check if 3x3 fits
             for(int x = pos.getX() - 1; x <= pos.getX() + 1; x++)
             {
