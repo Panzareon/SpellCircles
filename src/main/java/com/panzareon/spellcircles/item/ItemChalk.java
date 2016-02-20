@@ -36,8 +36,6 @@ public class ItemChalk extends SpellCirclesItem
             IBlockState state;
             int radius = 0;
             boolean increase = true;
-            Block lapis = Blocks.lapis_block;
-            Block stone = Blocks.stonebrick;
             //check if 3x3 fits
             for(int x = pos.getX() - 1; x <= pos.getX() + 1; x++)
             {
@@ -53,14 +51,14 @@ public class ItemChalk extends SpellCirclesItem
 
                     if(xSame ^ zSame)
                     {
-                        if(state.getBlock() != lapis)
+                        if(state.getBlock() != Blocks.lapis_block)
                         {
                             increase = false;
                         }
                     }
                     if(!xSame && !zSame)
                     {
-                        if(state.getBlock() != stone || state.getValue(BlockStoneBrick.VARIANT) != BlockStoneBrick.EnumType.CHISELED)
+                        if(state.getBlock() != Blocks.stonebrick || state.getValue(BlockStoneBrick.VARIANT) != BlockStoneBrick.EnumType.CHISELED)
                         {
                             increase = false;
                         }
