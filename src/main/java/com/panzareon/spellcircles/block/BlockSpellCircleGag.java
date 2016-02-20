@@ -60,11 +60,9 @@ public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEnti
     }
 
     //This makes gag invisible.
-
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
-    {
-        return false;
+    public int getRenderType() {
+        return -1;
     }
 
     @Override
