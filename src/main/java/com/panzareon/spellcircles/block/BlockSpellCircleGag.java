@@ -47,6 +47,13 @@ public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEnti
     @Override
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
     {
+        if (!worldIn.isRemote)
+        {
+            if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
+            {
+                breakBlock(worldIn, pos, state);
+            }
+        }
         TileEntitySpellCircleGag tileEntity = (TileEntitySpellCircleGag)worldIn.getTileEntity(pos);
         if (tileEntity != null){
             //No need to check if block's Id matches the Id of our primary block,

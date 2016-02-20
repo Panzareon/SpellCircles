@@ -1,0 +1,9 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "top": "spellcircles:blocks/discoverer",
+        "bottom": "blocks/planks_oak",
+        "side": "blocks/bookshelf",
+        "particle": "spellcircles:blocks/discoverer"
+    }
+}

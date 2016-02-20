@@ -108,3 +108,4 @@ item.spellcircles:spell_rune.name=Spell Rune
 #Blocks
 tile.spellcircles:placing_default.name=Placing Default
 tile.spellcircles:spell_circle.name=Spell Circle
+tile.spellcircles:discoverer.name=Discoverer

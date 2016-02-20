@@ -1,27 +1,38 @@
 package com.panzareon.spellcircles.tileentity;
 
+import com.panzareon.spellcircles.init.ModBlocks;
+import com.panzareon.spellcircles.item.ItemSpell;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.spell.SpellList;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
+import net.minecraft.world.World;
 
 public class TileEntitySpellCircle extends TileEntity implements ITickable
 {
+    private int craftingTime = 200;
+    private ItemStack craftingItem;
     private SpellEnviron environ = null;
     public String spellText = "";
-    public int radius = 2;
+    public int radius;
     public float spellRotation = 0.0f;
     public float spellRotationStep;
     public float circleRotation = 0.0f;
     public float circleRotationStep;
     public boolean isCrafting = false;
+    public int craftingTick = 0;
 
     public void addSpellPart(String name)
     {
@@ -69,6 +80,17 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
         return SpellList.getSpellWithReturnType(needed);
     }
 
+
+    public void isPlaced()
+    {
+        if(canCraftBlock(pos.down()))
+        {
+            isCrafting = true;
+            craftingTick = craftingTime;
+            startCraftingAnimation();
+        }
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
@@ -87,17 +109,15 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        if(environ != null)
+        //String spell = environ.getSpellString();
+        if(spellText == null)
         {
-            //String spell = environ.getSpellString();
-            if(spellText != null && !spellText.isEmpty())
-            {
-                NBTTagCompound nbt = new NBTTagCompound();
-                nbt.setString("spell", spellText);
-                nbt.setInteger("radius", radius);
-                compound.setTag(Reference.MOD_ID, nbt);
-            }
+            spellText = "";
         }
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setString("spell", spellText);
+        nbt.setInteger("radius", radius);
+        compound.setTag(Reference.MOD_ID, nbt);
     }
 
     @Override
@@ -121,19 +141,89 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
         {
             if(!isCrafting)
             {
-                spellRotationStep = 0.001f;
-                circleRotationStep = 0.0f;
                 spellRotation += spellRotationStep;
+                if(circleRotation != 0.0f)
+                {
+                    circleRotation += circleRotationStep;
+                    if(circleRotation >= 360.0f)
+                    {
+                        circleRotationStep = 0.0f;
+                        circleRotation = 0.0f;
+                    }
+                }
             }
             else
             {
-                spellRotationStep = 0.03f;
-                circleRotationStep = 0.2f;
                 spellRotation += spellRotationStep;
                 circleRotation += circleRotationStep;
             }
 
         }
+
+        if(isCrafting)
+        {
+            craftingTick--;
+            if(craftingTick <= 0)
+            {
+                isCrafting = false;
+                craftingTick = 0;
+                spellRotationStep = 0.001f;
+                circleRotationStep /= -2;
+                if(!worldObj.isRemote)
+                {
+                    if(craftingItem != null)
+                    {
+                        String spell = getEnviron().getSpellString();
+                        if (spell != null)
+                        {
+                            ((ItemSpell) craftingItem.getItem()).setSpellString(craftingItem, spell);
+                        }
+                        EntityItem itemDrop = new EntityItem(worldObj, pos.getX(), pos.getY(), pos.getZ(), craftingItem);
+                        itemDrop.setDefaultPickupDelay();
+                        worldObj.spawnEntityInWorld(itemDrop);
+                        craftingItem = null;
+                    }
+                    else
+                    {
+                        craftingComplete(pos.down());
+                    }
+                }
+            }
+        }
+    }
+
+    public void craft(EntityPlayer player)
+    {
+        if(!isCrafting)
+        {
+            craftingItem = player.inventory.decrStackSize(player.inventory.currentItem, 1);
+            isCrafting = true;
+            craftingTick = craftingTime;
+            startCraftingAnimation();
+        }
+    }
+    private void startCraftingAnimation()
+    {
+        spellRotationStep = 0.03f;
+        circleRotationStep = 0.2f;
+    }
+
+    private void craftingComplete(BlockPos pos)
+    {
+        if(worldObj.getBlockState(pos).getBlock() == Blocks.bookshelf)
+        {
+            worldObj.setBlockState(pos, ModBlocks.discoverer.getDefaultState());
+            worldObj.setBlockToAir(pos.up());
+        }
+    }
+
+    private boolean canCraftBlock(BlockPos pos)
+    {
+        if(worldObj.getBlockState(pos).getBlock() == Blocks.bookshelf)
+        {
+            return true;
+        }
+        return false;
     }
 }
 

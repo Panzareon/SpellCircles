@@ -3,6 +3,7 @@ package com.panzareon.spellcircles.block;
 import com.panzareon.spellcircles.SpellCircles;
 import com.panzareon.spellcircles.item.ItemSpell;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -67,12 +68,8 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
             if (item instanceof ItemSpell)
             {
                 TileEntitySpellCircle tileEntity = (TileEntitySpellCircle) worldIn.getTileEntity(pos);
-                String spell = tileEntity.getEnviron().getSpellString();
-                if (spell != null)
-                {
-                    ((ItemSpell) item).setSpellString(stack, spell);
-                    openGui = false;
-                }
+                tileEntity.craft(playerIn);
+                openGui = false;
             }
         }
         if (openGui)
@@ -99,5 +96,17 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     @Override
     public int getRenderType() {
         return -1;
+    }
+
+    @Override
+    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    {
+        if (!worldIn.isRemote)
+        {
+            if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
+            {
+                breakBlock(worldIn, pos, state);
+            }
+        }
     }
 }

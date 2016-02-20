@@ -77,6 +77,7 @@ public class ItemChalk extends SpellCirclesItem
             stack.damageItem(damage, playerIn);
 
             TileEntitySpellCircleGag teGag;
+            TileEntitySpellCircle te = null;
             for(int x = pos.getX() - radius; x <= pos.getX() + radius; x++)
             {
                 for(int z = pos.getZ() - radius; z <= pos.getZ() + radius; z++)
@@ -91,11 +92,12 @@ public class ItemChalk extends SpellCirclesItem
                     else
                     {
                         worldIn.setBlockState(posAt, ModBlocks.spellCircle.getDefaultState());
-                        TileEntitySpellCircle te = (TileEntitySpellCircle) worldIn.getTileEntity(posAt);
+                        te = (TileEntitySpellCircle) worldIn.getTileEntity(posAt);
                         te.radius = radius + 1;
                     }
                 }
             }
+            te.isPlaced();
 
         }
         return false;

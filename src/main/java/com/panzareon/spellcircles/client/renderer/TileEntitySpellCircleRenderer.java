@@ -7,6 +7,7 @@ import com.panzareon.spellcircles.utility.LogHelper;
 import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -26,6 +27,10 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage)
     {
+        Tessellator tessellator = Tessellator.getInstance();
+        //This will make your block brightness dependent from surroundings lighting.
+        float f = te.getWorld().getLightBrightness(te.getPos());
+
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
 
@@ -42,7 +47,7 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
         double posChange = radiusTE - 1;
 
         //Render main Spell Circle from top
-        WorldRenderer wr = Tessellator.getInstance().getWorldRenderer();
+        WorldRenderer wr = tessellator.getWorldRenderer();
         double runeRadius;
         if(radiusTE == 1)
         {
@@ -55,16 +60,16 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
             runeRadius = 1.43;
         }
 
-        wr.begin(7 , DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
+        wr.begin(7 , DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
 
-        wr.pos(0.0 - posChange, 0.01, 1.0 + posChange).tex(0.0, 1.0).normal(0,0,-1).endVertex();
-        wr.pos(1.0 + posChange, 0.01, 1.0 + posChange).tex(1.0, 1.0).normal(0,0,-1).endVertex();
-        wr.pos(1.0 + posChange, 0.01, 0.0 - posChange).tex(1.0, 0.0).normal(0,0,-1).endVertex();
-        wr.pos(0.0 - posChange, 0.01, 0.0 - posChange).tex(0.0, 0.0).normal(0,0,-1).endVertex();
+        wr.pos(0.0 - posChange, 0.01, 1.0 + posChange).tex(0.0, 1.0).color(f,f,f,1.0f).normal(0, 0, -1).endVertex();
+        wr.pos(1.0 + posChange, 0.01, 1.0 + posChange).tex(1.0, 1.0).color(f,f,f,1.0f).normal(0, 0, -1).endVertex();
+        wr.pos(1.0 + posChange, 0.01, 0.0 - posChange).tex(1.0, 0.0).color(f,f,f,1.0f).normal(0, 0, -1).endVertex();
+        wr.pos(0.0 - posChange, 0.01, 0.0 - posChange).tex(0.0, 0.0).color(f,f,f,1.0f).normal(0, 0, -1).endVertex();
 
-        Tessellator.getInstance().draw();
+        tessellator.draw();
         Minecraft.getMinecraft().getTextureManager().bindTexture(spellRunes);
-        wr.begin(7 , DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
+        wr.begin(7 , DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
         //Render spell of Spell circle
         String spell = teSC.spellText;
         SpellRune.uvCoords uv;
@@ -90,15 +95,16 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
                 x4 = x3 + Math.cos(rad) * runeScale;
                 z4 = z3 + Math.sin(rad) * runeScale;
 
-                wr.pos(x1, 0.01, z1).tex(u1, v2).normal(0,0,-1).endVertex();
-                wr.pos(x4, 0.01, z4).tex(u2, v2).normal(0,0,-1).endVertex();
-                wr.pos(x3, 0.01, z3).tex(u2, v1).normal(0,0,-1).endVertex();
-                wr.pos(x2, 0.01, z2).tex(u1, v1).normal(0,0,-1).endVertex();
+                wr.pos(x1, 0.01, z1).tex(u1, v2).color(f,f,f,1.0f).normal(0,0,-1).endVertex();
+                wr.pos(x4, 0.01, z4).tex(u2, v2).color(f,f,f,1.0f).normal(0,0,-1).endVertex();
+                wr.pos(x3, 0.01, z3).tex(u2, v1).color(f,f,f,1.0f).normal(0,0,-1).endVertex();
+                wr.pos(x2, 0.01, z2).tex(u1, v1).color(f,f,f,1.0f).normal(0,0,-1).endVertex();
             }
             rad += runeScale / runeRadius;
         }
-        Tessellator.getInstance().draw();
+        tessellator.draw();
 
         GlStateManager.popMatrix();
     }
+
 }

@@ -1,9 +1,6 @@
 package com.panzareon.spellcircles.init;
 
-import com.panzareon.spellcircles.block.BlockPlacingDefault;
-import com.panzareon.spellcircles.block.BlockSpellCircle;
-import com.panzareon.spellcircles.block.BlockSpellCircleGag;
-import com.panzareon.spellcircles.block.SpellCirclesBlock;
+import com.panzareon.spellcircles.block.*;
 import com.panzareon.spellcircles.client.renderer.TileEntitySpellCircleRenderer;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import com.panzareon.spellcircles.utility.LogHelper;
@@ -19,17 +16,21 @@ public class ModBlocks
     public static final SpellCirclesBlock placingDefault = new BlockPlacingDefault();
     public static final SpellCirclesBlock spellCircle = new BlockSpellCircle();
     public static final SpellCirclesBlock spellCircleGag = new BlockSpellCircleGag();
+    public static final SpellCirclesBlock discoverer = new BlockDiscoverer();
 
     public static void init() {
         GameRegistry.registerBlock(placingDefault, "placing_default");
         GameRegistry.registerBlock(spellCircle, "spell_circle");
         GameRegistry.registerBlock(spellCircleGag, "spell_circle_gag");
+        GameRegistry.registerBlock(discoverer, "discoverer");
     }
 
     public static void registerRender()
     {
         registerRender(placingDefault);
         registerRender(spellCircle);
+        registerRender(spellCircleGag);
+        registerRender(discoverer);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpellCircle.class, new TileEntitySpellCircleRenderer());
     }
