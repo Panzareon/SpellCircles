@@ -33,6 +33,13 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     }
 
     @Override
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    {
+        TileEntitySpellCircle te = (TileEntitySpellCircle) worldIn.getTileEntity(pos);
+        return new AxisAlignedBB((double)pos.getX() + this.minX - te.radius + 1, (double)pos.getY() + this.minY, (double)pos.getZ() + this.minZ - te.radius + 1, (double)pos.getX() + this.maxX + te.radius - 1, (double)pos.getY() + this.maxY, (double)pos.getZ() + this.maxZ + te.radius - 1);
+    }
+
+    @Override
     public boolean isOpaqueCube()
     {
         return false;

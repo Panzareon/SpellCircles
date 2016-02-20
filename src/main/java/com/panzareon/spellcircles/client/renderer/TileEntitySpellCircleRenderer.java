@@ -3,6 +3,7 @@ package com.panzareon.spellcircles.client.renderer;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.reference.SpellRune;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
+import com.panzareon.spellcircles.utility.LogHelper;
 import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,9 +18,10 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
 {
     private double textureSize = 256.0;
     private double runeScale = 1.0 / 16.0;
-    private double runeRadius = 0.43;
 
-    private final ResourceLocation spellCircle1x1 = new ResourceLocation(Reference.MOD_ID, "textures/blocks/spell_circle.png");
+
+    private final ResourceLocation spellCircle1x1 = new ResourceLocation(Reference.MOD_ID, "textures/blocks/spell_circle1x1.png");
+    private final ResourceLocation spellCircle3x3 = new ResourceLocation(Reference.MOD_ID, "textures/blocks/spell_circle3x3.png");
     private final ResourceLocation spellRunes = new ResourceLocation(Reference.MOD_ID, "textures/gui/spell_runes.png");
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage)
@@ -27,25 +29,48 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
 
+        TileEntitySpellCircle teSC = (TileEntitySpellCircle)te;
+        int radiusTE = teSC.radius;
+
+        if(teSC.circleRotation != 0.0f)
+        {
+            GlStateManager.translate(0.5, 0.0, 0.5);
+            GlStateManager.rotate(teSC.circleRotation + teSC.circleRotationStep * partialTicks, 0.0f, 1.0f, 0.0f);
+            GlStateManager.translate(-0.5, 0.0, -0.5);
+        }
+
+        double posChange = radiusTE - 1;
+
         //Render main Spell Circle from top
         WorldRenderer wr = Tessellator.getInstance().getWorldRenderer();
-        Minecraft.getMinecraft().getTextureManager().bindTexture(spellCircle1x1);
+        double runeRadius;
+        if(radiusTE == 1)
+        {
+            Minecraft.getMinecraft().getTextureManager().bindTexture(spellCircle1x1);
+            runeRadius = 0.43;
+        }
+        else
+        {
+            Minecraft.getMinecraft().getTextureManager().bindTexture(spellCircle3x3);
+            runeRadius = 1.43;
+        }
+
         wr.begin(7 , DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
 
-        wr.pos(0.0, 0.01, 1.0).tex(0.0, 1.0).normal(0,0,-1).endVertex();
-        wr.pos(1.0, 0.01, 1.0).tex(1.0, 1.0).normal(0,0,-1).endVertex();
-        wr.pos(1.0, 0.01, 0.0).tex(1.0, 0.0).normal(0,0,-1).endVertex();
-        wr.pos(0.0, 0.01, 0.0).tex(0.0, 0.0).normal(0,0,-1).endVertex();
+        wr.pos(0.0 - posChange, 0.01, 1.0 + posChange).tex(0.0, 1.0).normal(0,0,-1).endVertex();
+        wr.pos(1.0 + posChange, 0.01, 1.0 + posChange).tex(1.0, 1.0).normal(0,0,-1).endVertex();
+        wr.pos(1.0 + posChange, 0.01, 0.0 - posChange).tex(1.0, 0.0).normal(0,0,-1).endVertex();
+        wr.pos(0.0 - posChange, 0.01, 0.0 - posChange).tex(0.0, 0.0).normal(0,0,-1).endVertex();
 
         Tessellator.getInstance().draw();
         Minecraft.getMinecraft().getTextureManager().bindTexture(spellRunes);
         wr.begin(7 , DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
         //Render spell of Spell circle
-        String spell = ((TileEntitySpellCircle) te).spellText;
+        String spell = teSC.spellText;
         SpellRune.uvCoords uv;
         double u1, u2, v1, v2;
         double x1, x2, x3, x4 , z1, z2, z3, z4;
-        float rad = 0.0f;
+        float rad = teSC.spellRotation + teSC.spellRotationStep * partialTicks;
 
         for(int i = 0; i < spell.length(); i++)
         {

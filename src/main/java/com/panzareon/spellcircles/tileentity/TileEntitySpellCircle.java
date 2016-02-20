@@ -10,11 +10,18 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 
-public class TileEntitySpellCircle extends TileEntity
+public class TileEntitySpellCircle extends TileEntity implements ITickable
 {
     private SpellEnviron environ = null;
     public String spellText = "";
+    public int radius = 2;
+    public float spellRotation = 0.0f;
+    public float spellRotationStep;
+    public float circleRotation = 0.0f;
+    public float circleRotationStep;
+    public boolean isCrafting = false;
 
     public void addSpellPart(String name)
     {
@@ -71,6 +78,7 @@ public class TileEntitySpellCircle extends TileEntity
             if(nbt.hasKey("spell"))
             {
                 spellText = nbt.getString("spell");
+                radius = nbt.getInteger("radius");
                 environ = new SpellEnviron(spellText);
             }
         }
@@ -86,6 +94,7 @@ public class TileEntitySpellCircle extends TileEntity
             {
                 NBTTagCompound nbt = new NBTTagCompound();
                 nbt.setString("spell", spellText);
+                nbt.setInteger("radius", radius);
                 compound.setTag(Reference.MOD_ID, nbt);
             }
         }
@@ -103,6 +112,28 @@ public class TileEntitySpellCircle extends TileEntity
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
     {
         readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
+    public void update()
+    {
+        if(worldObj.isRemote)
+        {
+            if(!isCrafting)
+            {
+                spellRotationStep = 0.001f;
+                circleRotationStep = 0.0f;
+                spellRotation += spellRotationStep;
+            }
+            else
+            {
+                spellRotationStep = 0.03f;
+                circleRotationStep = 0.2f;
+                spellRotation += spellRotationStep;
+                circleRotation += circleRotationStep;
+            }
+
+        }
     }
 }
 
