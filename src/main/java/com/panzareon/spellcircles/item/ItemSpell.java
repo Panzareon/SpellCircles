@@ -6,7 +6,9 @@ import com.panzareon.spellcircles.spell.SpellEnviron;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -29,6 +31,7 @@ public class ItemSpell extends SpellCirclesItem
             {
                 scNbt.removeTag("toCastTime");
                 scNbt.removeTag("toCast");
+                scNbt.removeTag("castQueue");
             }
         }
     }
@@ -55,8 +58,44 @@ public class ItemSpell extends SpellCirclesItem
             itemNbt.setTag(Reference.MOD_ID, new NBTTagCompound());
         }
         NBTTagCompound scNbt = itemNbt.getCompoundTag(Reference.MOD_ID);
-        scNbt.setTag("toCast", nbt);
-        scNbt.setInteger("toCastTime", nrOfTicks);
+        //Does this item already have a spell waiting
+        if(scNbt.hasKey("toCastTime"))
+        {
+            int otherCastTime = scNbt.getInteger("toCastTime");
+            NBTTagCompound toAdd = new NBTTagCompound();
+            //Does the new spell come first
+            if(otherCastTime > nrOfTicks)
+            {
+                otherCastTime -= nrOfTicks;
+                toAdd.setInteger("toCastTime", otherCastTime);
+                toAdd.setTag("toCast", scNbt.getCompoundTag("toCast"));
+                scNbt.setInteger("toCastTime", nrOfTicks);
+                scNbt.setTag("toCast", nbt);
+            }
+            else
+            {
+                nrOfTicks -= otherCastTime;
+                toAdd.setInteger("toCastTime", nrOfTicks);
+                toAdd.setTag("toCast",nbt);
+            }
+            //create new cast Queue?
+            if(scNbt.hasKey("castQueue"))
+            {
+                NBTTagList queue = scNbt.getTagList("castQueue", 10);
+                queue.appendTag(toAdd);
+            }
+            else
+            {
+                NBTTagList queue = new NBTTagList();
+                queue.appendTag(toAdd);
+                scNbt.setTag("castQueue", queue);
+            }
+        }
+        else
+        {
+            scNbt.setTag("toCast", nbt);
+            scNbt.setInteger("toCastTime", nrOfTicks);
+        }
     }
 
     public void callAdditionalSpell(ItemStack stack, World world)
@@ -87,7 +126,49 @@ public class ItemSpell extends SpellCirclesItem
                 environ.castItem = stack;
                 scNbt.removeTag("toCast");
                 scNbt.removeTag("toCastTime");
+                checkQueue(scNbt);
                 environ.cast();
+            }
+        }
+    }
+
+    private void checkQueue(NBTTagCompound scNbt)
+    {
+        if(scNbt.hasKey("castQueue"))
+        {
+            NBTTagList queue = scNbt.getTagList("castQueue", 10);
+            int minQueueTime = -1;
+            int queueTime;
+            int minTagId = 0;
+            NBTTagCompound queueTag;
+            for(int i = 0; i < queue.tagCount(); i++)
+            {
+                queueTag = queue.getCompoundTagAt(i);
+                queueTime = queueTag.getInteger("toCastTime");
+                if(minQueueTime == -1 || queueTime < minQueueTime)
+                {
+                    minTagId = i;
+                    minQueueTime = queueTime;
+                }
+            }
+            NBTTagCompound toCast = queue.getCompoundTagAt(minTagId);
+            scNbt.setInteger("toCastTime", minQueueTime);
+            scNbt.setTag("toCast", toCast.getCompoundTag("toCast"));
+
+
+            queue.removeTag(minTagId);
+            if(queue.hasNoTags())
+            {
+                scNbt.removeTag("castQueue");
+            }
+            else
+            {
+                for(int i = 0; i < queue.tagCount(); i++)
+                {
+                    queueTag = queue.getCompoundTagAt(i);
+                    queueTime = queueTag.getInteger("toCastTime") - minQueueTime;
+                    queueTag.setInteger("toCastTime", queueTime);
+                }
             }
         }
     }
