@@ -51,6 +51,8 @@ public class SpellPartStopMotion extends SpellPart
             for(int i = 0; i < nr; i++)
             {
                 entity = childValues[0].getEntity(i);
+                if(entity == null)
+                    continue;
                 movement = new Vec3(entity.motionX, entity.motionY, entity.motionZ);
                 speed = (float)movement.lengthVector();
                 auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());

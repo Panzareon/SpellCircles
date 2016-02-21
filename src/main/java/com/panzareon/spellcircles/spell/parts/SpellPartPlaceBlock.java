@@ -9,6 +9,7 @@ import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
@@ -50,7 +51,7 @@ public class SpellPartPlaceBlock extends SpellPart
         if(nr > 0)
         {
             BlockPos blockPos;
-            EntityLivingBase player = environ.getCaster();
+            EntityPlayer player = environ.getCaster();
             Vec3 castPos = environ.getCastPosition();
             float auraAdd;
             World world = player.getEntityWorld();
@@ -58,6 +59,8 @@ public class SpellPartPlaceBlock extends SpellPart
             for(int i = 0; i < nr; i++)
             {
                 blockPos = childValues[0].getBlock(i);
+                if(blockPos == null)
+                    continue;
                 if(world.canBlockBePlaced(ModBlocks.placingDefault, blockPos, true, EnumFacing.UP, player, null))
                 {
                     auraAdd = (float) castPos.squareDistanceTo(new Vec3(blockPos));

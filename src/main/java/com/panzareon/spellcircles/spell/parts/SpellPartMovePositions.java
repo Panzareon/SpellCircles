@@ -48,11 +48,17 @@ public class SpellPartMovePositions extends SpellPart
         if(nr < nr3)
             nr = nr3;
         Vec3 addVector;
+        Vec3 pos;
+        Vec3 direction;
 
         for(int i = 0; i < nr; i++)
         {
-            addVector = VectorUtil.multiplyVector(childValues[1].getDirection(i),childValues[2].getNumber(i));
-            positions.add(childValues[0].getPosition(i).add(addVector));
+            pos = childValues[0].getPosition(i);
+            direction = childValues[1].getDirection(i);
+            if(pos == null || direction == null)
+                continue;
+            addVector = VectorUtil.multiplyVector(direction, childValues[2].getNumber(i));
+            positions.add(pos.add(addVector));
         }
 
         SpellPartValue ret = new SpellPartValue();

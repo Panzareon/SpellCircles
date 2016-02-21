@@ -51,6 +51,8 @@ public class SpellPartDamage extends SpellPart
             {
                 dmg = childValues[1].getNumber(i);
                 target = childValues[0].getEntity(i);
+                if(target == null)
+                    continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))

@@ -59,8 +59,10 @@ public class SpellPartMotion extends SpellPart
             {
                 entity = childValues[0].getEntity(i);
                 dir = childValues[1].getDirection(i);
-                dir = dir.normalize();
                 speed = childValues[2].getNumber(i);
+                if(entity == null || dir == null)
+                    continue;
+                dir = dir.normalize();
                 dirMultiplied = new Vec3(dir.xCoord * speed, dir.yCoord *speed, dir.zCoord * speed);
                 auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed)))

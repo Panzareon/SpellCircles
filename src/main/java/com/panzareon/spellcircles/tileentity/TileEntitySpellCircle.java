@@ -92,7 +92,8 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(NBTTagCompound compound)
+    {
         super.readFromNBT(compound);
         if(compound.hasKey(Reference.MOD_ID))
         {
@@ -107,7 +108,8 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(NBTTagCompound compound)
+    {
         super.writeToNBT(compound);
         //String spell = environ.getSpellString();
         if(spellText == null)
@@ -145,7 +147,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
                 if(circleRotation != 0.0f)
                 {
                     circleRotation += circleRotationStep;
-                    if(circleRotation >= 360.0f)
+                    if(circleRotation <= 0.0f || circleRotation >= 360.0f)
                     {
                         circleRotationStep = 0.0f;
                         circleRotation = 0.0f;

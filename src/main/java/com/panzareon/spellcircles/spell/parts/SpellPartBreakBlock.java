@@ -7,6 +7,7 @@ import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -50,7 +51,7 @@ public class SpellPartBreakBlock extends SpellPart
             BlockPos blockPos;
             IBlockState blockState;
             float blockHardness;
-            EntityLivingBase player = environ.getCaster();
+            EntityPlayer player = environ.getCaster();
             Vec3 castPos = environ.getCastPosition();
             float auraAdd;
             World world = player.getEntityWorld();
@@ -58,7 +59,7 @@ public class SpellPartBreakBlock extends SpellPart
             for(int i = 0; i < nr; i++)
             {
                 blockPos = childValues[0].getBlock(i);
-                if(world.isAirBlock(blockPos))
+                if(blockPos == null || world.isAirBlock(blockPos))
                     continue;
                 blockState = world.getBlockState(blockPos);
                 block = blockState.getBlock();

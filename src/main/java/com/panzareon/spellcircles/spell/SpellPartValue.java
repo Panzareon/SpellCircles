@@ -80,36 +80,46 @@ public class SpellPartValue
     //setter
     public  void setEntity(Entity[] e)
     {
-        entity = e;
+        if(e.length > 0)
+            entity = e;
     }
     public  void setBlock(BlockPos[] b)
     {
-        block = b;
+        if(b.length > 0)
+            block = b;
     }
     public void setDirection(Vec3[] dir)
     {
-        direction = dir;
+        if(dir.length > 0)
+            direction = dir;
     }
     public void setNumber(float[] f)
     {
-        number = f;
+        if(f.length > 0)
+            number = f;
     }
-    public void setBool(boolean[] b) {
-        bool = b;
+    public void setBool(boolean[] b)
+    {
+        if(b.length > 0)
+            bool = b;
     }
     public void setPosition(Vec3[] pos)
     {
-        position = pos;
+        if(pos.length > 0)
+            position = pos;
     }
     public void setDimension(int[] d)
     {
-        dimension = d;
+        if(d.length > 0)
+            dimension = d;
     }
 
 
     //getter
     public Entity getEntity(int index)
     {
+        if(entity == null)
+            return null;
         index = index % entity.length;
         return entity[index];
     }
@@ -148,11 +158,15 @@ public class SpellPartValue
     }
     public float getNumber(int index)
     {
+        if(number == null)
+            return 0.0f;
         index = index % number.length;
         return number[index];
     }
     public boolean getBool(int index)
     {
+        if(bool == null)
+            return false;
         index = index % bool.length;
         return bool[index];
     }
@@ -177,6 +191,8 @@ public class SpellPartValue
     }
     public int getDimension(int index)
     {
+        if(dimension == null)
+            return 0;
         index = index % dimension.length;
         return dimension[index];
     }

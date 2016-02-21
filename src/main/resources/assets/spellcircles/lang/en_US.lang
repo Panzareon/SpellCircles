@@ -8,6 +8,10 @@ spell.spellcircles:caster.name=Caster
 spell.spellcircles:caster.desc=Get entity of caster
 spell.spellcircles:caster.aurause=0
 
+spell.spellcircles:get_target.name=Get Target
+spell.spellcircles:get_target.desc=Get entity or block the spell was used on
+spell.spellcircles:get_target.aurause=0
+
 spell.spellcircles:constant.name=Constant
 spell.spellcircles:constant.desc=Get number given in argument
 spell.spellcircles:constant.aurause=0

@@ -7,6 +7,7 @@ import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -47,7 +48,7 @@ public class SpellPartLookingAt extends SpellPart
     {
         ArrayList<Entity> entity = new ArrayList<Entity>();
         ArrayList<BlockPos> blocks = new ArrayList<BlockPos>();
-        EntityLivingBase player = environ.getCaster();
+        EntityPlayer player = environ.getCaster();
 
         Entity e;
         Vec3 start;
@@ -60,6 +61,8 @@ public class SpellPartLookingAt extends SpellPart
         for(int i = 0; i < nr; i++)
         {
             e = childValues[0].getEntity(i);
+            if(e == null)
+                continue;
             start = e.getPositionEyes(1.0f);
             look = e.getLookVec();
             look = VectorUtil.multiplyVector(look, maxLength);

@@ -2,10 +2,7 @@ package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.item.ItemSpell;
-import com.panzareon.spellcircles.spell.SpellEnviron;
-import com.panzareon.spellcircles.spell.SpellPart;
-import com.panzareon.spellcircles.spell.SpellPartValue;
-import com.panzareon.spellcircles.spell.SpellReturnTypes;
+import com.panzareon.spellcircles.spell.*;
 import net.minecraft.item.ItemStack;
 
 public class SpellPartCharge extends SpellPart
@@ -61,14 +58,13 @@ public class SpellPartCharge extends SpellPart
             float timeTicks = time * 20;
             if(timeTicks >= 1)
             {
-                ItemStack stack = environ.castItem;
-                ItemSpell item = (ItemSpell) stack.getItem();
+                SpellCastWith castWith = environ.castWith;
                 SpellEnviron environ1 = new SpellEnviron(children[1].getSpellString());
-                environ1.castItem = stack;
+                environ1.castWith = castWith;
                 environ1.setCaster(environ.getCaster());
                 environ1.castPos = environ.castPos;
                 environ1.chargedAura = (int)(chargeAuraMult * Math.sqrt(timeTicks));
-                item.setSpellToCall(stack,environ1,(int)timeTicks);
+                castWith.setSpellToCall(environ1,(int)timeTicks);
             }
         }
         return new SpellPartValue();

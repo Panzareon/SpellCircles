@@ -56,6 +56,8 @@ public class SpellPartStopMotionInDirection extends SpellPart
             {
                 entity = childValues[0].getEntity(i);
                 dir = childValues[1].getDirection(i);
+                if(entity == null || dir == null)
+                    continue;
                 movement = new Vec3(entity.motionX, entity.motionY, entity.motionZ);
                 lenght = movement.dotProduct(dir);
                 dir = dir.normalize();

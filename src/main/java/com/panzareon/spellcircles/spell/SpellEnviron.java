@@ -3,7 +3,9 @@ package com.panzareon.spellcircles.spell;
 import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -14,9 +16,10 @@ import java.util.ArrayList;
 public class SpellEnviron
 {
     public Vec3 castPos;
-    protected EntityLivingBase caster;
-    public ItemStack castItem;
-
+    protected EntityPlayer caster;
+    public SpellCastWith castWith;
+    public Entity entityHit;
+    public BlockPos blockHit;
 
     public int chargedAura = 0;
     protected ArrayList<SpellPart> spells;
@@ -39,7 +42,7 @@ public class SpellEnviron
             addSpellPart(spell);
     }
 
-    public void setCaster(EntityLivingBase casterEntity)
+    public void setCaster(EntityPlayer casterEntity)
     {
         caster = casterEntity;
     }
@@ -89,18 +92,21 @@ public class SpellEnviron
 
     public void cast()
     {
-        try {
-            for (SpellPart spell : spells) {
-                spell.cast();
-            }
-        }
-        catch (MissingAuraException ex)
+        if(caster != null)
         {
-            LogHelper.info("Not enough Aura for Spellpart: " + ex.spellPart.getSpellId());
+            try {
+                for (SpellPart spell : spells) {
+                    spell.cast();
+                }
+            }
+            catch (MissingAuraException ex)
+            {
+                LogHelper.info("Not enough Aura for Spellpart: " + ex.spellPart.getSpellId());
+            }
         }
     }
 
-    public EntityLivingBase getCaster()
+    public EntityPlayer getCaster()
     {
         return caster;
     }

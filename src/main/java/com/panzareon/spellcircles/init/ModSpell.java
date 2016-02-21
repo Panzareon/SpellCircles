@@ -10,6 +10,7 @@ public class ModSpell
     {
         //Constants
         SpellList.registerSpell(new SpellPartCaster());
+        SpellList.registerSpell(new SpellPartGetTarget());
         SpellList.registerSpell(new SpellPartConstant());
         SpellList.registerSpell(new SpellPartDirectionSouth());
         SpellList.registerSpell(new SpellPartDirectionDown());
