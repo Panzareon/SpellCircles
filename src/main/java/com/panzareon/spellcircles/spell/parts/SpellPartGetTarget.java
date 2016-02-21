@@ -4,14 +4,8 @@ import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
-
-import java.util.ArrayList;
 
 public class SpellPartGetTarget extends SpellPart
 {
@@ -37,8 +31,7 @@ public class SpellPartGetTarget extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.BLOCK, SpellReturnTypes.ENTITY};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.BLOCK, SpellReturnTypes.ENTITY};
     }
 
     @Override

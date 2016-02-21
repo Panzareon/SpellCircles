@@ -9,7 +9,7 @@ public class ModGui
 {
     public static final IGuiHandler GUI_HANDLER = new ModGuiHandler();
 
-    public static final void init()
+    public static void init()
     {
         NetworkRegistry.INSTANCE.registerGuiHandler(SpellCircles.instance, GUI_HANDLER);
     }

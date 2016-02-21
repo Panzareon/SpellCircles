@@ -6,7 +6,6 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -14,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SpellPartBreakBlock extends SpellPart
 {
-    private float AuraUse = 50f;
+    private final float AuraUse = 50f;
 
     @Override
     public String getSpellName()
@@ -37,8 +36,7 @@ public class SpellPartBreakBlock extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.ACTION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.ACTION};
     }
 
     @Override

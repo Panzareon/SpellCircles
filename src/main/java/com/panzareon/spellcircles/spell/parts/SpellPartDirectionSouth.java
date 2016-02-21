@@ -29,8 +29,7 @@ public class SpellPartDirectionSouth extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.DIRECTION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.DIRECTION};
     }
 
     @Override

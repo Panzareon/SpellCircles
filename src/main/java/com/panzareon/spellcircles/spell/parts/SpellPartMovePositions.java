@@ -32,8 +32,7 @@ public class SpellPartMovePositions extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.POSITION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.POSITION};
     }
 
     @Override

@@ -3,9 +3,7 @@ package com.panzareon.spellcircles.item;
 import com.panzareon.spellcircles.init.ModBlocks;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircleGag;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemChalk extends SpellCirclesItem
 {
@@ -27,12 +24,12 @@ public class ItemChalk extends SpellCirclesItem
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    {
         if(side == EnumFacing.UP)
         {
             int y = pos.getY() + 1;
             int yDown = pos.getY();
-            //Todo: check max space / size
             IBlockState state;
             int radius = 0;
             boolean increase = true;

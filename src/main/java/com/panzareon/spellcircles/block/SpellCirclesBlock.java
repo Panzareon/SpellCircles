@@ -4,7 +4,6 @@ import com.panzareon.spellcircles.creativetab.CreativeTabSpellCircles;
 import com.panzareon.spellcircles.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 
 public class SpellCirclesBlock extends Block
 {

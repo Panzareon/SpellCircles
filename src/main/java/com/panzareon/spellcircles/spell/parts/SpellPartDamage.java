@@ -5,14 +5,12 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 
 public class SpellPartDamage extends SpellPart
 {
-    private float AuraUse = 100f;
+    private final float AuraUse = 100f;
 
     @Override
     public String getSpellName() {
@@ -31,8 +29,7 @@ public class SpellPartDamage extends SpellPart
 
     @Override
     public SpellReturnTypes[] getReturnValueTypes() {
-        SpellReturnTypes[] ret = {SpellReturnTypes.ACTION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.ACTION};
     }
 
     @Override

@@ -13,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 
@@ -21,8 +20,8 @@ public class GuiAddSpellPart extends GuiScreen
 {
     private GuiButton okButton;
 
-    private ResourceLocation guiTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/add_spell_parts.png");
-    private ResourceLocation spelLRuneTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/spell_runes.png");
+    private final ResourceLocation guiTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/add_spell_parts.png");
+    private final ResourceLocation spelLRuneTexture = new ResourceLocation(Reference.MOD_ID, "textures/gui/spell_runes.png");
 
     private int selectedTextfield = -1;
     private boolean hasSelectedElementAdditionalValues = false;
@@ -31,41 +30,41 @@ public class GuiAddSpellPart extends GuiScreen
     private String search = "";
     private String edit = "";
 
-    private int guiWidth = 240;
-    private int guiHeight = 169;
+    private final int guiWidth = 240;
+    private final int guiHeight = 169;
 
-    private int topHeight = 19;
+    private final int topHeight = 19;
 
-    private int leftSideWidth = 120;
-    private int leftSideHeight = guiHeight - topHeight;
-    private int listPosX = 5;
-    private int listPosY = 15 + topHeight;
-    private int listWidth = 110;
-    private int listHeight = 90;
-    private int listElementHeight = 9;
-    private int nrOfListElements = listHeight / listElementHeight;
-    private int listTextPosX = 2;
-    private int listTextPosY = 1;
-    private int scrollPosition = 0;
+    private final int leftSideWidth = 120;
+    private final int leftSideHeight = guiHeight - topHeight;
+    private final int listPosX = 5;
+    private final int listPosY = 15 + topHeight;
+    private final int listWidth = 110;
+    private final int listHeight = 90;
+    private final int listElementHeight = 9;
+    private final int nrOfListElements = listHeight / listElementHeight;
+    private final int listTextPosX = 2;
+    private final int listTextPosY = 1;
+    private final int scrollPosition = 0;
 
-    private int selectedElementU = 0;
-    private int selectedElementV = 169;
+    private final int selectedElementU = 0;
+    private final int selectedElementV = 169;
 
-    private int searchBarPosX = 5;
-    private int searchBarPosY = 3 + topHeight;
-    private int searchBarWidth = listWidth;
-    private int searchBarHeight = 9;
+    private final int searchBarPosX = 5;
+    private final int searchBarPosY = 3 + topHeight;
+    private final int searchBarWidth = listWidth;
+    private final int searchBarHeight = 9;
 
-    private int editBarPosX = 5;
-    private int editBarPosY = 115 + topHeight;
-    private int editBarWidth = listWidth;
-    private int editBarHeight = 9;
+    private final int editBarPosX = 5;
+    private final int editBarPosY = 115 + topHeight;
+    private final int editBarWidth = listWidth;
+    private final int editBarHeight = 9;
 
-    private int editBarDisabledU = 0;
-    private int editBarDisabledV = 178;
+    private final int editBarDisabledU = 0;
+    private final int editBarDisabledV = 178;
 
-    private int rightSideWidth = 120;
-    private int rightSideHeight = guiHeight;
+    private final int rightSideWidth = 120;
+    private final int rightSideHeight = guiHeight;
 
     private TileEntitySpellCircle spellCircle;
     private String fullSpellText = "";
@@ -238,14 +237,7 @@ public class GuiAddSpellPart extends GuiScreen
             {
                 spellPartToAdd = element;
                 hasSelectedElementAdditionalValues = possibleSpellParts[spellPartToAdd].needAdditionalValues();
-                if(hasSelectedElementAdditionalValues)
-                {
-                    okButton.enabled = false;
-                }
-                else
-                {
-                    okButton.enabled = true;
-                }
+                okButton.enabled = !hasSelectedElementAdditionalValues;
                 toAddDesc = StatCollector.translateToLocal("spellDesc." + Reference.MOD_ID.toLowerCase() + ":aurause.name") + " ";
                 String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + possibleSpellParts[spellPartToAdd].getSpellId();
                 toAddDesc += StatCollector.translateToLocal(prefix + ".aurause") + "\n";

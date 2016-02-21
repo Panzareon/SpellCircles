@@ -6,7 +6,6 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 
 public class SpellPartLookingAt extends SpellPart
 {
-    private float AuraUse = 50f;
+    private final float AuraUse = 50f;
 
     @Override
     public String getSpellName()
@@ -39,8 +38,7 @@ public class SpellPartLookingAt extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.BLOCK, SpellReturnTypes.ENTITY};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.BLOCK, SpellReturnTypes.ENTITY};
     }
 
     @Override

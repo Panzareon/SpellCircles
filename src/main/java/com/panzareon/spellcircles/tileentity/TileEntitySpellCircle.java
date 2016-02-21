@@ -18,11 +18,10 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
-import net.minecraft.world.World;
 
 public class TileEntitySpellCircle extends TileEntity implements ITickable
 {
-    private int craftingTime = 200;
+    private final int craftingTime = 200;
     private ItemStack craftingItem;
     private SpellEnviron environ = null;
     public String spellText = "";

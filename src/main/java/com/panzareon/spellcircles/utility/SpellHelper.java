@@ -3,13 +3,9 @@ package com.panzareon.spellcircles.utility;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 

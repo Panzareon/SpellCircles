@@ -1,13 +1,11 @@
 package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
-import com.panzareon.spellcircles.item.ItemSpell;
 import com.panzareon.spellcircles.spell.*;
-import net.minecraft.item.ItemStack;
 
 public class SpellPartCharge extends SpellPart
 {
-    float chargeAuraMult = 10;
+    private final float chargeAuraMult = 10;
 
     @Override
     public String getSpellName() {
@@ -26,8 +24,7 @@ public class SpellPartCharge extends SpellPart
 
     @Override
     public SpellReturnTypes[] getReturnValueTypes() {
-        SpellReturnTypes[] ret = {SpellReturnTypes.ACTION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.ACTION};
     }
 
     @Override

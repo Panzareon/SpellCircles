@@ -5,7 +5,6 @@ import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.utility.SpellHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -44,5 +43,10 @@ public class EntitySpellCast extends Entity
         environ.castWith = new SpellCastWith(this);
         tagCompound.setTag(Reference.MOD_ID, nbt);
 
+    }
+
+    public void setSpellToCall(SpellEnviron environ, int ticks)
+    {
+        SpellHelper.setSpellToCall(getNBTTagCompound(), environ, ticks);
     }
 }

@@ -3,11 +3,8 @@ package com.panzareon.spellcircles.client.renderer;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.reference.SpellRune;
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
-import com.panzareon.spellcircles.utility.LogHelper;
-import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -17,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
 {
-    private double textureSize = 256.0;
-    private double runeScale = 1.0 / 16.0;
+    private final double textureSize = 256.0;
+    private final double runeScale = 1.0 / 16.0;
 
 
     private final ResourceLocation spellCircle1x1 = new ResourceLocation(Reference.MOD_ID, "textures/blocks/spell_circle1x1.png");

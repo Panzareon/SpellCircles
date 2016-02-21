@@ -3,7 +3,6 @@ package com.panzareon.spellcircles.spell.parts;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import com.panzareon.spellcircles.utility.LogHelper;
 
 public class SpellPartConstant extends SpellPart
 {
@@ -36,8 +35,7 @@ public class SpellPartConstant extends SpellPart
 
     @Override
     public SpellReturnTypes[] getReturnValueTypes() {
-        SpellReturnTypes[] ret = {SpellReturnTypes.NUMBER};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.NUMBER};
     }
 
     @Override

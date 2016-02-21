@@ -3,7 +3,6 @@ package com.panzareon.spellcircles.proxy;
 import com.panzareon.spellcircles.handler.OverlayHandler;
 import com.panzareon.spellcircles.init.ModBlocks;
 import com.panzareon.spellcircles.init.ModItems;
-import net.minecraft.client.Minecraft;
 
 public class ClientProxy extends CommonProxy
 {

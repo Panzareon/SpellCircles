@@ -50,14 +50,14 @@ public class SpellList
             if(spells.get(nameParts[0]) == null)
                 return null;
             ret = spells.get(nameParts[0]).getClass().newInstance();
+            if(nameParts.length > 1)
+            {
+                ret.additionalValues(nameParts[1]);
+            }
         }
         catch (Exception e)
         {
             LogHelper.error(e);
-        }
-        if(nameParts.length > 1)
-        {
-            ret.additionalValues(nameParts[1]);
         }
         return ret;
     }

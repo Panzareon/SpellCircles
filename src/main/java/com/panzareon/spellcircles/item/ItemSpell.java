@@ -6,12 +6,8 @@ import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.utility.SpellHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 

@@ -5,12 +5,11 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
 
 public class SpellPartMotion extends SpellPart
 {
-    private float AuraUse = 500f;
+    private final float AuraUse = 500f;
 
     @Override
     public String getSpellName()
@@ -33,8 +32,7 @@ public class SpellPartMotion extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.ACTION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.ACTION};
     }
 
     @Override

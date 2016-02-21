@@ -4,9 +4,7 @@ import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -49,26 +47,28 @@ public class SpellEnviron
     public void addSpellPart(String spell)
     {
         String[] SpellPartsString = spell.split(" ");
-        for(int i = 0; i < SpellPartsString.length; i++)
+        for (String aSpellPartsString : SpellPartsString)
         {
-            SpellPart part = SpellList.getSpellPart(SpellPartsString[i]);
-            if(part != null)
+            SpellPart part = SpellList.getSpellPart(aSpellPartsString);
+            if (part != null)
             {
                 part.setEnviron(this);
-                while (true) {
-                    if (spells.size() <= nextSpaceIndex) {
+                while (true)
+                {
+                    if (spells.size() <= nextSpaceIndex)
+                    {
                         spells.add(nextSpaceIndex, part);
                         break;
                     }
-                    if (spells.get(nextSpaceIndex).addChild(part)) {
+                    if (spells.get(nextSpaceIndex).addChild(part))
+                    {
                         break;
                     }
                     nextSpaceIndex++;
                 }
-            }
-            else
+            } else
             {
-                LogHelper.warn("No Spellpart with Name " + SpellPartsString[i]);
+                LogHelper.warn("No Spellpart with Name " + aSpellPartsString);
             }
         }
     }
@@ -144,9 +144,7 @@ public class SpellEnviron
 
     public boolean isFinished()
     {
-        if(spells.size() == 0)
-            return false;
-        return spells.get(nextSpaceIndex).isFinished();
+        return spells.size() != 0 && spells.get(nextSpaceIndex).isFinished();
     }
     public String getSpellString()
     {

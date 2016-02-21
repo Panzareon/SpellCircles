@@ -2,7 +2,6 @@ package com.panzareon.spellcircles.client.gui;
 
 import com.panzareon.spellcircles.handler.ConfigurationHandler;
 import com.panzareon.spellcircles.reference.Reference;
-import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;

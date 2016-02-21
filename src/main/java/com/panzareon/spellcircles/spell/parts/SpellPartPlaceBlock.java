@@ -1,14 +1,10 @@
 package com.panzareon.spellcircles.spell.parts;
 
-import com.panzareon.spellcircles.block.BlockPlacingDefault;
 import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.init.ModBlocks;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -17,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SpellPartPlaceBlock extends SpellPart
 {
-    private float AuraUse = 50f;
+    private final float AuraUse = 50f;
 
     @Override
     public String getSpellName()
@@ -40,8 +36,7 @@ public class SpellPartPlaceBlock extends SpellPart
     @Override
     public SpellReturnTypes[] getReturnValueTypes()
     {
-        SpellReturnTypes[] ret = {SpellReturnTypes.ACTION};
-        return ret;
+        return new SpellReturnTypes[]{SpellReturnTypes.ACTION};
     }
 
     @Override
