@@ -42,6 +42,7 @@ public class SpellCircles
         ModSpell.init();
         PlayerHandler.init();
         ModRecipe.init();
+        ModEntity.init();
     }
 
     @Mod.EventHandler

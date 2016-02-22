@@ -6,6 +6,8 @@ import com.panzareon.spellcircles.spell.SpellEnviron;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -159,6 +161,26 @@ public class SpellHelper
                 double posZ = pos.getDouble("zPos");
                 environ.castPos = new Vec3(posX, posY, posZ);
             }
+            if(nbt.hasKey("blockHit"))
+            {
+                NBTTagCompound pos = nbt.getCompoundTag("blockHit");
+                int posX = pos.getInteger("xPos");
+                int posY = pos.getInteger("yPos");
+                int posZ = pos.getInteger("zPos");
+                environ.blockHit = new BlockPos(posX, posY, posZ);
+            }
+            if(nbt.hasKey("entityHit"))
+            {
+                NBTTagCompound entityHit = nbt.getCompoundTag("entityHit");
+                boolean isPlayer = entityHit.getBoolean("isPlayer");
+                long casterIdLS = entityHit.getLong("IdLS");
+                long casterIdMS = entityHit.getLong("IdMS");
+                UUID entityHitId = new UUID(casterIdMS, casterIdLS);
+                if(isPlayer)
+                    environ.entityHit = world.getPlayerEntityByUUID(entityHitId);
+                else
+                    environ.entityHit = MinecraftServer.getServer().getEntityFromUuid(entityHitId);
+            }
             if(nbt.hasKey("casterLS"))
             {
                 long casterIdLS = nbt.getLong("casterLS");
@@ -191,12 +213,33 @@ public class SpellHelper
         UUID casterId = environ.getCaster().getPersistentID();
         nbt.setLong("casterLS", casterId.getLeastSignificantBits());
         nbt.setLong("casterMS", casterId.getMostSignificantBits());
+        if(environ.blockHit != null)
+        {
+            NBTTagCompound pos = new NBTTagCompound();
+            int posX = environ.blockHit.getX();
+            int posY = environ.blockHit.getY();
+            int posZ = environ.blockHit.getZ();
+            pos.setInteger("xPos", posX);
+            pos.setInteger("yPos", posY);
+            pos.setInteger("zPos", posZ);
+            nbt.setTag("blockHit", pos);
+        }
+        if(environ.entityHit != null)
+        {
+            NBTTagCompound entityHit = new NBTTagCompound();
+            boolean isPlayer = environ.entityHit instanceof EntityPlayer;
+            UUID entityHitId = environ.entityHit.getPersistentID();
+            entityHit.setBoolean("isPlayer", isPlayer);
+            entityHit.setLong("IdLS", entityHitId.getLeastSignificantBits());
+            entityHit.setLong("IdMS", entityHitId.getMostSignificantBits());
+            nbt.setTag("entityHit", entityHit);
+        }
         nbt.setInteger("chargedAura", environ.chargedAura);
     }
 
     public static void onUpdate(NBTTagCompound mainNBT, boolean reset, SpellCastWith castWith, World world)
     {
-        if(mainNBT.hasKey(Reference.MOD_ID))
+        if(mainNBT != null && mainNBT.hasKey(Reference.MOD_ID))
         {
             NBTTagCompound scNBT = mainNBT.getCompoundTag(Reference.MOD_ID);
             if(scNBT.hasKey("toCastTime"))

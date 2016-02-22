@@ -32,5 +32,6 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartPlaceBlock());
 
         SpellList.registerSpell(new SpellPartCharge());
+        SpellList.registerSpell(new SpellPartThrowSpell());
     }
 }

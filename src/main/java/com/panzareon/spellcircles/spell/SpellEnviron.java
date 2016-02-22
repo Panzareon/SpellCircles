@@ -40,6 +40,16 @@ public class SpellEnviron
             addSpellPart(spell);
     }
 
+    public void setEnvironVariables(SpellEnviron se)
+    {
+        se.entityHit = entityHit;
+        se.blockHit = blockHit;
+        se.castWith = castWith;
+        se.caster = caster;
+        se.castPos = castPos;
+        se.chargedAura = chargedAura;
+    }
+
     public void setCaster(EntityPlayer casterEntity)
     {
         caster = casterEntity;
@@ -144,7 +154,9 @@ public class SpellEnviron
 
     public boolean isFinished()
     {
-        return spells.size() != 0 && spells.get(nextSpaceIndex).isFinished();
+        if(spells.size() == 0)
+            return false;
+        return spells.get(nextSpaceIndex).isFinished();
     }
     public String getSpellString()
     {
