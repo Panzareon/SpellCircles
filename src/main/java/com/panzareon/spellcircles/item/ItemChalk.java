@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 
 public class ItemChalk extends SpellCirclesItem
 {
+    private static int maxDamage = 64;
     public ItemChalk()
     {
         super();
@@ -98,5 +99,27 @@ public class ItemChalk extends SpellCirclesItem
 
         }
         return false;
+    }
+
+    @Override
+    public boolean hasContainerItem(ItemStack stack)
+    {
+        return true;
+    }
+
+    @Override
+    public ItemStack getContainerItem(ItemStack stack)
+    {
+        int dmg = stack.getItemDamage();
+        if (dmg == maxDamage) {
+            return new ItemStack(stack.getItem(), 0, maxDamage);
+        }
+        ItemStack tr = copyStack(stack, 1);
+        tr.setItemDamage(dmg + 1);
+        return tr;
+    }
+    public static ItemStack copyStack(ItemStack stack, int n)
+    {
+        return new ItemStack(stack.getItem(), n, stack.getItemDamage());
     }
 }
