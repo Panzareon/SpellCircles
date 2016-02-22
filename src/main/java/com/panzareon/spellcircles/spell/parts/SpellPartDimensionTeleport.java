@@ -2,6 +2,7 @@ package com.panzareon.spellcircles.spell.parts;
 
 
 import com.panzareon.spellcircles.dimension.TeleporterPocketDim;
+import com.panzareon.spellcircles.dimension.TeleporterSpawn;
 import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.init.ModDimension;
 import com.panzareon.spellcircles.spell.SpellPart;
@@ -70,7 +71,7 @@ public class SpellPartDimensionTeleport extends SpellPart
                                 manager.transferPlayerToDimension((EntityPlayerMP) e,dimensionId, new TeleporterPocketDim(worldTo, environ.getCaster()));
                             }
                             else
-                                manager.transferPlayerToDimension((EntityPlayerMP) e,dimensionId);
+                                manager.transferPlayerToDimension((EntityPlayerMP) e,dimensionId, new TeleporterSpawn(worldTo));
                         }
                         else
                         {
@@ -79,7 +80,7 @@ public class SpellPartDimensionTeleport extends SpellPart
                                 manager.transferEntityToWorld(e, dimensionId, (WorldServer) world, worldTo, new TeleporterPocketDim(worldTo, environ.getCaster()));
                             }
                             else
-                                manager.transferEntityToWorld(e, dimensionId, (WorldServer) world, worldTo);
+                                manager.transferEntityToWorld(e, dimensionId, (WorldServer) world, worldTo, new TeleporterSpawn(worldTo));
                         }
                     }
                 }

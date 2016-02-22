@@ -16,6 +16,10 @@ spell.spellcircles:pocket_dimension.name=Pocket Dimension
 spell.spellcircles:pocket_dimension.desc=Get Pocket Dimension
 spell.spellcircles:pocket_dimension.aurause=0
 
+spell.spellcircles:overworld.name=Overworld
+spell.spellcircles:overworld.desc=Get Overworld Dimension
+spell.spellcircles:overworld.aurause=0
+
 spell.spellcircles:constant.name=Constant
 spell.spellcircles:constant.desc=Get number given in argument
 spell.spellcircles:constant.aurause=0
