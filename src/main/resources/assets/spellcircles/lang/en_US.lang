@@ -12,6 +12,10 @@ spell.spellcircles:get_target.name=Get Target
 spell.spellcircles:get_target.desc=Get entity or block the spell was used on
 spell.spellcircles:get_target.aurause=0
 
+spell.spellcircles:pocket_dimension.name=Pocket Dimension
+spell.spellcircles:pocket_dimension.desc=Get Pocket Dimension
+spell.spellcircles:pocket_dimension.aurause=0
+
 spell.spellcircles:constant.name=Constant
 spell.spellcircles:constant.desc=Get number given in argument
 spell.spellcircles:constant.aurause=0
@@ -52,6 +56,12 @@ spell.spellcircles:add_motion.child1=Entity to accelerate
 spell.spellcircles:add_motion.child2=Direction
 spell.spellcircles:add_motion.child3=Speed
 spell.spellcircles:add_motion.aurause=Depends on Speed and distance to the entity
+
+spell.spellcircles:dimension_teleport.name=Dimension Teleport
+spell.spellcircles:dimension_teleport.desc=Teleports entity to dimension
+spell.spellcircles:dimension_teleport.child1=Entity
+spell.spellcircles:dimension_teleport.child2=Dimension
+spell.spellcircles:dimension_teleport.aurause=1000
 
 spell.spellcircles:stop_motion.name=Stop Motion
 spell.spellcircles:stop_motion.desc=Reduces motion of entity to 0
@@ -141,3 +151,4 @@ item.spellcircles:spell_rune.name=Spell Rune
 tile.spellcircles:placing_default.name=Placing Default
 tile.spellcircles:spell_circle.name=Spell Circle
 tile.spellcircles:discoverer.name=Discoverer
+tile.spellcircles:pocket_dim_wall.name=Pocket Dimension Wall

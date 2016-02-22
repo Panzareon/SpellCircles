@@ -48,6 +48,7 @@ public class SpellCircles
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
+        ModDimension.init();
 
     }
 }

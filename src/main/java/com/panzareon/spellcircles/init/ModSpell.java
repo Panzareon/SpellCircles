@@ -11,6 +11,7 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartCaster());
         SpellList.registerSpell(new SpellPartGetTarget());
         SpellList.registerSpell(new SpellPartConstant());
+        SpellList.registerSpell(new SpellPartPocketDimension());
         SpellList.registerSpell(new SpellPartDirectionSouth());
         SpellList.registerSpell(new SpellPartDirectionDown());
         SpellList.registerSpell(new SpellPartDirectionEast());
@@ -26,6 +27,7 @@ public class ModSpell
         //Actions
         SpellList.registerSpell(new SpellPartDamage());
         SpellList.registerSpell(new SpellPartMotion());
+        SpellList.registerSpell(new SpellPartDimensionTeleport());
         SpellList.registerSpell(new SpellPartStopMotion());
         SpellList.registerSpell(new SpellPartStopMotionInDirection());
         SpellList.registerSpell(new SpellPartBreakBlock());
