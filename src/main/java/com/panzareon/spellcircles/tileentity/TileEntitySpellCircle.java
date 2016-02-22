@@ -27,7 +27,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     public String spellText = "";
     public int radius;
     public float spellRotation = 0.0f;
-    public float spellRotationStep;
+    public float spellRotationStep = 0.001f;
     public float circleRotation = 0.0f;
     public float circleRotationStep;
     public boolean isCrafting = false;

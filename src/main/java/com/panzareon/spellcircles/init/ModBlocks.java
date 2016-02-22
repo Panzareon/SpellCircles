@@ -34,6 +34,7 @@ public class ModBlocks
         registerRender(spellCircle);
         registerRender(spellCircleGag);
         registerRender(discoverer);
+        registerRender(pocketDimWall);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpellCircle.class, new TileEntitySpellCircleRenderer());
     }
