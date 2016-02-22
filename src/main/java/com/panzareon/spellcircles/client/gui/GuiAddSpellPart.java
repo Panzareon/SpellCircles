@@ -12,9 +12,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import scala.actors.threadpool.Arrays;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GuiAddSpellPart extends GuiScreen
 {
@@ -45,8 +48,15 @@ public class GuiAddSpellPart extends GuiScreen
     private final int nrOfListElements = listHeight / listElementHeight;
     private final int listTextPosX = 2;
     private final int listTextPosY = 1;
-    private final int scrollPosition = 0;
+    private final int scrollBarWidth = 5;
+    private final int scrollBarHeight = 20;
+    private final int scrollBarU = 240;
+    private final int scrollBarV = 0;
+    private int scrollPosition = 0;
+    private boolean isScrolling = false;
+    private int scrollingClickPosY;
 
+    private final int selectedElementWidth = 104;
     private final int selectedElementU = 0;
     private final int selectedElementV = 169;
 
@@ -73,8 +83,10 @@ public class GuiAddSpellPart extends GuiScreen
     private String toAddDesc = "";
 
     private SpellPart[] possibleSpellParts;
+    //indexed matching search string
+    private ArrayList<SpellPart> searchMatches;
     private String nextSpellPartDesc = "";
-    private String[] possibleSpellPartsNames;
+    private ArrayList<String> searchMatchesNames;
     private boolean isFinished;
 
 
@@ -87,11 +99,15 @@ public class GuiAddSpellPart extends GuiScreen
     private void updateSpells()
     {
         possibleSpellParts = spellCircle.getPossibleNextSpellParts();
-        possibleSpellPartsNames = new String[possibleSpellParts.length];
-        for(int i = 0; i < possibleSpellPartsNames.length; i++)
+        searchMatches = new ArrayList<SpellPart>(Arrays.asList(possibleSpellParts));
+        searchMatchesNames = new ArrayList<String>();
+        for(int i = 0; i < searchMatches.size(); i++)
         {
-            possibleSpellPartsNames[i] = StatCollector.translateToLocal("spell." + Reference.MOD_ID.toLowerCase() + ":" + possibleSpellParts[i].getSpellId() + ".name");
+            searchMatchesNames.add(searchMatches.get(i).getLocalizedSpellId());
         }
+        search = "";
+        edit = "";
+        scrollPosition = 0;
         isFinished = spellCircle.getEnviron().isFinished();
         fullSpellText = spellCircle.getEnviron().getSpellString();
         SpellPart lastSpell = spellCircle.getEnviron().getLastNodeWithSpace();
@@ -112,7 +128,7 @@ public class GuiAddSpellPart extends GuiScreen
     {
         try
         {
-            SpellPart part = possibleSpellParts[spellPartToAdd].getClass().newInstance();
+            SpellPart part = searchMatches.get(spellPartToAdd).getClass().newInstance();
             if(hasSelectedElementAdditionalValues)
             {
                 part.additionalValues(edit);
@@ -138,10 +154,21 @@ public class GuiAddSpellPart extends GuiScreen
         //Draw Main Gui
         drawTexturedModalRect(guiX, guiY,0,0,guiWidth, guiHeight);
         //Draw Selected SpellPart Background
-        if(spellPartToAdd >= scrollPosition && spellPartToAdd < possibleSpellParts.length && spellPartToAdd < nrOfListElements + scrollPosition)
+        if(spellPartToAdd >= scrollPosition && spellPartToAdd < searchMatches.size() && spellPartToAdd < nrOfListElements + scrollPosition)
         {
-            drawTexturedModalRect(guiX + listPosX, guiY +  listPosY + (spellPartToAdd - scrollPosition) * listElementHeight, selectedElementU, selectedElementV, listWidth, listElementHeight);
+            drawTexturedModalRect(guiX + listPosX, guiY +  listPosY + (spellPartToAdd - scrollPosition) * listElementHeight, selectedElementU, selectedElementV, selectedElementWidth, listElementHeight);
         }
+        //Draw Scroll Bar
+        int posX = guiX + listPosX + listWidth - scrollBarWidth;
+        int posY = guiY + listPosY;
+        if(scrollPosition != 0 && searchMatches.size() >= scrollPosition + listHeight / listElementHeight)
+        {
+            int remainingHeight = listHeight - scrollBarHeight;
+            float pos = (float)scrollPosition / ((float)(searchMatches.size() - listHeight / listElementHeight));
+            LogHelper.info(pos);
+            posY += remainingHeight * pos;
+        }
+        drawTexturedModalRect(posX, posY,scrollBarU, scrollBarV, scrollBarWidth, scrollBarHeight);
         //Draw Disabled Edit Field
         if(!hasSelectedElementAdditionalValues)
         {
@@ -158,16 +185,11 @@ public class GuiAddSpellPart extends GuiScreen
         //Draw Possible Spell Names
         int xPos = guiX + listPosX + listTextPosX;
         int yPos = guiY + listPosY + listTextPosY;
-        int color;
         String SpellId;
-        for(int i = scrollPosition; i < possibleSpellParts.length && i < nrOfListElements + scrollPosition; i++)
+        for(int i = scrollPosition; i < searchMatches.size() && i < nrOfListElements + scrollPosition; i++)
         {
-            SpellId = possibleSpellPartsNames[i];
-            if(SpellId.toLowerCase().contains(search.toLowerCase()))
-                color = 0xFFFFFF;
-            else
-                color = 0xAAAAAA;
-            fontRendererObj.drawString(SpellId, xPos, yPos, color);
+            SpellId = searchMatchesNames.get(i);
+            fontRendererObj.drawString(SpellId, xPos, yPos, 0xFFFFFF);
             yPos += listElementHeight;
         }
         if(spellPartToAdd != -1)
@@ -229,25 +251,56 @@ public class GuiAddSpellPart extends GuiScreen
         int guiX = (width - guiWidth) / 2;
         int guiY = (height - guiHeight) /2;
         selectedTextfield = -1;
-        if(guiX + listPosX <= mouseX && mouseX <= guiX + listPosX + listWidth && guiY + listPosY <= mouseY && mouseY <= guiY + listPosY + listHeight)
+        if(guiX + listPosX <= mouseX && mouseX <= guiX + listPosX + listWidth - scrollBarWidth && guiY + listPosY <= mouseY && mouseY <= guiY + listPosY + listHeight)
         {
             //clicked in List
             int element = scrollPosition + (mouseY - guiY - listPosY) / listElementHeight;
-            if(possibleSpellParts.length > element)
+            if(searchMatches.size() > element)
             {
                 spellPartToAdd = element;
-                hasSelectedElementAdditionalValues = possibleSpellParts[spellPartToAdd].needAdditionalValues();
+                hasSelectedElementAdditionalValues = searchMatches.get(spellPartToAdd).needAdditionalValues();
                 okButton.enabled = !hasSelectedElementAdditionalValues;
                 toAddDesc = StatCollector.translateToLocal("spellDesc." + Reference.MOD_ID.toLowerCase() + ":aurause.name") + " ";
-                String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + possibleSpellParts[spellPartToAdd].getSpellId();
+                String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + searchMatches.get(spellPartToAdd).getSpellId();
                 toAddDesc += StatCollector.translateToLocal(prefix + ".aurause") + "\n";
                 toAddDesc += StatCollector.translateToLocal(prefix + ".desc") + "\n";
-                for(int i = 1; i <= possibleSpellParts[spellPartToAdd].getNrOfChildren(); i++)
+                for(int i = 1; i <= searchMatches.get(spellPartToAdd).getNrOfChildren(); i++)
                 {
                     toAddDesc += StatCollector.translateToLocalFormatted("spellDesc." + Reference.MOD_ID.toLowerCase() + ":child.name", i) + " ";
                     toAddDesc += StatCollector.translateToLocal(prefix + ".child" + String.valueOf(i)) + "\n";
                 }
             }
+        }
+        else if(guiX + listPosX + listWidth - scrollBarWidth <= mouseX && mouseX <= guiX + listPosX + listWidth && guiY + listPosY <= mouseY && mouseY <= guiY + listPosY + listHeight)
+        {
+            int maxScrollPos = searchMatches.size() - listHeight / listElementHeight;
+            int posY = guiY + listPosY;
+            if(scrollPosition != 0 && searchMatches.size() >= scrollPosition + listHeight / listElementHeight)
+            {
+                int remainingHeight = listHeight - scrollBarHeight;
+                float pos = (float)scrollPosition / ((float) maxScrollPos);
+                posY += remainingHeight * pos;
+            }
+            if(mouseY < posY)
+            {
+                scrollPosition -= 5;
+                if(scrollPosition < 0)
+                    scrollPosition = 0;
+            }
+            else if(mouseY > posY + scrollBarHeight)
+            {
+                scrollPosition += 5;
+                if(scrollPosition > maxScrollPos)
+                {
+                    scrollPosition = maxScrollPos;
+                }
+            }
+            else
+            {
+                scrollingClickPosY = mouseY - posY;
+                isScrolling = true;
+            }
+
         }
         else if(guiX + searchBarPosX <= mouseX && mouseX <= guiX + searchBarPosX + searchBarWidth && guiY + searchBarPosY <= mouseY && mouseY <= guiY + searchBarPosY + searchBarHeight)
         {
@@ -258,6 +311,64 @@ public class GuiAddSpellPart extends GuiScreen
             if(hasSelectedElementAdditionalValues)
                 selectedTextfield = 1;
         }
+    }
+
+    @Override
+    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
+    {
+        super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        if(isScrolling)
+        {
+            int maxScrollPos = searchMatches.size() - listHeight / listElementHeight;
+            int guiY = (height - guiHeight) /2;
+            int listY = guiY + listPosY;
+            int scrollBarToPlace = mouseY - listY - scrollingClickPosY;
+            if(scrollBarToPlace <= 0)
+            {
+                scrollPosition = 0;
+            }
+            else if(scrollBarToPlace >= listHeight - scrollBarHeight)
+            {
+                scrollPosition = maxScrollPos;
+            }
+            else
+            {
+                float pos = ((float)scrollBarToPlace) / (listHeight - scrollBarHeight);
+                scrollPosition = (int)(maxScrollPos * pos);
+            }
+        }
+    }
+
+    @Override
+    public void handleMouseInput() throws IOException
+    {
+        super.handleMouseInput();
+        int wheelState = Mouse.getEventDWheel();
+        if (wheelState != 0 && !isScrolling)
+        {
+            if(wheelState > 0)
+            {
+                if(scrollPosition > 0)
+                {
+                    scrollPosition--;
+                }
+            }
+            else
+            {
+                int maxScrollPos = searchMatches.size() - listHeight / listElementHeight;
+                if(scrollPosition < maxScrollPos)
+                {
+                    scrollPosition++;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void mouseReleased(int mouseX, int mouseY, int state)
+    {
+        super.mouseReleased(mouseX, mouseY, state);
+        isScrolling = false;
     }
 
     @Override
@@ -287,7 +398,26 @@ public class GuiAddSpellPart extends GuiScreen
             }
             if (selectedTextfield == 0)
             {
+                scrollPosition = 0;
+                SpellPart toAdd = null;
+                if(spellPartToAdd != -1)
+                    toAdd = searchMatches.get(spellPartToAdd);
                 search = toEdit;
+                searchMatches = new ArrayList<SpellPart>();
+                searchMatchesNames = new ArrayList<String>();
+                for(int i = 0; i < possibleSpellParts.length; i++)
+                {
+                    String nextString = possibleSpellParts[i].getLocalizedSpellId();
+                    if(nextString.toLowerCase().contains(search.toLowerCase()))
+                    {
+                        searchMatchesNames.add(nextString);
+                        searchMatches.add(possibleSpellParts[i]);
+                        if(toAdd == possibleSpellParts[i])
+                        {
+                            spellPartToAdd = searchMatches.size() - 1;
+                        }
+                    }
+                }
             }
             else if (selectedTextfield == 1)
             {

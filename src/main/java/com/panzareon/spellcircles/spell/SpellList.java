@@ -63,15 +63,19 @@ public class SpellList
     }
     public static SpellPart[] getSpellWithReturnType(SpellReturnTypes[] types)
     {
-        HashSet<SpellPart> ret = new HashSet<SpellPart>();
+        HashSet<SpellPart> set = new HashSet<SpellPart>();
         for(SpellReturnTypes type: types)
         {
-            ret.addAll(spellsByReturnType.get(type));
+            set.addAll(spellsByReturnType.get(type));
         }
+        ArrayList<SpellPart> ret = new ArrayList<SpellPart>(set);
+        Collections.sort(ret);
         return ret.toArray(new SpellPart[ret.size()]);
     }
     public static SpellPart[] getSpellWithReturnType(SpellReturnTypes type)
     {
-        return  spellsByReturnType.get(type).toArray(new SpellPart[spellsByReturnType.get(type).size()]);
+        ArrayList<SpellPart> ret = new ArrayList<SpellPart>(spellsByReturnType.get(type));
+        Collections.sort(ret);
+        return ret.toArray(new SpellPart[ret.size()]);
     }
 }

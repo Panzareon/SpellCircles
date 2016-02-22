@@ -1,9 +1,11 @@
 package com.panzareon.spellcircles.spell;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
+import net.minecraft.util.StatCollector;
 
-public abstract class SpellPart
+public abstract class SpellPart implements Comparable<SpellPart>
 {
     protected SpellPart[] children;
     protected SpellEnviron environ;
@@ -25,6 +27,10 @@ public abstract class SpellPart
         return null;
     }
 
+    public String getLocalizedSpellId()
+    {
+        return StatCollector.translateToLocal("spell." + Reference.MOD_ID.toLowerCase() + ":" + this.getSpellId() + ".name");
+    }
 
 
     protected abstract SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException;
@@ -32,6 +38,13 @@ public abstract class SpellPart
     public void setEnviron(SpellEnviron env)
     {
         environ = env;
+        for(SpellPart child : children)
+        {
+            if(child != null)
+            {
+                child.setEnviron(env);
+            }
+        }
     }
 
     public void additionalValues(String value)
@@ -144,5 +157,11 @@ public abstract class SpellPart
 
         //else this and the last child are full -> no Space
         return null;
+    }
+
+    @Override
+    public int compareTo(SpellPart o)
+    {
+        return getLocalizedSpellId().compareTo(o.getLocalizedSpellId());
     }
 }
