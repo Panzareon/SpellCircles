@@ -181,6 +181,10 @@ public class SpellHelper
                 else
                     environ.entityHit = MinecraftServer.getServer().getEntityFromUuid(entityHitId);
             }
+            if(nbt.hasKey("numberOfCasts"))
+            {
+                environ.numberOfCasts = nbt.getInteger("numberOfCasts");
+            }
             if(nbt.hasKey("casterLS"))
             {
                 long casterIdLS = nbt.getLong("casterLS");
@@ -233,6 +237,10 @@ public class SpellHelper
             entityHit.setLong("IdLS", entityHitId.getLeastSignificantBits());
             entityHit.setLong("IdMS", entityHitId.getMostSignificantBits());
             nbt.setTag("entityHit", entityHit);
+        }
+        if(environ.numberOfCasts != 0)
+        {
+            nbt.setInteger("numberOfCasts", environ.numberOfCasts);
         }
         nbt.setInteger("chargedAura", environ.chargedAura);
     }

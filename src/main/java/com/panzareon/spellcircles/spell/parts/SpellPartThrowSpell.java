@@ -43,7 +43,7 @@ public class SpellPartThrowSpell extends SpellPart
         EntityPlayer player = environ.getCaster();
         World world = player.worldObj;
 
-        SpellEnviron environ1 = new SpellEnviron(children[0]);
+        SpellEnviron environ1 = new SpellEnviron(children[0].getSpellString());
         environ.setEnvironVariables(environ1);
 
         EntityThrowSpell throwSpell = new EntityThrowSpell(world, player, environ1);

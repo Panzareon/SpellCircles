@@ -93,12 +93,40 @@ spell.spellcircles:move_positions.child2=Direction
 spell.spellcircles:move_positions.child3=Distance
 spell.spellcircles:move_positions.aurause=0
 
+spell.spellcircles:set_day.name=Set Day
+spell.spellcircles:set_day.desc=Change time in the world to day
+spell.spellcircles:set_day.aurause=1100 Aura
+
+spell.spellcircles:set_night.name=Set Night
+spell.spellcircles:set_night.desc=Change time in the world to night
+spell.spellcircles:set_night.aurause=1100 Aura
+
+spell.spellcircles:call_rain.name=Call Rain
+spell.spellcircles:call_rain.desc=Changes weather to rain
+spell.spellcircles:call_rain.aurause=1100 Aura
+
+spell.spellcircles:clear_weather.name=Clear Weather
+spell.spellcircles:clear_weather.desc=Stops rain
+spell.spellcircles:clear_weather.aurause=1100 Aura
+
 
 spell.spellcircles:charge.name=Charge
 spell.spellcircles:charge.desc=Charges for some time and then cast the Action with less Aurause
 spell.spellcircles:charge.child1=Seconds to charge
 spell.spellcircles:charge.child2=Action after charge
 spell.spellcircles:charge.aurause=0
+
+spell.spellcircles:throw_spell.name=Throw Spell
+spell.spellcircles:throw_spell.desc=Throw the spell, Get Target gives entity or block hit
+spell.spellcircles:throw_spell.child1=Action when something is hit
+spell.spellcircles:throw_spell.aurause=0
+
+spell.spellcircles:x_times.name=X Times
+spell.spellcircles:x_times.desc=Casts a spell multiple times
+spell.spellcircles:x_times.child1=Number of casts
+spell.spellcircles:x_times.child2=Time between casts
+spell.spellcircles:x_times.child3=Action that is casted each time
+spell.spellcircles:x_times.aurause=0
 
 
 

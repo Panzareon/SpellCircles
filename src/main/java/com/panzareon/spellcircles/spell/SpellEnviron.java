@@ -18,6 +18,7 @@ public class SpellEnviron
     public SpellCastWith castWith;
     public Entity entityHit;
     public BlockPos blockHit;
+    public int numberOfCasts;
 
     public int chargedAura = 0;
     protected ArrayList<SpellPart> spells;

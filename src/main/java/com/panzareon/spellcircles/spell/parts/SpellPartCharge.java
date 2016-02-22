@@ -55,7 +55,7 @@ public class SpellPartCharge extends SpellPart
             float timeTicks = time * 20;
             if(timeTicks >= 1)
             {
-                SpellEnviron environ1 = new SpellEnviron(children[1]);
+                SpellEnviron environ1 = new SpellEnviron(children[1].getSpellString());
                 environ.setEnvironVariables(environ1);
                 environ1.chargedAura = (int)(chargeAuraMult * Math.sqrt(timeTicks));
                 environ.castWith.setSpellToCall(environ1,(int)timeTicks);

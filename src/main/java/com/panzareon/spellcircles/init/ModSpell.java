@@ -30,8 +30,13 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartStopMotionInDirection());
         SpellList.registerSpell(new SpellPartBreakBlock());
         SpellList.registerSpell(new SpellPartPlaceBlock());
+        SpellList.registerSpell(new SpellPartSetDay());
+        SpellList.registerSpell(new SpellPartSetNight());
+        SpellList.registerSpell(new SpellPartCallRain());
+        SpellList.registerSpell(new SpellPartClearWeather());
 
         SpellList.registerSpell(new SpellPartCharge());
         SpellList.registerSpell(new SpellPartThrowSpell());
+        SpellList.registerSpell(new SpellPartXTimes());
     }
 }
