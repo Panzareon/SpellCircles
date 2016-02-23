@@ -30,6 +30,19 @@ spell.spellcircles:damage.child1=Entity to damage
 spell.spellcircles:damage.child2=Amount of damage
 spell.spellcircles:damage.aurause=Depends on amount of damage and distance to the entity
 
+spell.spellcircles:enhance_bare_fist.name=Enhance Bare Fist
+spell.spellcircles:enhance_bare_fist.desc=Increases damage of the next attack without a item within the next 10 Seconds
+spell.spellcircles:enhance_bare_fist.child1=Entity to enhance
+spell.spellcircles:enhance_bare_fist.child2=Amount of damage
+spell.spellcircles:enhance_bare_fist.aurause=Depends on amount of damage and distance to the entity
+
+spell.spellcircles:slowness.name=Slowness
+spell.spellcircles:slowness.desc=Slows the movementspeed of an entity
+spell.spellcircles:slowness.child1=Entity to slow
+spell.spellcircles:slowness.child2=Strength of slow
+spell.spellcircles:slowness.child3=Duration of slow
+spell.spellcircles:slowness.aurause=Depends on strength, duration of slow and distance to the entity
+
 spell.spellcircles:direction_down.name=Direction Down
 spell.spellcircles:direction_down.desc=Get direction downwards
 spell.spellcircles:direction_down.aurause=0
@@ -143,6 +156,8 @@ spell.spellcircles:x_times.child3=Action that is casted each time
 spell.spellcircles:x_times.aurause=0
 
 
+#Potion
+spellcircles:potion.enhance_bare_fist.name=Enhance Bare Fist
 
 #Creative Tabs
 itemGroup.spellcircles=Spell Circles

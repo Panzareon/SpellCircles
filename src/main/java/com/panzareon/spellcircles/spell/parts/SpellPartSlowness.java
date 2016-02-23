@@ -1,31 +1,32 @@
 package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.init.ModPotions;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import com.panzareon.spellcircles.utility.MagicDamageSource;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
 
-public class SpellPartDamage extends SpellPart
+public class SpellPartSlowness extends SpellPart
 {
-    private final float AuraUse = 100f;
+    private final float AuraUse = 1.0f;
 
     @Override
     public String getSpellName() {
-        return "SKFZ";
+        return "SNDGB";
     }
 
     @Override
     public String getSpellId() {
-        return "damage";
+        return "slowness";
     }
 
     @Override
     public int getNrOfChildren() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -37,25 +38,30 @@ public class SpellPartDamage extends SpellPart
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException {
         int nr = childValues[0].getEntityLength();
         int nr2 = childValues[1].getNumberLength();
-        if(nr > 0 && nr2 > 0)
+        int nr3 = childValues[2].getNumberLength();
+        if(nr > 0 && nr2 > 0 && nr3 > 0)
         {
             if(nr < nr2)
                 nr = nr2;
+            if(nr < nr3)
+                nr = nr3;
             Vec3 castPos = environ.getCastPosition();
             float auraMultiplier;
-            float dmg;
-            Entity target;
+            float slowStrength;
+            EntityLivingBase target;
+            int effectDuration;
             for(int i = 0; i < nr; i++)
             {
-                dmg = childValues[1].getNumber(i);
-                target = childValues[0].getEntity(i);
-                if(target == null || dmg <= 0)
+                slowStrength = (float) Math.floor(childValues[1].getNumber(i));
+                target = (EntityLivingBase) childValues[0].getEntity(i);
+                effectDuration = (int)(childValues[2].getNumber(i) * 20);
+                if(target == null || slowStrength <= 0 || effectDuration <= 0)
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*slowStrength*effectDuration)))
                 {
-                    target.attackEntityFrom(new MagicDamageSource(environ.getCaster()),dmg);
+                    target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), effectDuration, (int) slowStrength));
                 }
                 else
                 {
@@ -74,6 +80,10 @@ public class SpellPartDamage extends SpellPart
             return SpellReturnTypes.ENTITY;
         }
         else if(childId == 1)
+        {
+            return SpellReturnTypes.NUMBER;
+        }
+        else if(childId == 2)
         {
             return SpellReturnTypes.NUMBER;
         }

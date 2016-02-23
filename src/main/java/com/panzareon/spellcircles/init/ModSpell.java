@@ -38,6 +38,9 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartCallRain());
         SpellList.registerSpell(new SpellPartClearWeather());
 
+        SpellList.registerSpell(new SpellPartEnhanceBareFist());
+        SpellList.registerSpell(new SpellPartSlowness());
+
         SpellList.registerSpell(new SpellPartCharge());
         SpellList.registerSpell(new SpellPartThrowSpell());
         SpellList.registerSpell(new SpellPartXTimes());
