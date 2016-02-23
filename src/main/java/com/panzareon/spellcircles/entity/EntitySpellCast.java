@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.entity;
 
+import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
@@ -66,10 +67,24 @@ public class EntitySpellCast extends Entity implements IEntityAdditionalSpawnDat
         if(environ != null)
         {
             environ.castWith = new SpellCastWith(this);
-            environ.cast();
+            try
+            {
+                environ.cast();
+            }
+            catch(MissingAuraException ex)
+            {
+                this.setDead();
+            }
             environ = null;
         }
-        SpellHelper.onUpdate(getEntityData(), false, new SpellCastWith(this), worldObj);
+        try
+        {
+            SpellHelper.onUpdate(getEntityData(), false, new SpellCastWith(this), worldObj);
+        }
+        catch(MissingAuraException ex)
+        {
+            this.setDead();
+        }
         if(!worldObj.isRemote)
             checkStillCasting();
     }

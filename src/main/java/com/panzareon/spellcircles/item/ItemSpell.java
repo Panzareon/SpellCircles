@@ -1,6 +1,7 @@
 package com.panzareon.spellcircles.item;
 
 
+import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
@@ -48,7 +49,14 @@ public class ItemSpell extends SpellCirclesItem
     {
         if(stack.hasTagCompound())
         {
-            SpellHelper.onUpdate(stack.getTagCompound(), !isSelected, new SpellCastWith(stack), worldIn);
+            try
+            {
+                SpellHelper.onUpdate(stack.getTagCompound(), !isSelected, new SpellCastWith(stack), worldIn);
+            }
+            catch(MissingAuraException ex)
+            {
+                SpellHelper.resetSpellCasting(stack.getTagCompound());
+            }
         }
     }
 

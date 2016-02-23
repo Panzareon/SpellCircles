@@ -101,7 +101,7 @@ public class SpellEnviron
         }
     }
 
-    public void cast()
+    public void cast() throws MissingAuraException
     {
         if(caster != null)
         {
@@ -113,6 +113,7 @@ public class SpellEnviron
             catch (MissingAuraException ex)
             {
                 LogHelper.info("Not enough Aura for Spellpart: " + ex.spellPart.getSpellId());
+                throw ex;
             }
         }
     }
@@ -186,7 +187,14 @@ public class SpellEnviron
     {
         if(castPos == null)
         {
-            return caster.getPositionVector();
+            if(castWith.isEntity())
+            {
+                return castWith.getEntity().getPositionVector();
+            }
+            else
+            {
+                return caster.getPositionVector();
+            }
         }
         return castPos;
     }

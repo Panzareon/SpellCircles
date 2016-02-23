@@ -18,6 +18,24 @@ public class SpellCastWith
     {
         entity = e;
     }
+    public boolean isItem()
+    {
+        return item != null;
+    }
+
+    public boolean isEntity()
+    {
+        return entity != null;
+    }
+
+    public Entity getEntity()
+    {
+        return entity;
+    }
+    public ItemStack getItem()
+    {
+        return item;
+    }
 
     public void setSpellToCall(SpellEnviron environ, int ticks)
     {

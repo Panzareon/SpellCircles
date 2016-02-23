@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.item;
 
+import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,7 +28,14 @@ public class ItemSpellRune extends ItemSpell
             environ.setCaster(playerIn);
             environ.castWith = new SpellCastWith(stack);
             environ.blockHit = pos;
-            environ.cast();
+            try
+            {
+                environ.cast();
+            }
+            catch(MissingAuraException ex)
+            {
+                //NOOP
+            }
         }
         return true;
     }
@@ -40,7 +48,14 @@ public class ItemSpellRune extends ItemSpell
         {
             environ.setCaster(playerIn);
             environ.castWith = new SpellCastWith(itemStackIn);
-            environ.cast();
+            try
+            {
+                environ.cast();
+            }
+            catch(MissingAuraException ex)
+            {
+                //NOOP
+            }
         }
         return itemStackIn;
     }
@@ -54,7 +69,14 @@ public class ItemSpellRune extends ItemSpell
             environ.setCaster(playerIn);
             environ.castWith = new SpellCastWith(stack);
             environ.entityHit = target;
-            environ.cast();
+            try
+            {
+                environ.cast();
+            }
+            catch(MissingAuraException ex)
+            {
+                //NOOP
+            }
         }
         return true;
     }

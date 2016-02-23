@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.utility;
 
+import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
@@ -79,7 +80,7 @@ public class SpellHelper
         }
     }
 
-    public static void callAdditionalSpell(NBTTagCompound mainNBT, SpellCastWith castWith, World world)
+    public static void callAdditionalSpell(NBTTagCompound mainNBT, SpellCastWith castWith, World world) throws MissingAuraException
     {
         if(mainNBT.hasKey(Reference.MOD_ID))
         {
@@ -245,7 +246,7 @@ public class SpellHelper
         nbt.setInteger("chargedAura", environ.chargedAura);
     }
 
-    public static void onUpdate(NBTTagCompound mainNBT, boolean reset, SpellCastWith castWith, World world)
+    public static void onUpdate(NBTTagCompound mainNBT, boolean reset, SpellCastWith castWith, World world) throws MissingAuraException
     {
         if(mainNBT != null && mainNBT.hasKey(Reference.MOD_ID))
         {
