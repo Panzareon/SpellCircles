@@ -1,7 +1,6 @@
 package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
-import com.panzareon.spellcircles.init.ModPotions;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
@@ -10,18 +9,18 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
 
-public class SpellPartSlowness extends SpellPart
+public class SpellPartEnhanceTool extends SpellPart
 {
     private final float AuraUse = 1.0f;
 
     @Override
     public String getSpellName() {
-        return "SNDGB";
+        return "PEBKI";
     }
 
     @Override
     public String getSpellId() {
-        return "slowness";
+        return "enhance_tool";
     }
 
     @Override
@@ -47,21 +46,21 @@ public class SpellPartSlowness extends SpellPart
                 nr = nr3;
             Vec3 castPos = environ.getCastPosition();
             float auraMultiplier;
-            float slowStrength;
+            float enhanceStrength;
             EntityLivingBase target;
             int effectDuration;
             for(int i = 0; i < nr; i++)
             {
-                slowStrength = (float) Math.floor(childValues[1].getNumber(i));
+                enhanceStrength = (float) Math.floor(childValues[1].getNumber(i));
                 target = (EntityLivingBase) childValues[0].getEntity(i);
                 effectDuration = (int)(childValues[2].getNumber(i) * 20);
-                if(target == null || slowStrength <= 0 || effectDuration < 20)
+                if(target == null || enhanceStrength <= 0 || effectDuration < 20)
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*slowStrength*effectDuration)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*enhanceStrength*effectDuration)))
                 {
-                    target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), effectDuration, (int) slowStrength));
+                    target.addPotionEffect(new PotionEffect(Potion.digSpeed.getId(), effectDuration, (int) enhanceStrength));
                 }
                 else
                 {

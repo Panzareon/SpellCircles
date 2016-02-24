@@ -48,6 +48,20 @@ spell.spellcircles:enhance_bare_fist.child1=Entity to enhance
 spell.spellcircles:enhance_bare_fist.child2=Duration
 spell.spellcircles:enhance_bare_fist.aurause=Depends on duration and distance to the entity
 
+spell.spellcircles:enhance_weapon.name=Enhance Weapon
+spell.spellcircles:enhance_weapon.desc=Increases damage of melee Weapons
+spell.spellcircles:enhance_weapon.child1=Entity to enhance
+spell.spellcircles:enhance_weapon.child2=Strenght of enhancement
+spell.spellcircles:enhance_weapon.child3=Duration
+spell.spellcircles:enhance_weapon.aurause=Depends on duration, strength and distance to the entity
+
+spell.spellcircles:enhance_weapon.name=Enhance Tool
+spell.spellcircles:enhance_weapon.desc=Increases digging Speed
+spell.spellcircles:enhance_weapon.child1=Entity to enhance
+spell.spellcircles:enhance_weapon.child2=Strenght of enhancement
+spell.spellcircles:enhance_weapon.child3=Duration
+spell.spellcircles:enhance_weapon.aurause=Depends on duration, strength and distance to the entity
+
 spell.spellcircles:slowness.name=Slowness
 spell.spellcircles:slowness.desc=Slows the movement speed of an entity
 spell.spellcircles:slowness.child1=Entity to slow
