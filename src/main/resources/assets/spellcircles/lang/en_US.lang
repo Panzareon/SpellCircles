@@ -158,6 +158,10 @@ spell.spellcircles:call_rain.name=Call Rain
 spell.spellcircles:call_rain.desc=Changes weather to rain
 spell.spellcircles:call_rain.aurause=1100 Aura
 
+spell.spellcircles:call_thunderstorm.name=Call Thunderstorm
+spell.spellcircles:call_thunderstorm.desc=Changes weather from rain to thunderstorm
+spell.spellcircles:call_thunderstorm.aurause=1100 Aura
+
 spell.spellcircles:clear_weather.name=Clear Weather
 spell.spellcircles:clear_weather.desc=Stops rain
 spell.spellcircles:clear_weather.aurause=1100 Aura

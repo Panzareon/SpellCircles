@@ -38,6 +38,7 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartSetDay());
         SpellList.registerSpell(new SpellPartSetNight());
         SpellList.registerSpell(new SpellPartCallRain());
+        SpellList.registerSpell(new SpellPartCallThunderstorm());
         SpellList.registerSpell(new SpellPartClearWeather());
 
         SpellList.registerSpell(new SpellPartEnhanceBareFist());
