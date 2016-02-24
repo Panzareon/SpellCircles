@@ -1,6 +1,7 @@
 package com.panzareon.spellcircles.init;
 
 import com.panzareon.spellcircles.spell.SpellList;
+import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.parts.*;
 
 public class ModSpell
@@ -19,6 +20,7 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartDirectionNorth());
         SpellList.registerSpell(new SpellPartDirectionUp());
         SpellList.registerSpell(new SpellPartDirectionWest());
+        SpellList.registerSpell(new SpellPartEntitiesInArea());
 
         //Operations
         SpellList.registerSpell(new SpellPartLookingAt());
@@ -39,6 +41,7 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartClearWeather());
 
         SpellList.registerSpell(new SpellPartEnhanceBareFist());
+        SpellList.registerSpell(new SpellPartEnhanceFoot());
         SpellList.registerSpell(new SpellPartSlowness());
 
         SpellList.registerSpell(new SpellPartCharge());

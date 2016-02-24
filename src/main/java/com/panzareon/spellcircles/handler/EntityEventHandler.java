@@ -98,5 +98,28 @@ public class EntityEventHandler
                 }
             }
         }
+        else if(event.source.damageType == "fall")
+        {
+            if(event.entityLiving.isPotionActive(ModPotions.enhanceFoot))
+            {
+                if(event.ammount <= 2)
+                {
+                    event.setCanceled(true);
+                }
+                else
+                {
+                    event.ammount -= 2;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityJump(LivingEvent.LivingJumpEvent event)
+    {
+        if(event.entityLiving.isPotionActive(ModPotions.enhanceFoot))
+        {
+            event.entityLiving.addVelocity(0.0, 0.2, 0.0);
+        }
     }
 }

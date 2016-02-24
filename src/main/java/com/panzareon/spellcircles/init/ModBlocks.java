@@ -43,7 +43,6 @@ public class ModBlocks
     {
         Item item = Item.getItemFromBlock(block);
         String unlocalizedName = item.getUnlocalizedName();
-        LogHelper.info(unlocalizedName.substring(unlocalizedName.indexOf(".") + 1));
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
                 item,
                 0,

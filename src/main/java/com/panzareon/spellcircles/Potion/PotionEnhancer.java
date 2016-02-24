@@ -1,8 +1,10 @@
 package com.panzareon.spellcircles.Potion;
 
 
-import net.minecraft.potion.Potion;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.UUID;
 
 public class PotionEnhancer extends PotionSpellCircles
 {
@@ -16,6 +18,10 @@ public class PotionEnhancer extends PotionSpellCircles
             case BARE_FIST:
                 setPotionName("enhanceBareFist");
                 break;
+            case FOOT:
+                setPotionName("enhanceFoot");
+                registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7b72a3d5-860a-4e22-8ffd-7341ea8d8f19", 0.5, 2);
+                break;
         }
     }
 
@@ -26,6 +32,6 @@ public class PotionEnhancer extends PotionSpellCircles
 
     public enum EnhanceTypes
     {
-        BARE_FIST
+        BARE_FIST, FOOT
     }
 }

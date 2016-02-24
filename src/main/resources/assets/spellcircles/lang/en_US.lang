@@ -8,6 +8,12 @@ spell.spellcircles:caster.name=Caster
 spell.spellcircles:caster.desc=Get entity of caster
 spell.spellcircles:caster.aurause=0
 
+spell.spellcircles:entities_in_area.name=Entities in Area
+spell.spellcircles:caster.desc=Get entity that are close to a position
+spell.spellcircles:caster.child1=Position to look at
+spell.spellcircles:caster.child2=Max distance to position
+spell.spellcircles:caster.aurause=0
+
 spell.spellcircles:get_target.name=Get Target
 spell.spellcircles:get_target.desc=Get entity or block the spell was used on
 spell.spellcircles:get_target.aurause=0
@@ -36,8 +42,14 @@ spell.spellcircles:enhance_bare_fist.child1=Entity to enhance
 spell.spellcircles:enhance_bare_fist.child2=Amount of damage
 spell.spellcircles:enhance_bare_fist.aurause=Depends on amount of damage and distance to the entity
 
+spell.spellcircles:enhance_bare_fist.name=Enhance Foot
+spell.spellcircles:enhance_bare_fist.desc=Increases movement speed and jump height
+spell.spellcircles:enhance_bare_fist.child1=Entity to enhance
+spell.spellcircles:enhance_bare_fist.child2=Duration
+spell.spellcircles:enhance_bare_fist.aurause=Depends on duration and distance to the entity
+
 spell.spellcircles:slowness.name=Slowness
-spell.spellcircles:slowness.desc=Slows the movementspeed of an entity
+spell.spellcircles:slowness.desc=Slows the movement speed of an entity
 spell.spellcircles:slowness.child1=Entity to slow
 spell.spellcircles:slowness.child2=Strength of slow
 spell.spellcircles:slowness.child3=Duration of slow
@@ -74,7 +86,7 @@ spell.spellcircles:add_motion.child2=Direction
 spell.spellcircles:add_motion.child3=Speed
 spell.spellcircles:add_motion.aurause=Depends on Speed and distance to the entity
 
-spell.spellcircles:dimension_teleport.name=Dimension Teleport
+spell.spellcircles:dimension_teleport.name=Dimension teleport
 spell.spellcircles:dimension_teleport.desc=Teleports entity to dimension
 spell.spellcircles:dimension_teleport.child1=Entity
 spell.spellcircles:dimension_teleport.child2=Dimension
@@ -158,6 +170,7 @@ spell.spellcircles:x_times.aurause=0
 
 #Potion
 spellcircles:potion.enhance_bare_fist.name=Enhance Bare Fist
+spellcircles:potion.enhance_foot.name=Enhance Foot
 
 #Creative Tabs
 itemGroup.spellcircles=Spell Circles

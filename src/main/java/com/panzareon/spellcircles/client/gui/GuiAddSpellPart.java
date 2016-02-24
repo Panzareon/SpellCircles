@@ -165,7 +165,6 @@ public class GuiAddSpellPart extends GuiScreen
         {
             int remainingHeight = listHeight - scrollBarHeight;
             float pos = (float)scrollPosition / ((float)(searchMatches.size() - listHeight / listElementHeight));
-            LogHelper.info(pos);
             posY += remainingHeight * pos;
         }
         drawTexturedModalRect(posX, posY,scrollBarU, scrollBarV, scrollBarWidth, scrollBarHeight);
