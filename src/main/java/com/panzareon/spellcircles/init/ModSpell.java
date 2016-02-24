@@ -42,8 +42,11 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartLightningBolt());
         SpellList.registerSpell(new SpellPartClearWeather());
 
+        SpellList.registerSpell(new SpellPartOverload());
         SpellList.registerSpell(new SpellPartEnhanceBareFist());
         SpellList.registerSpell(new SpellPartEnhanceFoot());
+        SpellList.registerSpell(new SpellPartEnhanceTool());
+        SpellList.registerSpell(new SpellPartEnhanceWeapon());
         SpellList.registerSpell(new SpellPartSlowness());
 
         SpellList.registerSpell(new SpellPartCharge());
