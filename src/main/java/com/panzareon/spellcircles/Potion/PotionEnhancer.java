@@ -16,10 +16,10 @@ public class PotionEnhancer extends PotionSpellCircles
         switch (type)
         {
             case BARE_FIST:
-                setPotionName("enhanceBareFist");
+                setPotionName("enhance_bare_fist");
                 break;
             case FOOT:
-                setPotionName("enhanceFoot");
+                setPotionName("enhance_foot");
                 registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7b72a3d5-860a-4e22-8ffd-7341ea8d8f19", 0.5, 2);
                 break;
         }

@@ -50,10 +50,18 @@ public class EntityEventHandler
             if(nbt.hasKey(Reference.MOD_ID))
             {
                 NBTTagCompound scNBT = (NBTTagCompound) nbt.getTag(Reference.MOD_ID);
-                int newAura = scNBT.getInteger("Aura");
-                newAura += ConfigurationHandler.auraRegen;
-                if(newAura > ConfigurationHandler.maxAura)
-                    newAura = ConfigurationHandler.maxAura;
+                int newAura;
+                if(player.isPotionActive(ModPotions.auraExhaust))
+                {
+                    newAura = 0;
+                }
+                else
+                {
+                    newAura = scNBT.getInteger("Aura");
+                    newAura += ConfigurationHandler.auraRegen;
+                    if(newAura > ConfigurationHandler.maxAura)
+                        newAura = ConfigurationHandler.maxAura;
+                }
                 scNBT.setInteger("Aura", newAura);
             }
         }
@@ -68,9 +76,9 @@ public class EntityEventHandler
             if(sourceEntity instanceof EntityLivingBase)
             {
                 EntityLivingBase livingEntity = (EntityLivingBase) sourceEntity;
-                if(livingEntity.getHeldItem() == null && livingEntity.getDistanceToEntity(sourceEntity) < 5.0f)
+                if(livingEntity.isPotionActive(ModPotions.enhanceBareFist))
                 {
-                    if(livingEntity.isPotionActive(ModPotions.enhanceBareFist))
+                    if(livingEntity.getHeldItem() == null && livingEntity.getDistanceToEntity(sourceEntity) < 5.0f)
                     {
                         PotionEffect effect = livingEntity.getActivePotionEffect(ModPotions.enhanceBareFist);
                         event.ammount += effect.getAmplifier();
@@ -110,6 +118,28 @@ public class EntityEventHandler
                 }
             }
         }
+        if(event.entityLiving.isPotionActive(ModPotions.overload))
+        {
+            if(event.source.damageType == "fall")
+            {
+                if(event.ammount <= 3)
+                {
+                    event.setCanceled(true);
+                }
+                else
+                {
+                    event.ammount -= 3;
+                }
+            }
+            if(event.ammount <= 1)
+            {
+                event.setCanceled(true);
+            }
+            else
+            {
+                event.ammount /= 2;
+            }
+        }
     }
 
     @SubscribeEvent
@@ -118,6 +148,10 @@ public class EntityEventHandler
         if(event.entityLiving.isPotionActive(ModPotions.enhanceFoot))
         {
             event.entityLiving.addVelocity(0.0, 0.2, 0.0);
+        }
+        else if(event.entityLiving.isPotionActive(ModPotions.overload))
+        {
+            event.entityLiving.addVelocity(0.0, 0.3, 0.0);
         }
     }
 }
