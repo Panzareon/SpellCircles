@@ -26,9 +26,12 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartLookingAt());
         SpellList.registerSpell(new SpellPartExpandPositionList());
         SpellList.registerSpell(new SpellPartMovePositions());
+        SpellList.registerSpell(new SpellPartSameBlocks());
 
         //Actions
         SpellList.registerSpell(new SpellPartDamage());
+        SpellList.registerSpell(new SpellPartHeal());
+        SpellList.registerSpell(new SpellPartRegeneration());
         SpellList.registerSpell(new SpellPartMotion());
         SpellList.registerSpell(new SpellPartDimensionTeleport());
         SpellList.registerSpell(new SpellPartStopMotion());
@@ -48,6 +51,7 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartEnhanceTool());
         SpellList.registerSpell(new SpellPartEnhanceWeapon());
         SpellList.registerSpell(new SpellPartSlowness());
+        SpellList.registerSpell(new SpellPartFreeze());
 
         SpellList.registerSpell(new SpellPartCharge());
         SpellList.registerSpell(new SpellPartThrowSpell());

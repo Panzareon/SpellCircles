@@ -57,6 +57,8 @@ public class SpellPartSlowness extends SpellPart
                 effectDuration = (int)(childValues[2].getNumber(i) * 20);
                 if(target == null || slowStrength <= 0 || effectDuration < 20)
                     continue;
+                if(slowStrength > 5)
+                    slowStrength = 5;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*slowStrength*effectDuration)))

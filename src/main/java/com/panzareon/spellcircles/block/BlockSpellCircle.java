@@ -105,7 +105,7 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
         {
             if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
             {
-                breakBlock(worldIn, pos, state);
+                worldIn.destroyBlock(pos, false);
             }
         }
     }

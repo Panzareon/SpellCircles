@@ -6,21 +6,22 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import com.panzareon.spellcircles.utility.MagicDamageSource;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
 
-public class SpellPartDamage extends SpellPart
+public class SpellPartHeal extends SpellPart
 {
     private final float AuraUse = 100f;
 
     @Override
     public String getSpellName() {
-        return "SKFZ";
+        return "GBNLO";
     }
 
     @Override
     public String getSpellId() {
-        return "damage";
+        return "heal";
     }
 
     @Override
@@ -43,19 +44,19 @@ public class SpellPartDamage extends SpellPart
                 nr = nr2;
             Vec3 castPos = environ.getCastPosition();
             float auraMultiplier;
-            float dmg;
-            Entity target;
+            float healAmount;
+            EntityLivingBase target;
             for(int i = 0; i < nr; i++)
             {
-                dmg = childValues[1].getNumber(i) * 2;
-                target = childValues[0].getEntity(i);
-                if(target == null || dmg <= 0)
+                healAmount = childValues[1].getNumber(i) * 2;
+                target = (EntityLivingBase) childValues[0].getEntity(i);
+                if(target == null || healAmount <= 0)
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*healAmount)))
                 {
-                    target.attackEntityFrom(new MagicDamageSource(environ.getCaster()),dmg);
+                    target.heal(healAmount);
                 }
                 else
                 {

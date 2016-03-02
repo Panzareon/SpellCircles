@@ -36,6 +36,19 @@ spell.spellcircles:damage.child1=Entity to damage
 spell.spellcircles:damage.child2=Amount of damage
 spell.spellcircles:damage.aurause=Depends on amount of damage and distance to the entity
 
+spell.spellcircles:heal.name=Heal
+spell.spellcircles:heal.desc=Heals an Entity
+spell.spellcircles:heal.child1=Entity to heal
+spell.spellcircles:heal.child2=Amount of hearts to heal
+spell.spellcircles:heal.aurause=Depends on amount and distance to the entity
+
+spell.spellcircles:regeneration.name=Regeneration
+spell.spellcircles:regeneration.desc=Potion effect regeneration
+spell.spellcircles:regeneration.child1=Entity to regenerate
+spell.spellcircles:regeneration.child2=Strength of regeneration
+spell.spellcircles:regeneration.child2=Duration
+spell.spellcircles:regeneration.aurause=Depends on strength, duration and distance to the entity
+
 spell.spellcircles:overload.name=Overload
 spell.spellcircles:overload.desc=Drastically increases physical abilities for 3 minutes but has negative effect on caster and target afterwards
 spell.spellcircles:overload.child1=Entity to enhance
@@ -73,6 +86,12 @@ spell.spellcircles:slowness.child1=Entity to slow
 spell.spellcircles:slowness.child2=Strength of slow
 spell.spellcircles:slowness.child3=Duration of slow
 spell.spellcircles:slowness.aurause=Depends on strength, duration of slow and distance to the entity
+
+spell.spellcircles:freeze.name=Freeze
+spell.spellcircles:freeze.desc=Prevent the movement of an entity
+spell.spellcircles:freeze.child1=Entity to freeze
+spell.spellcircles:freeze.child2=Duration of freeze
+spell.spellcircles:freeze.aurause=Depends on duration of freeze and distance to the entity
 
 spell.spellcircles:direction_down.name=Direction Down
 spell.spellcircles:direction_down.desc=Get direction downwards

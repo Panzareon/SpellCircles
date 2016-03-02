@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SpellPartBreakBlock extends SpellPart
 {
-    private final float AuraUse = 50f;
+    private final float AuraUse = 2f;
 
     @Override
     public String getSpellName()
@@ -63,7 +63,7 @@ public class SpellPartBreakBlock extends SpellPart
                 block = blockState.getBlock();
                 blockHardness = block.getBlockHardness(world,blockPos);
 
-                auraAdd = (float) castPos.squareDistanceTo(new Vec3(blockPos));
+                auraAdd = (float) castPos.squareDistanceTo(new Vec3(blockPos)) / 10;
                 if(environ.useAura((int) ((AuraUse + auraAdd)*blockHardness)))
                 {
                     world.destroyBlock(blockPos,true);
