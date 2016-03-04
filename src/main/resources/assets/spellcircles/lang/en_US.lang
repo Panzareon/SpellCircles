@@ -170,6 +170,11 @@ spell.spellcircles:move_positions.child2=Direction
 spell.spellcircles:move_positions.child3=Distance
 spell.spellcircles:move_positions.aurause=0
 
+spell.spellcircles:same_blocks.name=Same Blocks
+spell.spellcircles:same_blocks.desc=Get adjacent blocks if they are the same
+spell.spellcircles:same_blocks.child1=Block
+spell.spellcircles:same_blocks.aurause=0
+
 spell.spellcircles:set_day.name=Set Day
 spell.spellcircles:set_day.desc=Change time in the world to day
 spell.spellcircles:set_day.aurause=1100 Aura

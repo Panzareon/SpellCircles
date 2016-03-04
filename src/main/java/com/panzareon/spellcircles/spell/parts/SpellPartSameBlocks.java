@@ -46,52 +46,55 @@ public class SpellPartSameBlocks extends SpellPart
         LinkedHashSet<BlockPos> positions = new LinkedHashSet<BlockPos>();
         int nr = childValues[0].getBlockLength();
         BlockPos pos;
-        IBlockState state;
         World world = environ.getCaster().worldObj;
-        Block compareTo;
-        Block block;
+        IBlockState compareTo;
         BlockPos posAtm;
-        int distance;
 
         for(int i = 0; i < nr; i++)
         {
             pos = childValues[0].getBlock(i);
-            compareTo = world.getBlockState(pos).getBlock();
-            if(pos == null)
+            compareTo = world.getBlockState(pos);
+            if (pos == null)
                 continue;
             //Did it this way to output from the first specified Block outwards
-            for(int y = 0; y < 7; y++)
+            for (int z = 0; z < 3; z++)
             {
-                posAtm = pos;
-                if(y == 1)
+                for (int y = 0; y < 9; y++)
                 {
-                    posAtm.east();
-                }
-                else if(y == 2)
-                {
-                    posAtm.west();
-                }
-                if(y == 3)
-                {
-                    posAtm.north();
-                }
-                else if(y == 4)
-                {
-                    posAtm.south();
-                }
-                if(y == 5)
-                {
-                    posAtm.up();
-                }
-                else if(y == 6)
-                {
-                    posAtm.down();
-                }
+                    posAtm = pos;
+                    if(y > 0)
+                    {
+                        if (y % 4 == 1 || y == 7)
+                        {
+                            posAtm = posAtm.east();
+                        }
+                        else if (y % 4 == 2 || y == 8)
+                        {
+                            posAtm =  posAtm.west();
+                        }
 
-                state = world.getBlockState(posAtm);
-                if(state.getBlock() == compareTo)
-                {
-                    positions.add(posAtm);
+                        if (y % 4 == 3 || y == 6)
+                        {
+                            posAtm = posAtm.north();
+                        }
+                        else if (y % 4 == 0 || y == 5)
+                        {
+                            posAtm = posAtm.south();
+                        }
+                    }
+                    if (z == 1)
+                    {
+                        posAtm = posAtm.up();
+                    }
+                    else if (z == 2)
+                    {
+                        posAtm = posAtm.down();
+                    }
+
+                    if (world.getBlockState(posAtm) == compareTo)
+                    {
+                        positions.add(posAtm);
+                    }
                 }
             }
         }

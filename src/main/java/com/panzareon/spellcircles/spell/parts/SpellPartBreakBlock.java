@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SpellPartBreakBlock extends SpellPart
 {
-    private final float AuraUse = 2f;
+    private final float AuraUse = 15f;
 
     @Override
     public String getSpellName()
