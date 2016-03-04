@@ -26,6 +26,7 @@ public class EntitySpellCast extends Entity implements IEntityAdditionalSpawnDat
     {
         super(worldIn);
         environ = spellEnviron;
+        environ.addToCastOrigin(this);
     }
 
     @Override
@@ -120,5 +121,23 @@ public class EntitySpellCast extends Entity implements IEntityAdditionalSpawnDat
         {
             LogHelper.error(ex);
         }
+    }
+
+    @Override
+    public void onChunkLoad()
+    {
+        super.onChunkLoad();
+        //Check if Origin stopped casting while this entity was unloaded
+        if(!environ.originStillCasting(this))
+        {
+            setDead();
+        }
+    }
+
+    @Override
+    public void setDead()
+    {
+        super.setDead();
+        environ.removeFromCastOrigin(this);
     }
 }

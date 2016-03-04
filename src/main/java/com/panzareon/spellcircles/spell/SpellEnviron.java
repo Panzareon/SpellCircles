@@ -1,10 +1,17 @@
 package com.panzareon.spellcircles.spell;
 
+import com.panzareon.spellcircles.entity.EntitySpellCast;
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.init.ModNetwork;
+import com.panzareon.spellcircles.item.ItemSpell;
+import com.panzareon.spellcircles.network.PlayerAuraMessage;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
+import com.panzareon.spellcircles.utility.SpellHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -143,11 +150,19 @@ public class SpellEnviron
             if(Aura >= amount)
             {
                 scNBT.setInteger("Aura", Aura - amount);
+                if(!caster.worldObj.isRemote)
+                {
+                    ModNetwork.network.sendTo(new PlayerAuraMessage(Aura - amount), (EntityPlayerMP) caster);
+                }
                 return true;
             }
             else
             {
                 scNBT.setInteger("Aura", 0);
+                if(!caster.worldObj.isRemote)
+                {
+                    ModNetwork.network.sendTo(new PlayerAuraMessage(0), (EntityPlayerMP) caster);
+                }
                 return false;
             }
         }
@@ -197,5 +212,53 @@ public class SpellEnviron
             }
         }
         return castPos;
+    }
+
+    public void removeFromCastOrigin(EntitySpellCast e)
+    {
+        //Todo: if not created from equipped item of caster: remove from other origin
+        ItemStack stack = caster.getCurrentEquippedItem();
+        if(stack.getItem() instanceof ItemSpell)
+        {
+            if(stack.hasTagCompound())
+            {
+                if(stack.getTagCompound().hasKey(Reference.MOD_ID))
+                {
+                    SpellHelper.removeFromEntityList(stack.getTagCompound().getCompoundTag(Reference.MOD_ID), e);
+                }
+            }
+        }
+    }
+    public void addToCastOrigin(EntitySpellCast e)
+    {
+        //Todo: if not created from equipped item of caster: remove from other origin
+        ItemStack stack = caster.getCurrentEquippedItem();
+        if(stack.getItem() instanceof ItemSpell)
+        {
+            if(stack.hasTagCompound())
+            {
+                if(stack.getTagCompound().hasKey(Reference.MOD_ID))
+                {
+                    SpellHelper.addToEntityList(stack.getTagCompound().getCompoundTag(Reference.MOD_ID), e);
+                }
+            }
+        }
+    }
+
+    public boolean originStillCasting(EntitySpellCast entitySpellCast)
+    {
+        //Todo: if not created from equipped item of caster: remove from other origin
+        ItemStack stack = caster.getCurrentEquippedItem();
+        if(stack.getItem() instanceof ItemSpell)
+        {
+            if (stack.hasTagCompound())
+            {
+                if (stack.getTagCompound().hasKey(Reference.MOD_ID))
+                {
+                    return SpellHelper.isStillCasting(stack.getTagCompound().getCompoundTag(Reference.MOD_ID), entitySpellCast);
+                }
+            }
+        }
+        return false;
     }
 }

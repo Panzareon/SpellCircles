@@ -1,9 +1,11 @@
 package com.panzareon.spellcircles.utility;
 
+import com.panzareon.spellcircles.entity.EntitySpellCast;
 import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -17,7 +19,7 @@ import java.util.UUID;
 public class SpellHelper
 {
 
-    public static void resetSpellCasting(NBTTagCompound mainNBT)
+    public static void resetSpellCasting(NBTTagCompound mainNBT, World worldIn)
     {
         if(mainNBT.hasKey(Reference.MOD_ID))
         {
@@ -27,6 +29,23 @@ public class SpellHelper
                 scNbt.removeTag("toCastTime");
                 scNbt.removeTag("toCast");
                 scNbt.removeTag("castQueue");
+            }
+            if(scNbt.hasKey("entityList"))
+            {
+                if(!worldIn.isRemote)
+                {
+                    NBTTagList entityList = scNbt.getTagList("entityList", 10);
+                    //Iterate backwards because entities are deleted
+                    for (int i = entityList.tagCount() - 1; i >= 0; i--)
+                    {
+                        NBTTagCompound entity = entityList.getCompoundTagAt(i);
+                        UUID entityId = new UUID(entity.getLong("IdMS"), entity.getLong("IdLS"));
+                        Entity e = MinecraftServer.getServer().getEntityFromUuid(entityId);
+                        if (e instanceof EntitySpellCast)
+                            e.setDead();
+                    }
+                }
+                scNbt.removeTag("entityList");
             }
         }
     }
@@ -255,7 +274,7 @@ public class SpellHelper
             {
                 if(reset)
                 {
-                    resetSpellCasting(mainNBT);
+                    resetSpellCasting(mainNBT, world);
                 }
                 else
                 {
@@ -271,4 +290,72 @@ public class SpellHelper
         }
     }
 
+    public static void removeFromEntityList(NBTTagCompound nbt, EntitySpellCast e)
+    {
+        UUID entityId = e.getPersistentID();
+        long ls = entityId.getLeastSignificantBits();
+        long ms = entityId.getMostSignificantBits();
+        if(nbt.hasKey("entityList"))
+        {
+            NBTTagList entityList = nbt.getTagList("entityList", 10);
+            for(int i = 0; i < entityList.tagCount(); i++)
+            {
+                NBTTagCompound entity = entityList.getCompoundTagAt(i);
+                if(entity.getLong("IdLS") == ls && entity.getLong("IdMS") == ms)
+                {
+                    entityList.removeTag(i);
+                }
+            }
+            if(entityList.tagCount() == 0)
+            {
+                nbt.removeTag("entityList");
+            }
+        }
+    }
+
+    public static void addToEntityList(NBTTagCompound nbt, EntitySpellCast e)
+    {
+        UUID entityId = e.getPersistentID();
+        long ls = entityId.getLeastSignificantBits();
+        long ms = entityId.getMostSignificantBits();
+        NBTTagList entityList;
+        if(!nbt.hasKey("entityList"))
+        {
+            entityList = new NBTTagList();
+            nbt.setTag("entityList", entityList);
+        }
+        else
+        {
+            entityList = nbt.getTagList("entityList", 10);
+        }
+        NBTTagCompound entity = new NBTTagCompound();
+        entity.setLong("IdLS", ls);
+        entity.setLong("IdMS", ms);
+        entityList.appendTag(entity);
+    }
+
+    public static boolean isStillCasting(NBTTagCompound nbt)
+    {
+        return nbt.hasKey("toCast") || nbt.hasKey("entityList");
+    }
+
+    public static boolean isStillCasting(NBTTagCompound nbt, EntitySpellCast e)
+    {
+        UUID entityId = e.getPersistentID();
+        long ls = entityId.getLeastSignificantBits();
+        long ms = entityId.getMostSignificantBits();
+        if(nbt.hasKey("entityList"))
+        {
+            NBTTagList entityList = nbt.getTagList("entityList", 10);
+            for(int i = 0; i < entityList.tagCount(); i++)
+            {
+                NBTTagCompound entity = entityList.getCompoundTagAt(i);
+                if(entity.getLong("IdLS") == ls && entity.getLong("IdMS") == ms)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

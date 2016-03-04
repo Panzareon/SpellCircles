@@ -1,8 +1,10 @@
 package com.panzareon.spellcircles.item;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
+import com.panzareon.spellcircles.utility.SpellHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -43,18 +45,23 @@ public class ItemSpellRune extends ItemSpell
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        SpellEnviron environ = super.getEnvironFromNBT(itemStackIn, worldIn);
-        if(environ != null)
+        if(itemStackIn.hasTagCompound() && itemStackIn.getTagCompound().hasKey(Reference.MOD_ID))
         {
-            environ.setCaster(playerIn);
-            environ.castWith = new SpellCastWith(itemStackIn);
-            try
+            if (!SpellHelper.isStillCasting(itemStackIn.getTagCompound().getCompoundTag(Reference.MOD_ID)))
             {
-                environ.cast();
-            }
-            catch(MissingAuraException ex)
-            {
-                //NOOP
+                SpellEnviron environ = super.getEnvironFromNBT(itemStackIn, worldIn);
+                if (environ != null)
+                {
+                    environ.setCaster(playerIn);
+                    environ.castWith = new SpellCastWith(itemStackIn);
+                    try
+                    {
+                        environ.cast();
+                    } catch (MissingAuraException ex)
+                    {
+                        //NOOP
+                    }
+                }
             }
         }
         return itemStackIn;

@@ -55,7 +55,7 @@ public class ItemSpell extends SpellCirclesItem
             }
             catch(MissingAuraException ex)
             {
-                SpellHelper.resetSpellCasting(stack.getTagCompound());
+                SpellHelper.resetSpellCasting(stack.getTagCompound(), worldIn);
             }
         }
     }
