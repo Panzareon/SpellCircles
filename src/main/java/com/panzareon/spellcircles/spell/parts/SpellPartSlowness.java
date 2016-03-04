@@ -1,7 +1,6 @@
 package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
-import com.panzareon.spellcircles.init.ModPotions;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;

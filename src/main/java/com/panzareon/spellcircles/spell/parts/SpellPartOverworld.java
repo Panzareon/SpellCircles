@@ -1,10 +1,8 @@
 package com.panzareon.spellcircles.spell.parts;
 
-import com.panzareon.spellcircles.init.ModDimension;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import net.minecraftforge.common.DimensionManager;
 
 public class SpellPartOverworld extends SpellPart
 {

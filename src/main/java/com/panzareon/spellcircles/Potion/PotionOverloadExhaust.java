@@ -1,20 +1,9 @@
 package com.panzareon.spellcircles.Potion;
 
 
-import com.panzareon.spellcircles.SpellCircles;
-import com.panzareon.spellcircles.init.ModPotions;
-import com.panzareon.spellcircles.reference.Reference;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.BaseAttributeMap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class PotionOverloadExhaust extends PotionSpellCircles
 {

@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.UUID;
 

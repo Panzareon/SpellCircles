@@ -4,9 +4,6 @@ import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import com.panzareon.spellcircles.utility.MagicDamageSource;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
 

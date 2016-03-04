@@ -7,8 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class SpellPartEntitiesInArea extends SpellPart

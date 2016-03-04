@@ -101,9 +101,9 @@ public class GuiAddSpellPart extends GuiScreen
         possibleSpellParts = spellCircle.getPossibleNextSpellParts();
         searchMatches = new ArrayList<SpellPart>(Arrays.asList(possibleSpellParts));
         searchMatchesNames = new ArrayList<String>();
-        for(int i = 0; i < searchMatches.size(); i++)
+        for (SpellPart searchMatche : searchMatches)
         {
-            searchMatchesNames.add(searchMatches.get(i).getLocalizedSpellId());
+            searchMatchesNames.add(searchMatche.getLocalizedSpellId());
         }
         search = "";
         edit = "";
@@ -404,14 +404,14 @@ public class GuiAddSpellPart extends GuiScreen
                 search = toEdit;
                 searchMatches = new ArrayList<SpellPart>();
                 searchMatchesNames = new ArrayList<String>();
-                for(int i = 0; i < possibleSpellParts.length; i++)
+                for (SpellPart possibleSpellPart : possibleSpellParts)
                 {
-                    String nextString = possibleSpellParts[i].getLocalizedSpellId();
-                    if(nextString.toLowerCase().contains(search.toLowerCase()))
+                    String nextString = possibleSpellPart.getLocalizedSpellId();
+                    if (nextString.toLowerCase().contains(search.toLowerCase()))
                     {
                         searchMatchesNames.add(nextString);
-                        searchMatches.add(possibleSpellParts[i]);
-                        if(toAdd == possibleSpellParts[i])
+                        searchMatches.add(possibleSpellPart);
+                        if (toAdd == possibleSpellPart)
                         {
                             spellPartToAdd = searchMatches.size() - 1;
                         }

@@ -1,6 +1,5 @@
 package com.panzareon.spellcircles.handler;
 
-import com.panzareon.spellcircles.Potion.PotionEnhancer;
 import com.panzareon.spellcircles.init.ModPotions;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.VectorUtil;
@@ -12,7 +11,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -104,7 +102,7 @@ public class EntityEventHandler
                 }
             }
         }
-        else if(event.source.damageType == "fall")
+        else if(event.source.damageType.equals("fall"))
         {
             if(event.entityLiving.isPotionActive(ModPotions.enhanceFoot))
             {
@@ -120,7 +118,7 @@ public class EntityEventHandler
         }
         if(event.entityLiving.isPotionActive(ModPotions.overload))
         {
-            if(event.source.damageType == "fall")
+            if(event.source.damageType.equals("fall"))
             {
                 if(event.ammount <= 3)
                 {

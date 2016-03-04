@@ -4,8 +4,6 @@ package com.panzareon.spellcircles.Potion;
 import com.panzareon.spellcircles.SpellCircles;
 import com.panzareon.spellcircles.init.ModPotions;
 import com.panzareon.spellcircles.reference.Reference;
-import net.minecraft.client.main.GameConfiguration;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;

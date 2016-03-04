@@ -63,12 +63,6 @@ public class WorldProviderPocketDim extends WorldProvider
     }
 
     @Override
-    public IRenderHandler getWeatherRenderer()
-    {
-        return super.getWeatherRenderer();
-    }
-
-    @Override
     public BiomeGenBase getBiomeGenForCoords(BlockPos pos)
     {
         return BiomePocketDim;

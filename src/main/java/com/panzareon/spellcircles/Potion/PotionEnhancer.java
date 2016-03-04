@@ -4,8 +4,6 @@ package com.panzareon.spellcircles.Potion;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.UUID;
-
 public class PotionEnhancer extends PotionSpellCircles
 {
     private EnhanceTypes type;

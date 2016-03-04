@@ -1,7 +1,6 @@
 package com.panzareon.spellcircles.init;
 
 import com.panzareon.spellcircles.spell.SpellList;
-import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.parts.*;
 
 public class ModSpell

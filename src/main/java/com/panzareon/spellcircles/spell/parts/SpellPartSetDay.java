@@ -4,8 +4,6 @@ import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
 
 public class SpellPartSetDay extends SpellPart
 {

@@ -1,14 +1,12 @@
 package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.exception.MissingAuraException;
-import com.panzareon.spellcircles.init.ModBlocks;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
