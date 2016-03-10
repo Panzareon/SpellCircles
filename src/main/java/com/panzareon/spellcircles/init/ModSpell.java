@@ -52,6 +52,8 @@ public class ModSpell
         SpellList.registerSpell(new SpellPartSlowness());
         SpellList.registerSpell(new SpellPartFreeze());
 
+        SpellList.registerSpell(new SpellPartSpawnFireSpirit());
+
         SpellList.registerSpell(new SpellPartCharge());
         SpellList.registerSpell(new SpellPartThrowSpell());
         SpellList.registerSpell(new SpellPartXTimes());
