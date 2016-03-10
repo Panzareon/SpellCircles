@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SpellPartSpawnFireSpirit extends SpellPart
 {
-    private final float AuraUse = 1.0f;
+    private final float AuraUse = 0.05f;
     private final int AuraUseBase = 100;
 
     @Override
@@ -57,12 +57,14 @@ public class SpellPartSpawnFireSpirit extends SpellPart
                 auraMultiplier = (float) castPos.squareDistanceTo(player.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*effectDuration) + AuraUseBase))
                 {
-
-                    EntityFireSpirit spirit = new EntityFireSpirit(world);
-                    spirit.setOwnerId(player.getUniqueID().toString());
-                    spirit.setGrowingAge(effectDuration);
-                    spirit.setLocationAndAngles(player.posX, player.posY, player.posZ, 0.0F, 0.0F);
-                    world.spawnEntityInWorld(spirit);
+                    if(!world.isRemote)
+                    {
+                        EntityFireSpirit spirit = new EntityFireSpirit(world);
+                        spirit.setOwnerId(player.getUniqueID().toString());
+                        spirit.setGrowingAge(effectDuration);
+                        spirit.setLocationAndAngles(player.posX, player.posY, player.posZ, 0.0F, 0.0F);
+                        world.spawnEntityInWorld(spirit);
+                    }
                 }
             }
         }

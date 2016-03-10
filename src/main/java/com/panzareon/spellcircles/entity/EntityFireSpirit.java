@@ -19,8 +19,9 @@ public class EntityFireSpirit extends EntityTameable
     public EntityFireSpirit(World worldIn)
     {
         super(worldIn);
+        this.setSize(0.6F, 0.8F);
         this.tasks.addTask(4, new EntityFireSpirit.AIFireballAttack(this));
-        this.tasks.addTask(5, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+        this.tasks.addTask(5, new EntityAIFollowOwner(this, 0.2D, 2.0F, 10.0F));
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
@@ -32,7 +33,7 @@ public class EntityFireSpirit extends EntityTameable
         super.applyEntityAttributes();
 
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.20D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
         getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.8D);
         getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(16.0D);
     }
@@ -43,6 +44,18 @@ public class EntityFireSpirit extends EntityTameable
         EntityFireSpirit ret = new EntityFireSpirit(worldObj);
         ret.setOwnerId((getOwner()).getUniqueID().toString());
         return ret;
+    }
+
+    @Override
+    public void setTamed(boolean tamed)
+    {
+        //NOOP
+    }
+
+    @Override
+    public boolean isTamed()
+    {
+        return true;
     }
 
     @Override
@@ -74,7 +87,7 @@ public class EntityFireSpirit extends EntityTameable
         {
             this.motionY *= 0.6D;
         }
-        if(growingAge == 0)
+        if(growingAge == 0 && !worldObj.isRemote)
         {
             setDead();
         }

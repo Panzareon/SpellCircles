@@ -12,6 +12,6 @@ public class ModEntity
     {
         EntityRegistry.registerModEntity(EntityThrowSpell.class, "throw_spell", 1, SpellCircles.instance, 32, 10, true);
         EntityRegistry.registerModEntity(EntitySpellCast.class, "spell_cast", 2, SpellCircles.instance, 32, 10, false);
-        EntityRegistry.registerModEntity(EntityFireSpirit.class, "fire_spirit", 3, SpellCircles.instance, 32, 10, false);
+        EntityRegistry.registerModEntity(EntityFireSpirit.class, "fire_spirit", 3, SpellCircles.instance, 32, 10, true);
     }
 }
