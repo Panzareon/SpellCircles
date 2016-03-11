@@ -22,9 +22,9 @@ public class SpellRune
         {
             return new uvCoords((c - 'a') * 7, 7);
         }
-        if(c >= '1' && c <= '0')
+        if(c >= '0' && c <= '9')
         {
-            return new uvCoords((c - '1') * 7, 0);
+            return new uvCoords((c - '0') * 7, 0);
         }
         if(c == ':')
         {

@@ -46,8 +46,17 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
         spellText = environ.getSpellString();
     }
 
-    public void addSpellPart(SpellPart part)
+    public boolean addSpellPart(SpellPart part)
     {
+        int spellSize = 0;
+        if(environ != null && environ.getSpellString() != null)
+        {
+            spellSize = environ.getSpellString().length();
+        }
+        spellSize += part.getSpellString().length();
+
+        if(spellSize > getMaxSpellSize())
+            return false;
         if(environ == null)
         {
             environ = new SpellEnviron(part);
@@ -57,6 +66,19 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
             environ.addSpellPart(part);
         }
         spellText = environ.getSpellString();
+        return true;
+    }
+
+    private int getMaxSpellSize()
+    {
+        if(radius == 1)
+        {
+            return 43;
+        }
+        else
+        {
+            return 141;
+        }
     }
 
     public SpellEnviron getEnviron()

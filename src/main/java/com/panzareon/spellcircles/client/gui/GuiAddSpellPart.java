@@ -133,10 +133,12 @@ public class GuiAddSpellPart extends GuiScreen
             {
                 part.additionalValues(edit);
             }
-            spellCircle.addSpellPart(part);
-            String sendMsg = part.getSpellString();
-            ModNetwork.network.sendToServer(new SpellCircleMessage(sendMsg,spellCircle.getPos()));
-            edit = "";
+            if(spellCircle.addSpellPart(part))
+            {
+                String sendMsg = part.getSpellString();
+                ModNetwork.network.sendToServer(new SpellCircleMessage(sendMsg, spellCircle.getPos()));
+                edit = "";
+            }
         }
         catch(Exception ex)
         {
