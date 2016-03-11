@@ -32,17 +32,18 @@ public class SpellCircles
         ModBlocks.init();
         ModTileEntity.init();
         ModNetwork.init();
+        proxy.preInit();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        proxy.registerRenders();
         ModGui.init();
         ModSpell.init();
         EntityEventHandler.init();
         ModRecipe.init();
         ModEntity.init();
+        proxy.registerRenders();
     }
 
     @Mod.EventHandler

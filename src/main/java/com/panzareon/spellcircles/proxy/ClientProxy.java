@@ -1,8 +1,9 @@
 package com.panzareon.spellcircles.proxy;
 
-import com.panzareon.spellcircles.client.Effects.EntityOverloadFX;
+import com.panzareon.spellcircles.client.effects.EntityOverloadFX;
 import com.panzareon.spellcircles.handler.OverlayHandler;
 import com.panzareon.spellcircles.init.ModBlocks;
+import com.panzareon.spellcircles.init.ModEntity;
 import com.panzareon.spellcircles.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -12,6 +13,12 @@ import net.minecraft.world.World;
 public class ClientProxy extends CommonProxy
 {
     private float angleBase;
+
+    @Override
+    public void preInit()
+    {
+        ModEntity.registerRenderer();
+    }
 
     @Override
     public void registerRenders()

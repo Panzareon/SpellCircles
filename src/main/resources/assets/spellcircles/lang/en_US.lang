@@ -146,6 +146,11 @@ spell.spellcircles:break_block.desc=Breaks a block
 spell.spellcircles:break_block.child1=Block to break
 spell.spellcircles:break_block.aurause=Depends on the hardness of the block and distance to the block
 
+spell.spellcircles:pickup_block.name=Pickup Block
+spell.spellcircles:pickup_block.desc=Breaks a block and adds dropped items to your inventory
+spell.spellcircles:pickup_block.child1=Block to break
+spell.spellcircles:pickup_block.aurause=Depends on the hardness of the block and distance to the block
+
 spell.spellcircles:place_block.name=Place Block
 spell.spellcircles:place_block.desc=Places a block
 spell.spellcircles:place_block.child1=Block Position to place
@@ -200,6 +205,11 @@ spell.spellcircles:clear_weather.name=Clear Weather
 spell.spellcircles:clear_weather.desc=Stops rain
 spell.spellcircles:clear_weather.aurause=1100 Aura
 
+spell.spellcircles:spawn_fire_spirit.name=Spawn Fire Spirit
+spell.spellcircles:spawn_fire_spirit.desc=Spawns a fire spirit that helps you in battle
+spell.spellcircles:spawn_fire_spirit.child1=Number of seconds the spirit will exist
+spell.spellcircles:spawn_fire_spirit.aurause=Depends on duration
+
 
 spell.spellcircles:charge.name=Charge
 spell.spellcircles:charge.desc=Charges for some time and then cast the Action with less Aurause
@@ -219,6 +229,9 @@ spell.spellcircles:x_times.child2=Time between casts
 spell.spellcircles:x_times.child3=Action that is casted each time
 spell.spellcircles:x_times.aurause=0
 
+
+#Entity
+entity.SpellCircles.fire_spirit.name=Fire Spirit
 
 #Potion
 spellcircles:potion.enhance_bare_fist=Enhance Fist

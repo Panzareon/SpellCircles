@@ -1,4 +1,4 @@
-package com.panzareon.spellcircles.client.Effects;
+package com.panzareon.spellcircles.client.effects;
 
 import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.client.particle.EntityFX;

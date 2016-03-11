@@ -6,25 +6,27 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class SpellPartBreakBlock extends SpellPart
+public class SpellPartPickupBlock extends SpellPart
 {
-    private final float AuraUse = 15f;
+    private final float AuraUse = 20f;
 
     @Override
     public String getSpellName()
     {
-        return "HADFJI";
+        return "RTUZVBUZTDR";
     }
 
     @Override
     public String getSpellId()
     {
-        return "break_block";
+        return "pickup_block";
     }
 
     @Override
@@ -66,7 +68,35 @@ public class SpellPartBreakBlock extends SpellPart
                 auraAdd = (float) castPos.distanceTo(new Vec3(blockPos));
                 if(environ.useAura((int) ((AuraUse + auraAdd)*blockHardness)))
                 {
-                    world.destroyBlock(blockPos,true);
+
+                    if (!world.isRemote && !world.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
+                    {
+                        java.util.List<ItemStack> items = block.getDrops(world, blockPos, blockState, 0);
+                        float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, blockPos, blockState, 0, 1.0f, false, player);
+
+                        for (ItemStack item : items)
+                        {
+                            if (world.rand.nextFloat() <= chance)
+                            {
+                                EntityItem entityItem = new EntityItem(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), item);
+                                entityItem.setNoPickupDelay();
+
+                                int hook = net.minecraftforge.event.ForgeEventFactory.onItemPickup(entityItem, player, item);
+                                if (hook < 0) continue;
+                                if(player.inventory.addItemStackToInventory(item))
+                                {
+                                    player.onItemPickup(entityItem, item.stackSize);
+
+                                    net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerItemPickupEvent(player, entityItem);
+                                    world.playSoundAtEntity(player, "random.pop", 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                }
+                                if(item.stackSize > 0)
+                                    block.spawnAsEntity(world, blockPos, item);
+                            }
+                        }
+                        world.destroyBlock(blockPos,false);
+                    }
+
                 }
                 else
                 {

@@ -6,6 +6,12 @@ public class ServerProxy extends CommonProxy
 {
 
     @Override
+    public void preInit()
+    {
+        //NOOP
+    }
+
+    @Override
     public void registerRenders()
     {
         //NOOP

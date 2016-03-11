@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 
 public interface IProxy
 {
+    void preInit();
     void registerRenders();
 
 
