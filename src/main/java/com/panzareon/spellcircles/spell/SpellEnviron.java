@@ -2,6 +2,7 @@ package com.panzareon.spellcircles.spell;
 
 import com.panzareon.spellcircles.entity.EntitySpellCast;
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.handler.EntityEventHandler;
 import com.panzareon.spellcircles.init.ModNetwork;
 import com.panzareon.spellcircles.item.ItemSpell;
 import com.panzareon.spellcircles.network.PlayerAuraMessage;
@@ -143,30 +144,30 @@ public class SpellEnviron
             chargedAura = 0;
         }
         NBTTagCompound nbt = caster.getEntityData();
-        if(nbt.hasKey(Reference.MOD_ID))
+        if(!nbt.hasKey(Reference.MOD_ID))
         {
-            NBTTagCompound scNBT = nbt.getCompoundTag(Reference.MOD_ID);
-            int Aura = scNBT.getInteger("Aura");
-            if(Aura >= amount)
-            {
-                scNBT.setInteger("Aura", Aura - amount);
-                if(!caster.worldObj.isRemote)
-                {
-                    ModNetwork.network.sendTo(new PlayerAuraMessage(Aura - amount), (EntityPlayerMP) caster);
-                }
-                return true;
-            }
-            else
-            {
-                scNBT.setInteger("Aura", 0);
-                if(!caster.worldObj.isRemote)
-                {
-                    ModNetwork.network.sendTo(new PlayerAuraMessage(0), (EntityPlayerMP) caster);
-                }
-                return false;
-            }
+            EntityEventHandler.initPlayerAura(caster);
         }
-        return false;
+        NBTTagCompound scNBT = nbt.getCompoundTag(Reference.MOD_ID);
+        int Aura = scNBT.getInteger("Aura");
+        if(Aura >= amount)
+        {
+            scNBT.setInteger("Aura", Aura - amount);
+            if(!caster.worldObj.isRemote)
+            {
+                ModNetwork.network.sendTo(new PlayerAuraMessage(Aura - amount), (EntityPlayerMP) caster);
+            }
+            return true;
+        }
+        else
+        {
+            scNBT.setInteger("Aura", 0);
+            if(!caster.worldObj.isRemote)
+            {
+                ModNetwork.network.sendTo(new PlayerAuraMessage(0), (EntityPlayerMP) caster);
+            }
+            return false;
+        }
     }
 
     public boolean isFinished()

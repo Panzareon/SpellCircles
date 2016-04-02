@@ -23,19 +23,24 @@ public class EntityEventHandler
         MinecraftForge.EVENT_BUS.register(events);
     }
 
+    public static void initPlayerAura(EntityPlayer player)
+    {
+        NBTTagCompound nbt = player.getEntityData();
+        if(!nbt.hasKey(Reference.MOD_ID))
+        {
+            NBTTagCompound scNBT = new NBTTagCompound();
+            scNBT.setInteger("Aura", ConfigurationHandler.maxAura);
+            nbt.setTag(Reference.MOD_ID, scNBT);
+        }
+    }
+
     @SubscribeEvent
     public void onEntityConstructing(EntityEvent.EntityConstructing event)
     {
         if(event.entity instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entity;
-            NBTTagCompound nbt = player.getEntityData();
-            if(!nbt.hasKey(Reference.MOD_ID))
-            {
-                NBTTagCompound scNBT = new NBTTagCompound();
-                scNBT.setInteger("Aura", ConfigurationHandler.maxAura);
-                nbt.setTag(Reference.MOD_ID, scNBT);
-            }
+            initPlayerAura(player);
         }
     }
     @SubscribeEvent
