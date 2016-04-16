@@ -5,12 +5,16 @@ import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.spell.SpellCastWith;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.utility.SpellHelper;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemSpellRune extends ItemSpell
 {
@@ -18,7 +22,9 @@ public class ItemSpellRune extends ItemSpell
     {
         super();
         this.setUnlocalizedName("spell_rune");
+        this.setHasSubtypes(true);
         this.maxStackSize = 1;
+        this.setMaxDamage(0);
     }
 
     @Override
@@ -27,6 +33,8 @@ public class ItemSpellRune extends ItemSpell
         SpellEnviron environ = super.getEnvironFromNBT(stack, worldIn);
         if(environ != null)
         {
+            //TODO: set strength for other rune types
+            environ.strength = 1 + stack.getItemDamage();
             environ.setCaster(playerIn);
             environ.castWith = new SpellCastWith(stack);
             environ.blockHit = pos;
@@ -87,4 +95,20 @@ public class ItemSpellRune extends ItemSpell
         }
         return true;
     }
+
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            subItems.add(new ItemStack(itemIn, 1, i));
+        }
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack itemStack)
+    {
+        return this.getUnlocalizedName() + "_" + itemStack.getItemDamage();
+    }
+
 }

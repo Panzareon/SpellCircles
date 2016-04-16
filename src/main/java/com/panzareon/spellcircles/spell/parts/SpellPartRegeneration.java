@@ -58,7 +58,7 @@ public class SpellPartRegeneration extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*regenStrength*effectDuration)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*regenStrength*effectDuration), environ.strength))
                 {
                     target.addPotionEffect(new PotionEffect(Potion.regeneration.getId(), effectDuration, (int) regenStrength));
                 }

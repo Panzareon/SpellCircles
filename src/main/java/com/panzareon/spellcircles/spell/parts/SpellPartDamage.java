@@ -52,9 +52,9 @@ public class SpellPartDamage extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg), 1))
                 {
-                    target.attackEntityFrom(new MagicDamageSource(environ.getCaster()),dmg);
+                    target.attackEntityFrom(new MagicDamageSource(environ.getCaster()),dmg * (4 + environ.strength) / 5);
                 }
                 else
                 {

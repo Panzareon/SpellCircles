@@ -63,14 +63,21 @@ public class SpellPartBreakBlock extends SpellPart
                 block = blockState.getBlock();
                 blockHardness = block.getBlockHardness(world,blockPos);
 
-                auraAdd = (float) castPos.distanceTo(new Vec3(blockPos));
-                if(environ.useAura((int) ((AuraUse + auraAdd)*blockHardness)))
+                if(block.getHarvestLevel(blockState) >= environ.strength)
                 {
-                    world.destroyBlock(blockPos,true);
+                    auraAdd = (float) castPos.distanceTo(new Vec3(blockPos));
+                    if (environ.useAura((int) ((AuraUse + auraAdd) * blockHardness), 1))
+                    {
+                        world.destroyBlock(blockPos, true);
+                    }
+                    else
+                    {
+                        throw new MissingAuraException(this);
+                    }
                 }
                 else
                 {
-                    throw new MissingAuraException(this);
+                    //TODO: sound?
                 }
             }
         }

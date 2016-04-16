@@ -56,7 +56,7 @@ public class SpellPartDimensionTeleport extends SpellPart
             for(int i = 0; i < nr; i++)
             {
                 dimensionId = childValues[1].getDimension(i);
-                if(environ.useAura(AuraUse))
+                if(environ.useAura(AuraUse, environ.strength))
                 {
                     World world = environ.getCaster().worldObj;
                     if(!world.isRemote)

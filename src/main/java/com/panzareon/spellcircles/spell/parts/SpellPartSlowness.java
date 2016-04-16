@@ -60,7 +60,7 @@ public class SpellPartSlowness extends SpellPart
                     slowStrength = 5;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*slowStrength*effectDuration)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*slowStrength*effectDuration), environ.strength))
                 {
                     target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), effectDuration, (int) slowStrength));
                 }

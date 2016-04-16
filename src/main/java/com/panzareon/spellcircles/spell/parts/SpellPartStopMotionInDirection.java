@@ -63,7 +63,7 @@ public class SpellPartStopMotionInDirection extends SpellPart
                 if(lenght < 0)
                     lenght *= -1;
                 auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraAdd * 20)*((float) lenght))))
+                if(environ.useAura((int) ((AuraUse + auraAdd * 20)*((float) lenght)), environ.strength))
                 {
                     entity.setVelocity(movement.xCoord, movement.yCoord, movement.zCoord);
                     if(movement.yCoord >= -0.001f)

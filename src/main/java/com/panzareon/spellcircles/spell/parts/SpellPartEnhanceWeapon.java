@@ -58,7 +58,7 @@ public class SpellPartEnhanceWeapon extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*enhanceStrength*effectDuration)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*enhanceStrength*effectDuration), environ.strength))
                 {
                     target.addPotionEffect(new PotionEffect(Potion.damageBoost.getId(), effectDuration, (int) enhanceStrength));
                 }

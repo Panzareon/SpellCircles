@@ -65,42 +65,45 @@ public class SpellPartPickupBlock extends SpellPart
                 block = blockState.getBlock();
                 blockHardness = block.getBlockHardness(world,blockPos);
 
-                auraAdd = (float) castPos.distanceTo(new Vec3(blockPos));
-                if(environ.useAura((int) ((AuraUse + auraAdd)*blockHardness)))
+                if(block.getHarvestLevel(blockState) <= environ.strength)
                 {
-
-                    if (!world.isRemote && !world.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
+                    auraAdd = (float) castPos.distanceTo(new Vec3(blockPos));
+                    if (environ.useAura((int) ((AuraUse + auraAdd) * blockHardness), environ.strength))
                     {
-                        java.util.List<ItemStack> items = block.getDrops(world, blockPos, blockState, 0);
-                        float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, blockPos, blockState, 0, 1.0f, false, player);
 
-                        for (ItemStack item : items)
+                        if (!world.isRemote && !world.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
                         {
-                            if (world.rand.nextFloat() <= chance)
+                            java.util.List<ItemStack> items = block.getDrops(world, blockPos, blockState, 0);
+                            float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, blockPos, blockState, 0, 1.0f, false, player);
+
+                            for (ItemStack item : items)
                             {
-                                EntityItem entityItem = new EntityItem(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), item);
-                                entityItem.setNoPickupDelay();
-
-                                int hook = net.minecraftforge.event.ForgeEventFactory.onItemPickup(entityItem, player, item);
-                                if (hook < 0) continue;
-                                if(player.inventory.addItemStackToInventory(item))
+                                if (world.rand.nextFloat() <= chance)
                                 {
-                                    player.onItemPickup(entityItem, item.stackSize);
+                                    EntityItem entityItem = new EntityItem(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), item);
+                                    entityItem.setNoPickupDelay();
 
-                                    net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerItemPickupEvent(player, entityItem);
-                                    world.playSoundAtEntity(player, "random.pop", 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                    int hook = net.minecraftforge.event.ForgeEventFactory.onItemPickup(entityItem, player, item);
+                                    if (hook < 0) continue;
+                                    if (player.inventory.addItemStackToInventory(item))
+                                    {
+                                        player.onItemPickup(entityItem, item.stackSize);
+
+                                        net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerItemPickupEvent(player, entityItem);
+                                        world.playSoundAtEntity(player, "random.pop", 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                    }
+                                    if (item.stackSize > 0)
+                                        block.spawnAsEntity(world, blockPos, item);
                                 }
-                                if(item.stackSize > 0)
-                                    block.spawnAsEntity(world, blockPos, item);
                             }
+                            world.destroyBlock(blockPos, false);
                         }
-                        world.destroyBlock(blockPos,false);
-                    }
 
-                }
-                else
-                {
-                    throw new MissingAuraException(this);
+                    }
+                    else
+                    {
+                        throw new MissingAuraException(this);
+                    }
                 }
             }
         }

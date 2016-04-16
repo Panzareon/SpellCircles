@@ -54,7 +54,7 @@ public class SpellPartStopMotion extends SpellPart
                 movement = new Vec3(entity.motionX, entity.motionY, entity.motionZ);
                 speed = (float)movement.lengthVector();
                 auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed)))
+                if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed), environ.strength))
                 {
                     entity.setVelocity(0.0, 0.0, 0.0);
                     entity.fallDistance = 0.0f;

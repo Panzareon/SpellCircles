@@ -213,6 +213,10 @@ public class SpellHelper
                 EntityPlayer caster = world.getPlayerEntityByUUID(casterId);
                 environ.setCaster(caster);
             }
+            if(nbt.hasKey("stregth"))
+            {
+                environ.strength = nbt.getFloat("strength");
+            }
             environ.chargedAura = nbt.getInteger("chargedAura");
             return environ;
         }
@@ -261,6 +265,10 @@ public class SpellHelper
         if(environ.numberOfCasts != 0)
         {
             nbt.setInteger("numberOfCasts", environ.numberOfCasts);
+        }
+        if(environ.strength != 0.0f)
+        {
+            nbt.setFloat("strength", environ.strength);
         }
         nbt.setInteger("chargedAura", environ.chargedAura);
     }

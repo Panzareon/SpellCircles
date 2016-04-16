@@ -51,7 +51,7 @@ public class SpellPartHeal extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*healAmount)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*healAmount), environ.strength))
                 {
                     target.heal(healAmount);
                 }

@@ -37,7 +37,7 @@ public class SpellPartClearWeather extends SpellPart
     @Override
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException
     {
-        if(environ.useAura(AuraUse))
+        if(environ.useAura(AuraUse, environ.strength))
         {
             WorldInfo worldInfo = environ.getCaster().worldObj.getWorldInfo();
             worldInfo.setRaining(false);

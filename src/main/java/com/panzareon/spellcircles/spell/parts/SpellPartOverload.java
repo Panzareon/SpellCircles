@@ -53,7 +53,7 @@ public class SpellPartOverload extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) (AuraUse + auraMultiplier)))
+                if(environ.useAura((int) (AuraUse + auraMultiplier), environ.strength))
                 {
                     target.addPotionEffect(new PotionEffect(ModPotions.overload.getId(), effectDuration, 0));
 

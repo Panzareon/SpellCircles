@@ -36,7 +36,7 @@ public class SpellPartSetDay extends SpellPart
     @Override
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException
     {
-        if(environ.useAura(AuraUse))
+        if(environ.useAura(AuraUse, environ.strength))
         {
             environ.getCaster().worldObj.setWorldTime(3000);
         }

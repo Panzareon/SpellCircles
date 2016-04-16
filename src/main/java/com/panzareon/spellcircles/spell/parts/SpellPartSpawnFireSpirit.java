@@ -55,7 +55,7 @@ public class SpellPartSpawnFireSpirit extends SpellPart
                     continue;
 
                 auraMultiplier = (float) castPos.squareDistanceTo(player.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*effectDuration) + AuraUseBase))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*effectDuration) + AuraUseBase, environ.strength))
                 {
                     if(!world.isRemote)
                     {

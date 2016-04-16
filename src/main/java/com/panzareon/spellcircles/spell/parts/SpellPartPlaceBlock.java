@@ -59,7 +59,7 @@ public class SpellPartPlaceBlock extends SpellPart
                 if(world.canBlockBePlaced(ModBlocks.placingDefault, blockPos, true, EnumFacing.UP, player, null))
                 {
                     auraAdd = (float) castPos.squareDistanceTo(new Vec3(blockPos));
-                    if(environ.useAura((int) (AuraUse + auraAdd)))
+                    if(environ.useAura((int) (AuraUse + auraAdd), environ.strength))
                     {
                         world.setBlockState(blockPos, ModBlocks.placingDefault.getDefaultState());
                     }

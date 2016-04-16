@@ -27,6 +27,7 @@ public class SpellEnviron
     public Entity entityHit;
     public BlockPos blockHit;
     public int numberOfCasts;
+    public float strength;
 
     public int chargedAura = 0;
     protected ArrayList<SpellPart> spells;
@@ -131,8 +132,10 @@ public class SpellEnviron
         return caster;
     }
 
-    public boolean useAura(int amount)
+    public boolean useAura(int amount, float strength)
     {
+        strength += 9;
+        amount *= 10 / strength;
         if(chargedAura >= amount)
         {
             chargedAura -= amount;

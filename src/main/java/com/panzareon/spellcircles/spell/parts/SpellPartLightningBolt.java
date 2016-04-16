@@ -58,7 +58,7 @@ public class SpellPartLightningBolt extends SpellPart
                 if(world.canBlockSeeSky(new BlockPos(pos).up()) && world.isRaining() && world.isThundering())
                 {
                     auraAdd = (float) castPos.squareDistanceTo(pos);
-                    if(environ.useAura((int) (AuraUse + auraAdd)))
+                    if(environ.useAura((int) (AuraUse + auraAdd), environ.strength))
                     {
                         if(!world.isRemote)
                         {

@@ -54,7 +54,7 @@ public class SpellPartEnhanceBareFist extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg), environ.strength))
                 {
                     target.addPotionEffect(new PotionEffect(ModPotions.enhanceBareFist.getId(), effectDuration, (int) dmg));
                 }

@@ -53,7 +53,7 @@ public class SpellPartFreeze extends SpellPart
                     continue;
                 //calculate Aura expense
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
-                if(environ.useAura((int) ((AuraUse + auraMultiplier)*effectDuration)))
+                if(environ.useAura((int) ((AuraUse + auraMultiplier)*effectDuration), environ.strength))
                 {
                     target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), effectDuration, 6));
                 }

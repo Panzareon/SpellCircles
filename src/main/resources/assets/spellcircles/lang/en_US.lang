@@ -245,7 +245,9 @@ itemGroup.spellcircles=Spell Circles
 
 #Items
 item.spellcircles:chalk.name=Chalk
-item.spellcircles:spell_rune.name=Spell Rune
+item.spellcircles:spell_rune_0.name=Stone Spell Rune
+item.spellcircles:spell_rune_1.name=Gold Spell Rune
+item.spellcircles:spell_rune_2.name=Diamond Spell Rune
 
 #Blocks
 tile.spellcircles:placing_default.name=Placing Default

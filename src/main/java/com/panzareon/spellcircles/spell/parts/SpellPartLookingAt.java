@@ -69,7 +69,7 @@ public class SpellPartLookingAt extends SpellPart
             if(mop != null)
             {
                 distance = (float) mop.hitVec.squareDistanceTo(player.getPositionVector());
-                if (environ.useAura((int) (AuraUse + distance)))
+                if (environ.useAura((int) (AuraUse + distance), environ.strength))
                 {
                     if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
                     {
