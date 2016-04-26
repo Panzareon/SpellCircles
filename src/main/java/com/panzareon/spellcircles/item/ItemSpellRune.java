@@ -60,6 +60,7 @@ public class ItemSpellRune extends ItemSpell
                 SpellEnviron environ = super.getEnvironFromNBT(itemStackIn, worldIn);
                 if (environ != null)
                 {
+                    environ.strength = 1 + itemStackIn.getItemDamage();
                     environ.setCaster(playerIn);
                     environ.castWith = new SpellCastWith(itemStackIn);
                     try

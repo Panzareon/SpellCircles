@@ -13,10 +13,20 @@ public class ModRecipe
     public static void init()
     {
         GameRegistry.addRecipe(new ShapelessOreRecipe(ModItems.chalk,"dyeWhite", Items.paper, Items.clay_ball));
-        GameRegistry.addRecipe(new ShapedOreRecipe(ModItems.spellRune,
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.spellRune, 1, 0),
                 " S ",
                 "SCS",
                 " S ",
                 'S', "stone", 'C', new ItemStack(ModItems.chalk,1, OreDictionary.WILDCARD_VALUE)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.spellRune, 1, 1),
+                " S ",
+                "SCS",
+                " S ",
+                'S', "ingotGold", 'C', new ItemStack(ModItems.chalk,1, OreDictionary.WILDCARD_VALUE)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.spellRune, 1, 2),
+                " S ",
+                "SCS",
+                " S ",
+                'S', "gemDiamond", 'C', new ItemStack(ModItems.chalk,1, OreDictionary.WILDCARD_VALUE)));
     }
 }

@@ -18,6 +18,7 @@ public class ClientProxy extends CommonProxy
     public void preInit()
     {
         ModEntity.registerRenderer();
+        ModItems.preInit();
     }
 
     @Override
