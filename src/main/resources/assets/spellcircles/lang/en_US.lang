@@ -254,3 +254,6 @@ tile.spellcircles:placing_default.name=Placing Default
 tile.spellcircles:spell_circle.name=Spell Circle
 tile.spellcircles:discoverer.name=Discoverer
 tile.spellcircles:pocket_dim_wall.name=Pocket Dimension Wall
+
+#Chat
+msg.spellcircles:missing_spell_part.txt=The spell you are trying to use is not finished jet

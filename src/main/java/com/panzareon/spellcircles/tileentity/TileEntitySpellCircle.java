@@ -7,6 +7,7 @@ import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.spell.SpellList;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -17,6 +18,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ITickable;
 
 public class TileEntitySpellCircle extends TileEntity implements ITickable
@@ -219,10 +222,20 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     {
         if(!isCrafting)
         {
-            craftingItem = player.inventory.decrStackSize(player.inventory.currentItem, 1);
-            isCrafting = true;
-            craftingTick = craftingTime;
-            startCraftingAnimation();
+            if(environ.isFinished())
+            {
+                craftingItem = player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                isCrafting = true;
+                craftingTick = craftingTime;
+                startCraftingAnimation();
+            }
+            else
+            {
+                if(player.worldObj.isRemote)
+                {
+                    ((EntityPlayerSP)player).addChatMessage(new ChatComponentTranslation("msg."+Reference.MOD_ID.toLowerCase()+":missing_spell_part.txt"));
+                }
+            }
         }
     }
     private void startCraftingAnimation()

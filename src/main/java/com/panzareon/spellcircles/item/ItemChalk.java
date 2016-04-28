@@ -27,7 +27,7 @@ public class ItemChalk extends SpellCirclesItem
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if(side == EnumFacing.UP)
+        if(side == EnumFacing.UP && worldIn.isBlockFullCube(pos))
         {
             int y = pos.getY() + 1;
             int yDown = pos.getY();
