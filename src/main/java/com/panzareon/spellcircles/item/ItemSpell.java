@@ -60,5 +60,16 @@ public class ItemSpell extends SpellCirclesItem
         }
     }
 
-    
+    @Override
+    public boolean hasEffect(ItemStack stack)
+    {
+        if(stack.getTagCompound() == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }

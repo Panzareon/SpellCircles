@@ -7,6 +7,7 @@ import java.util.*;
 public class SpellList
 {
     private static HashMap<String, SpellPart> spells = new HashMap<String, SpellPart>();
+    private static HashMap<String, String> spellRequirements = new HashMap<String, String>();
     private static EnumMap<SpellReturnTypes, HashSet<SpellPart>> spellsByReturnType = new EnumMap<SpellReturnTypes, HashSet<SpellPart>>(SpellReturnTypes.class);
 
     static {
@@ -16,9 +17,18 @@ public class SpellList
         }
     }
 
+    public static void registerSpell(SpellPart part, SpellPart requiredSpell)
+    {
+        registerSpell(part);
+        String name = part.getSpellName();
+        spellRequirements.put(name, requiredSpell.getSpellName());
+    }
+
     public static void registerSpell(SpellPart part)
     {
         String name = part.getSpellName();
+        if(spells.containsKey(name))
+            throw new IllegalArgumentException("Spell with this Name already registered");
         spells.put(name, part);
         SpellReturnTypes[] types = part.getReturnValueTypes();
         for(SpellReturnTypes type: types)
@@ -41,6 +51,7 @@ public class SpellList
         }
     }
 
+    //returns copy of Spell Part with given Name
     public static SpellPart getSpellPart(String name)
     {
         String[] nameParts = name.split(":");
@@ -61,6 +72,7 @@ public class SpellList
         }
         return ret;
     }
+    //returns List of Spell Parts which have specific Return types
     public static SpellPart[] getSpellWithReturnType(SpellReturnTypes[] types)
     {
         HashSet<SpellPart> set = new HashSet<SpellPart>();
@@ -72,10 +84,18 @@ public class SpellList
         Collections.sort(ret);
         return ret.toArray(new SpellPart[ret.size()]);
     }
+    //returns List of Spell Parts which have specific Return type
     public static SpellPart[] getSpellWithReturnType(SpellReturnTypes type)
     {
         ArrayList<SpellPart> ret = new ArrayList<SpellPart>(spellsByReturnType.get(type));
         Collections.sort(ret);
         return ret.toArray(new SpellPart[ret.size()]);
     }
+
+    //returns Name of Spell needed to learn the given Spell, or null if no other Spell is needed
+    public static String getRequiredSpell(String spell)
+    {
+        return spellRequirements.get(spell);
+    }
+    //returns Name of Spells witch require
 }

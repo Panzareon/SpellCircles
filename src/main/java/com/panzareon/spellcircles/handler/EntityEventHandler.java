@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,13 +24,15 @@ public class EntityEventHandler
         MinecraftForge.EVENT_BUS.register(events);
     }
 
-    public static void initPlayerAura(EntityPlayer player)
+    public static void initPlayer(EntityPlayer player)
     {
         NBTTagCompound nbt = player.getEntityData();
         if(!nbt.hasKey(Reference.MOD_ID))
         {
             NBTTagCompound scNBT = new NBTTagCompound();
             scNBT.setInteger("Aura", ConfigurationHandler.maxAura);
+            NBTTagList learnedSpells = new NBTTagList();
+            scNBT.setTag("learnedSpells", learnedSpells);
             nbt.setTag(Reference.MOD_ID, scNBT);
         }
     }
@@ -40,7 +43,7 @@ public class EntityEventHandler
         if(event.entity instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entity;
-            initPlayerAura(player);
+            initPlayer(player);
         }
     }
     @SubscribeEvent

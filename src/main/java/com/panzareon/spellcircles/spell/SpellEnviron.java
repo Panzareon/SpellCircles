@@ -149,7 +149,7 @@ public class SpellEnviron
         NBTTagCompound nbt = caster.getEntityData();
         if(!nbt.hasKey(Reference.MOD_ID))
         {
-            EntityEventHandler.initPlayerAura(caster);
+            EntityEventHandler.initPlayer(caster);
         }
         NBTTagCompound scNBT = nbt.getCompoundTag(Reference.MOD_ID);
         int Aura = scNBT.getInteger("Aura");
