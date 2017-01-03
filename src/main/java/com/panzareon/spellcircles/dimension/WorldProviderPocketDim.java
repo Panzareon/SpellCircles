@@ -1,5 +1,6 @@
 package com.panzareon.spellcircles.dimension;
 
+import com.panzareon.spellcircles.init.ModDimension;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
@@ -20,8 +21,7 @@ public class WorldProviderPocketDim extends WorldProvider
 
     @Override
     public DimensionType getDimensionType(){
-        //TODO: register Dimension type
-        return DimensionType.OVERWORLD;
+        return ModDimension.pocketDimension;
     }
 
     @Override

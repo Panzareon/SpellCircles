@@ -36,7 +36,7 @@ public class ItemSpellRune extends ItemSpell
         SpellEnviron environ = super.getEnvironFromNBT(stack, worldIn);
         if(environ != null)
         {
-            //TODO: set strength for other rune types
+            //set strength for rune types
             environ.strength = 1 + stack.getItemDamage();
             environ.setCaster(playerIn);
             environ.castWith = new SpellCastWith(stack);

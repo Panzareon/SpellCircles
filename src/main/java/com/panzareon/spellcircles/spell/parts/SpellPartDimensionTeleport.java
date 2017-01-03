@@ -1,12 +1,21 @@
 package com.panzareon.spellcircles.spell.parts;
 
 
+import com.panzareon.spellcircles.dimension.TeleporterPocketDim;
+import com.panzareon.spellcircles.dimension.TeleporterToPosition;
 import com.panzareon.spellcircles.exception.MissingAuraException;
+import com.panzareon.spellcircles.init.ModDimension;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
 
 public class SpellPartDimensionTeleport extends SpellPart
 {
@@ -50,12 +59,25 @@ public class SpellPartDimensionTeleport extends SpellPart
                 dimensionId = childValues[1].getDimension(i);
                 if(environ.useAura(AuraUse, environ.strength))
                 {
-                    World world = environ.getCaster().worldObj;
+                    World world = childValues[0].getEntity(i).worldObj;
                     if(!world.isRemote)
                     {
                         Entity e = childValues[0].getEntity(i);
-                        e.changeDimension(dimensionId);
-                        //TODO: place correct in new dimension
+                        WorldServer targetWorld = DimensionManager.getWorld(dimensionId);
+                        Teleporter teleporter;
+                        if(dimensionId == ModDimension.pocketDimensionId){
+                            teleporter = new TeleporterPocketDim(targetWorld, environ.getCaster());
+                        }
+                        else{
+                            Vec3d targetPos = new Vec3d(targetWorld.provider.getRandomizedSpawnPoint());
+                            teleporter = new TeleporterToPosition(targetWorld, targetPos);
+                        }
+                        if(e instanceof EntityPlayerMP) {
+                            world.getMinecraftServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP) e, dimensionId, teleporter);
+                        }
+                        else{
+                            world.getMinecraftServer().getPlayerList().transferEntityToWorld(e, e.dimension, (WorldServer)world,targetWorld, teleporter);
+                        }
                         /*
                         WorldServer worldTo = DimensionManager.getWorld(dimensionId);
                         ServerConfigurationManager manager = ((WorldServer) world).getMinecraftServer().getConfigurationManager();
