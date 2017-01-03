@@ -1,25 +1,29 @@
 package com.panzareon.spellcircles.dimension;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.BiomeProperties;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.client.IRenderHandler;
 
 public class WorldProviderPocketDim extends WorldProvider
 {
-    public BiomeGenBase BiomePocketDim = new BiomeGenPocketDim(1,false).setBiomeName("pocket_dimension").setDisableRain().setTemperatureRainfall(1.0f, 0.0f);
-    @Override
-    public String getDimensionName()
-    {
-        return "pocket_dimension";
+    public Biome BiomePocketDim;
+
+    public WorldProviderPocketDim(){
+        BiomeProperties properties = new BiomeProperties("pocket_dimension");
+        properties.setRainDisabled().setTemperature(0.0f);
+        BiomePocketDim = new BiomeGenPocketDim(properties);
     }
 
     @Override
-    public String getInternalNameSuffix()
-    {
-        return "_pocket";
+    public DimensionType getDimensionType(){
+        //TODO: register Dimension type
+        return DimensionType.OVERWORLD;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class WorldProviderPocketDim extends WorldProvider
     }
 
     @Override
-    public IChunkProvider createChunkGenerator()
+    public IChunkGenerator createChunkGenerator()
     {
         return new ChunkProviderPocketDim(worldObj, getSeed());
     }
@@ -63,7 +67,7 @@ public class WorldProviderPocketDim extends WorldProvider
     }
 
     @Override
-    public BiomeGenBase getBiomeGenForCoords(BlockPos pos)
+    public Biome getBiomeForCoords(BlockPos pos)
     {
         return BiomePocketDim;
     }

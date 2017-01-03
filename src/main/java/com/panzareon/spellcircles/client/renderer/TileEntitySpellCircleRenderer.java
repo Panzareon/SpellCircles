@@ -6,7 +6,7 @@ import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
@@ -44,7 +44,7 @@ public class TileEntitySpellCircleRenderer extends TileEntitySpecialRenderer
         double posChange = radiusTE - 1;
 
         //Render main Spell Circle from top
-        WorldRenderer wr = tessellator.getWorldRenderer();
+        VertexBuffer wr = tessellator.getBuffer();
         double runeRadius;
         if(radiusTE == 1)
         {

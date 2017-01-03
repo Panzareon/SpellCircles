@@ -3,7 +3,7 @@ package com.panzareon.spellcircles.spell;
 import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.reference.Reference;
 import com.panzareon.spellcircles.utility.LogHelper;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 public abstract class SpellPart implements Comparable<SpellPart>
 {
@@ -29,7 +29,7 @@ public abstract class SpellPart implements Comparable<SpellPart>
 
     public String getLocalizedSpellId()
     {
-        return StatCollector.translateToLocal("spell." + Reference.MOD_ID.toLowerCase() + ":" + this.getSpellId() + ".name");
+        return I18n.translateToLocal("spell." + Reference.MOD_ID.toLowerCase() + ":" + this.getSpellId() + ".name");
     }
 
 

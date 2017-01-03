@@ -10,7 +10,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -28,7 +31,7 @@ public class ItemSpellRune extends ItemSpell
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         SpellEnviron environ = super.getEnvironFromNBT(stack, worldIn);
         if(environ != null)
@@ -47,11 +50,11 @@ public class ItemSpellRune extends ItemSpell
                 //NOOP
             }
         }
-        return true;
+        return EnumActionResult.SUCCESS;
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
         if(itemStackIn.hasTagCompound() && itemStackIn.getTagCompound().hasKey(Reference.MOD_ID))
         {
@@ -73,11 +76,11 @@ public class ItemSpellRune extends ItemSpell
                 }
             }
         }
-        return itemStackIn;
+        return ActionResult.newResult(EnumActionResult.SUCCESS,itemStackIn);
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target)
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand)
     {
         SpellEnviron environ = super.getEnvironFromNBT(stack, playerIn.worldObj);
         if(environ != null)

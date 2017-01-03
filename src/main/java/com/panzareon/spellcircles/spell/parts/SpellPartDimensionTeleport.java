@@ -1,20 +1,12 @@
 package com.panzareon.spellcircles.spell.parts;
 
 
-import com.panzareon.spellcircles.dimension.TeleporterPocketDim;
-import com.panzareon.spellcircles.dimension.TeleporterSpawn;
 import com.panzareon.spellcircles.exception.MissingAuraException;
-import com.panzareon.spellcircles.init.ModDimension;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.DimensionManager;
 
 public class SpellPartDimensionTeleport extends SpellPart
 {
@@ -61,9 +53,12 @@ public class SpellPartDimensionTeleport extends SpellPart
                     World world = environ.getCaster().worldObj;
                     if(!world.isRemote)
                     {
+                        Entity e = childValues[0].getEntity(i);
+                        e.changeDimension(dimensionId);
+                        //TODO: place correct in new dimension
+                        /*
                         WorldServer worldTo = DimensionManager.getWorld(dimensionId);
                         ServerConfigurationManager manager = ((WorldServer) world).getMinecraftServer().getConfigurationManager();
-                        Entity e = childValues[0].getEntity(i);
                         if(e instanceof EntityPlayer)
                         {
                             if(dimensionId == ModDimension.pocketDimensionId)
@@ -81,7 +76,7 @@ public class SpellPartDimensionTeleport extends SpellPart
                             }
                             else
                                 manager.transferEntityToWorld(e, dimensionId, (WorldServer) world, worldTo, new TeleporterSpawn(worldTo));
-                        }
+                        }*/
                     }
                 }
 

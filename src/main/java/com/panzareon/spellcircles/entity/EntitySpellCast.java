@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 
@@ -123,10 +124,9 @@ public class EntitySpellCast extends Entity implements IEntityAdditionalSpawnDat
         }
     }
 
-    @Override
-    public void onChunkLoad()
+    @SubscribeEvent
+    public void chunkLoad()
     {
-        super.onChunkLoad();
         //Check if Origin stopped casting while this entity was unloaded
         if(!environ.originStillCasting(this))
         {

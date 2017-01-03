@@ -5,9 +5,10 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartRegeneration extends SpellPart
 {
@@ -44,7 +45,7 @@ public class SpellPartRegeneration extends SpellPart
                 nr = nr2;
             if(nr < nr3)
                 nr = nr3;
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraMultiplier;
             float regenStrength;
             EntityLivingBase target;
@@ -60,7 +61,7 @@ public class SpellPartRegeneration extends SpellPart
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*regenStrength*effectDuration), environ.strength))
                 {
-                    target.addPotionEffect(new PotionEffect(Potion.regeneration.getId(), effectDuration, (int) regenStrength));
+                    target.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, effectDuration, (int) regenStrength));
                 }
                 else
                 {

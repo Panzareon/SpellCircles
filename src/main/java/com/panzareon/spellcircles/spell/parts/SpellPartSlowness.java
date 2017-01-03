@@ -7,7 +7,7 @@ import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartSlowness extends SpellPart
 {
@@ -44,7 +44,7 @@ public class SpellPartSlowness extends SpellPart
                 nr = nr2;
             if(nr < nr3)
                 nr = nr3;
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraMultiplier;
             float slowStrength;
             EntityLivingBase target;
@@ -62,7 +62,7 @@ public class SpellPartSlowness extends SpellPart
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*slowStrength*effectDuration), environ.strength))
                 {
-                    target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), effectDuration, (int) slowStrength));
+                    target.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"), effectDuration, (int) slowStrength));
                 }
                 else
                 {

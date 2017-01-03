@@ -10,9 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIFlyToOwner extends EntityAIBase
@@ -106,10 +106,10 @@ public class EntityAIFlyToOwner extends EntityAIBase
             {
                 this.field_75343_h = 10;
 
-                Vec3 posPet = thePet.getPositionVector();
-                Vec3 posOwner = theOwner.getPositionVector();
+                Vec3d posPet = thePet.getPositionVector();
+                Vec3d posOwner = theOwner.getPositionVector();
 
-                Vec3 petToOwner = posOwner.subtract(posPet);
+                Vec3d petToOwner = posOwner.subtract(posPet);
                 petToOwner.normalize();
                 petToOwner = VectorUtil.multiplyVector(petToOwner, followSpeed);
                 thePet.motionX = petToOwner.xCoord;

@@ -1,9 +1,9 @@
 package com.panzareon.spellcircles.utility;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class VectorUtil
 {
-    public static MovingObjectPosition raycast(World worldIn, Vec3 start, Vec3 end)
+    public static RayTraceResult raycast(World worldIn, Vec3d start, Vec3d end)
     {
         double additionalCheckSpace = 5.0;
-        MovingObjectPosition mop = worldIn.rayTraceBlocks(start, end);
+        RayTraceResult mop = worldIn.rayTraceBlocks(start, end);
         double closestHit = 0.0;
         if(mop != null)
             closestHit = mop.hitVec.distanceTo(start);
@@ -29,7 +29,7 @@ public class VectorUtil
         List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class, bb);
 
         AxisAlignedBB entityBb;
-        MovingObjectPosition mopTest;
+        RayTraceResult mopTest;
         double currentHit;
         for(Entity ent:entities)
         {
@@ -46,7 +46,7 @@ public class VectorUtil
                         {
                             closestHit = currentHit;
                             mop = mopTest;
-                            mop.typeOfHit = MovingObjectPosition.MovingObjectType.ENTITY;
+                            mop.typeOfHit = RayTraceResult.Type.ENTITY;
                             mop.entityHit = ent;
                         }
                     }
@@ -55,8 +55,8 @@ public class VectorUtil
         }
         return mop;
     }
-    public static Vec3 multiplyVector(Vec3 vec, double l)
+    public static Vec3d multiplyVector(Vec3d vec, double l)
     {
-        return new Vec3(vec.xCoord * l, vec.yCoord * l, vec.zCoord * l);
+        return new Vec3d(vec.xCoord * l, vec.yCoord * l, vec.zCoord * l);
     }
 }

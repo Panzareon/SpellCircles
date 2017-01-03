@@ -1,16 +1,16 @@
 package com.panzareon.spellcircles.spell;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartValue
 {
     Entity entity[] = null;
     BlockPos block[] = null;
-    Vec3 direction[] = null;
+    Vec3d direction[] = null;
     float number[] = null;
     boolean bool[] = null;
-    Vec3 position[] = null;
+    Vec3d position[] = null;
     int dimension[] = null;
 
 
@@ -88,7 +88,7 @@ public class SpellPartValue
         if(b.length > 0)
             block = b;
     }
-    public void setDirection(Vec3[] dir)
+    public void setDirection(Vec3d[] dir)
     {
         if(dir.length > 0)
             direction = dir;
@@ -103,7 +103,7 @@ public class SpellPartValue
         if(b.length > 0)
             bool = b;
     }
-    public void setPosition(Vec3[] pos)
+    public void setPosition(Vec3d[] pos)
     {
         if(pos.length > 0)
             position = pos;
@@ -142,7 +142,7 @@ public class SpellPartValue
         }
         return null;
     }
-    public Vec3 getDirection(int index)
+    public Vec3d getDirection(int index)
     {
         if(direction != null)
         {
@@ -170,7 +170,7 @@ public class SpellPartValue
         index = index % bool.length;
         return bool[index];
     }
-    public Vec3 getPosition(int index)
+    public Vec3d getPosition(int index)
     {
         if(position != null)
         {
@@ -180,7 +180,7 @@ public class SpellPartValue
         if(block != null)
         {
             index = index % block.length;
-            return new Vec3(block[index]);
+            return new Vec3d(block[index]);
         }
         if(entity != null)
         {

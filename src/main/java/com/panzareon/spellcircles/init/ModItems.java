@@ -5,7 +5,7 @@ import com.panzareon.spellcircles.item.ItemChalk;
 import com.panzareon.spellcircles.item.ItemSpellRune;
 import com.panzareon.spellcircles.item.SpellCirclesItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;

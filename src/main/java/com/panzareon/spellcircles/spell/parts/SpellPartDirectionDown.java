@@ -4,7 +4,7 @@ import com.panzareon.spellcircles.exception.MissingAuraException;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartDirectionDown extends SpellPart
 {
@@ -36,7 +36,7 @@ public class SpellPartDirectionDown extends SpellPart
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException
     {
         SpellPartValue ret = new SpellPartValue();
-        Vec3[] dirs = {new Vec3(0.0f, -1.0f, 0.0f)};
+        Vec3d[] dirs = {new Vec3d(0.0f, -1.0f, 0.0f)};
         ret.setDirection(dirs);
         return ret;
     }

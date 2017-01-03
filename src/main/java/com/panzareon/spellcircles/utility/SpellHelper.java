@@ -10,8 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -40,7 +40,7 @@ public class SpellHelper
                     {
                         NBTTagCompound entity = entityList.getCompoundTagAt(i);
                         UUID entityId = new UUID(entity.getLong("IdMS"), entity.getLong("IdLS"));
-                        Entity e = MinecraftServer.getServer().getEntityFromUuid(entityId);
+                        Entity e = worldIn.getMinecraftServer().getEntityFromUuid(entityId);
                         if (e instanceof EntitySpellCast)
                             e.setDead();
                     }
@@ -179,7 +179,7 @@ public class SpellHelper
                 double posX = pos.getDouble("xPos");
                 double posY = pos.getDouble("yPos");
                 double posZ = pos.getDouble("zPos");
-                environ.castPos = new Vec3(posX, posY, posZ);
+                environ.castPos = new Vec3d(posX, posY, posZ);
             }
             if(nbt.hasKey("blockHit"))
             {
@@ -199,7 +199,7 @@ public class SpellHelper
                 if(isPlayer)
                     environ.entityHit = world.getPlayerEntityByUUID(entityHitId);
                 else
-                    environ.entityHit = MinecraftServer.getServer().getEntityFromUuid(entityHitId);
+                    environ.entityHit = world.getMinecraftServer().getEntityFromUuid(entityHitId);
             }
             if(nbt.hasKey("numberOfCasts"))
             {

@@ -7,9 +7,9 @@ import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import com.panzareon.spellcircles.utility.VectorUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 
@@ -49,9 +49,9 @@ public class SpellPartLookingAt extends SpellPart
         EntityPlayer player = environ.getCaster();
 
         Entity e;
-        Vec3 start;
-        Vec3 look;
-        Vec3 end;
+        Vec3d start;
+        Vec3d look;
+        Vec3d end;
         double maxLength = 30;
         int nr = childValues[0].getEntityLength();
         float distance;
@@ -65,13 +65,13 @@ public class SpellPartLookingAt extends SpellPart
             look = e.getLookVec();
             look = VectorUtil.multiplyVector(look, maxLength);
             end = start.add(look);
-            MovingObjectPosition mop = VectorUtil.raycast(player.worldObj, start, end);
+            RayTraceResult mop = VectorUtil.raycast(player.worldObj, start, end);
             if(mop != null)
             {
                 distance = (float) mop.hitVec.squareDistanceTo(player.getPositionVector());
                 if (environ.useAura((int) (AuraUse + distance), environ.strength))
                 {
-                    if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+                    if (mop.typeOfHit == RayTraceResult.Type.BLOCK)
                     {
                         blocks.add(mop.getBlockPos());
                     }

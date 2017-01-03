@@ -5,7 +5,7 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartMotion extends SpellPart
 {
@@ -47,10 +47,10 @@ public class SpellPartMotion extends SpellPart
                 nr = nr2;
             if(nr < nr3)
                 nr = nr3;
-            Vec3 castPos = environ.getCastPosition();
-            Vec3 dir;
+            Vec3d castPos = environ.getCastPosition();
+            Vec3d dir;
             float speed;
-            Vec3 dirMultiplied;
+            Vec3d dirMultiplied;
             float auraAdd;
             Entity entity;
             for(int i = 0; i < nr; i++)
@@ -61,7 +61,7 @@ public class SpellPartMotion extends SpellPart
                 if(entity == null || dir == null)
                     continue;
                 dir = dir.normalize();
-                dirMultiplied = new Vec3(dir.xCoord * speed, dir.yCoord *speed, dir.zCoord * speed);
+                dirMultiplied = new Vec3d(dir.xCoord * speed, dir.yCoord *speed, dir.zCoord * speed);
                 auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed), environ.strength))
                 {

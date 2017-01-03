@@ -7,7 +7,7 @@ public class BlockPocketDimWall extends SpellCirclesBlock
 {
     public BlockPocketDimWall()
     {
-        super(Material.barrier);
+        super(Material.BARRIER);
         this.setUnlocalizedName("pocket_dim_wall");
         this.setBlockUnbreakable();
     }

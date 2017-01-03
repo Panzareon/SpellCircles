@@ -7,19 +7,23 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEntityProvider
 {
     public BlockSpellCircleGag(){
         this.setUnlocalizedName("spell_circle");
-        this.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 0.015f, 1.0f);
     }
 
     //This block is called when block is broken and destroys the primary block.
@@ -44,11 +48,11 @@ public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEnti
     //This method checks if primary block exists.
 
     @Override
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
         if (!worldIn.isRemote)
         {
-            if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
+            if (!worldIn.isSideSolid(pos.down(),EnumFacing.UP,true))
             {
                 breakBlock(worldIn, pos, state);
             }
@@ -67,38 +71,38 @@ public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEnti
 
     //This makes gag invisible.
     @Override
-    public int getRenderType() {
-        return -1;
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.INVISIBLE;
     }
 
     @Override
-    public boolean isOpaqueCube()
+    public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {
         return null;
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)     {
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)     {
         TileEntitySpellCircleGag te = (TileEntitySpellCircleGag) worldIn.getTileEntity(pos);
         if(te != null && te.primaryPos != null)
         {
             TileEntitySpellCircle primaryTe = (TileEntitySpellCircle) worldIn.getTileEntity(te.primaryPos);
             if(primaryTe != null)
             {
-                return ModBlocks.spellCircle.getSelectedBoundingBox(worldIn, primaryTe.getPos());
+                return ModBlocks.spellCircle.getSelectedBoundingBox(getDefaultState(),worldIn, primaryTe.getPos());
             }
         }
-        return super.getSelectedBoundingBox(worldIn, pos);
+        return super.getSelectedBoundingBox(getDefaultState(), worldIn, pos);
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         TileEntitySpellCircleGag te = (TileEntitySpellCircleGag) worldIn.getTileEntity(pos);
         if(te != null && te.primaryPos != null)
@@ -109,14 +113,14 @@ public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEnti
                 BlockPos primaryPos = primaryTe.getPos();
                 hitX += primaryPos.getX() - pos.getX();
                 hitZ += primaryPos.getZ() - pos.getZ();
-                return ModBlocks.spellCircle.onBlockActivated(worldIn, primaryPos, state, playerIn, side, hitX, hitY, hitZ);
+                return ModBlocks.spellCircle.onBlockActivated(worldIn, primaryPos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
             }
         }
-        return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
     @Override
-    public boolean isFullCube()
+    public boolean isFullCube(IBlockState state)
     {
         return false;
     }

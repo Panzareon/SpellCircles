@@ -13,14 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntitySpellCircle extends TileEntity implements ITickable
 {
@@ -132,7 +128,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound)
+    public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
         //String spell = environ.getSpellString();
@@ -144,8 +140,9 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
         nbt.setString("spell", spellText);
         nbt.setInteger("radius", radius);
         compound.setTag(Reference.MOD_ID, nbt);
+        return compound;
     }
-
+/*
     @Override
     public Packet getDescriptionPacket()
     {
@@ -158,7 +155,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
     {
         readFromNBT(pkt.getNbtCompound());
-    }
+    }*/
 
     @Override
     public void update()
@@ -222,7 +219,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
     {
         if(!isCrafting)
         {
-            if(environ.isFinished())
+            if(environ != null && environ.isFinished())
             {
                 craftingItem = player.inventory.decrStackSize(player.inventory.currentItem, 1);
                 isCrafting = true;
@@ -233,7 +230,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
             {
                 if(player.worldObj.isRemote)
                 {
-                    ((EntityPlayerSP)player).addChatMessage(new ChatComponentTranslation("msg."+Reference.MOD_ID.toLowerCase()+":missing_spell_part.txt"));
+                    ((EntityPlayerSP)player).addChatMessage(new TextComponentTranslation("msg."+Reference.MOD_ID.toLowerCase()+":missing_spell_part.txt"));
                 }
             }
         }
@@ -246,7 +243,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
 
     private void craftingComplete(BlockPos pos)
     {
-        if(worldObj.getBlockState(pos).getBlock() == Blocks.bookshelf)
+        if(worldObj.getBlockState(pos).getBlock() == Blocks.BOOKSHELF)
         {
             worldObj.setBlockState(pos, ModBlocks.discoverer.getDefaultState());
             worldObj.setBlockToAir(pos.up());
@@ -255,7 +252,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
 
     private boolean canCraftBlock(BlockPos pos)
     {
-        if(worldObj.getBlockState(pos).getBlock() == Blocks.bookshelf)
+        if(worldObj.getBlockState(pos).getBlock() == Blocks.BOOKSHELF)
         {
             return true;
         }

@@ -14,7 +14,7 @@ public class SpellCirclesBlock extends Block
     }
     public SpellCirclesBlock()
     {
-        this(Material.rock);
+        this(Material.ROCK);
     }
 
 

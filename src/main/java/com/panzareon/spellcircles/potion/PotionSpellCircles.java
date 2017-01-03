@@ -1,14 +1,13 @@
-package com.panzareon.spellcircles.Potion;
+package com.panzareon.spellcircles.potion;
 
 import com.panzareon.spellcircles.reference.Reference;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.ResourceLocation;
 
 public class PotionSpellCircles extends Potion
 {
-    protected PotionSpellCircles(ResourceLocation location, boolean badEffect, int potionColor)
+    protected PotionSpellCircles(boolean badEffect, int potionColor)
     {
-        super(location, badEffect, potionColor);
+        super(badEffect, potionColor);
     }
 
     @Override

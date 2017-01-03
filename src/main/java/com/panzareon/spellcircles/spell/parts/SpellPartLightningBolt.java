@@ -6,8 +6,8 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SpellPartLightningBolt extends SpellPart
@@ -44,9 +44,9 @@ public class SpellPartLightningBolt extends SpellPart
         int nr = childValues[0].getPositionLength();
         if(nr > 0)
         {
-            Vec3 pos;
+            Vec3d pos;
             EntityPlayer player = environ.getCaster();
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraAdd;
             World world = player.getEntityWorld();
 
@@ -62,7 +62,7 @@ public class SpellPartLightningBolt extends SpellPart
                     {
                         if(!world.isRemote)
                         {
-                            world.addWeatherEffect(new EntityLightningBolt(world, pos.xCoord, pos.yCoord, pos.zCoord));
+                            world.addWeatherEffect(new EntityLightningBolt(world, pos.xCoord, pos.yCoord, pos.zCoord, false));
                         }
                     }
                     else

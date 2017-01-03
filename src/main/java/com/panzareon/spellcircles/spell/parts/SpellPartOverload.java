@@ -9,7 +9,7 @@ import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.UUID;
 
@@ -43,7 +43,7 @@ public class SpellPartOverload extends SpellPart
         int nr = childValues[0].getEntityLength();
         if(nr > 0)
         {
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraMultiplier;
             EntityLivingBase target;
             for(int i = 0; i < nr; i++)
@@ -55,7 +55,7 @@ public class SpellPartOverload extends SpellPart
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) (AuraUse + auraMultiplier), environ.strength))
                 {
-                    target.addPotionEffect(new PotionEffect(ModPotions.overload.getId(), effectDuration, 0));
+                    target.addPotionEffect(new PotionEffect(ModPotions.overload, effectDuration, 0));
 
 
                     UUID casterUUID = environ.getCaster().getPersistentID();

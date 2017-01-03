@@ -9,8 +9,8 @@ import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import com.panzareon.spellcircles.utility.LogHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -114,13 +114,13 @@ public class GuiAddSpellPart extends GuiScreen
         if(lastSpell != null)
         {
             String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + lastSpell.getSpellId();
-            nextSpellPartDesc = StatCollector.translateToLocal(prefix + ".name") + ": ";
+            nextSpellPartDesc = I18n.format(prefix + ".name") + ": ";
             int i = lastSpell.getNrOfSetChildren() + 1;
-            nextSpellPartDesc += StatCollector.translateToLocal(prefix + ".child" + String.valueOf(i));
+            nextSpellPartDesc += I18n.format(prefix + ".child" + String.valueOf(i));
         }
         else
         {
-            nextSpellPartDesc = StatCollector.translateToLocal("spellDesc." + Reference.MOD_ID.toLowerCase() + ":addAction.name");
+            nextSpellPartDesc = I18n.format("spellDesc." + Reference.MOD_ID.toLowerCase() + ":addAction.name");
         }
     }
 
@@ -261,14 +261,14 @@ public class GuiAddSpellPart extends GuiScreen
                 spellPartToAdd = element;
                 hasSelectedElementAdditionalValues = searchMatches.get(spellPartToAdd).needAdditionalValues();
                 okButton.enabled = !hasSelectedElementAdditionalValues;
-                toAddDesc = StatCollector.translateToLocal("spellDesc." + Reference.MOD_ID.toLowerCase() + ":aurause.name") + " ";
+                toAddDesc = I18n.format("spellDesc." + Reference.MOD_ID.toLowerCase() + ":aurause.name") + " ";
                 String prefix = "spell." + Reference.MOD_ID.toLowerCase() + ":" + searchMatches.get(spellPartToAdd).getSpellId();
-                toAddDesc += StatCollector.translateToLocal(prefix + ".aurause") + "\n";
-                toAddDesc += StatCollector.translateToLocal(prefix + ".desc") + "\n";
+                toAddDesc += I18n.format(prefix + ".aurause") + "\n";
+                toAddDesc += I18n.format(prefix + ".desc") + "\n";
                 for(int i = 1; i <= searchMatches.get(spellPartToAdd).getNrOfChildren(); i++)
                 {
-                    toAddDesc += StatCollector.translateToLocalFormatted("spellDesc." + Reference.MOD_ID.toLowerCase() + ":child.name", i) + " ";
-                    toAddDesc += StatCollector.translateToLocal(prefix + ".child" + String.valueOf(i)) + "\n";
+                    toAddDesc += I18n.format("spellDesc." + Reference.MOD_ID.toLowerCase() + ":child.name", i) + " ";
+                    toAddDesc += I18n.format(prefix + ".child" + String.valueOf(i)) + "\n";
                 }
             }
         }

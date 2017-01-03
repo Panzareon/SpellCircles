@@ -8,7 +8,7 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SpellPartSpawnFireSpirit extends SpellPart
@@ -44,7 +44,7 @@ public class SpellPartSpawnFireSpirit extends SpellPart
         {
             EntityPlayer player = environ.getCaster();
             World world = player.worldObj;
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
 
             float auraMultiplier;
             int effectDuration;
@@ -60,7 +60,7 @@ public class SpellPartSpawnFireSpirit extends SpellPart
                     if(!world.isRemote)
                     {
                         EntityFireSpirit spirit = new EntityFireSpirit(world);
-                        spirit.setOwnerId(player.getUniqueID().toString());
+                        spirit.setOwnerId(player.getUniqueID());
                         spirit.setGrowingAge(effectDuration);
                         spirit.setLocationAndAngles(player.posX, player.posY, player.posZ, 0.0F, 0.0F);
                         world.spawnEntityInWorld(spirit);

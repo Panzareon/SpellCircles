@@ -22,7 +22,7 @@ public class OverlayHandler
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onRenderGameOverlay(RenderGameOverlayEvent event)
     {
-        if(event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE)
+        if(event.isCancelable() || event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE)
         {
             return;
         }

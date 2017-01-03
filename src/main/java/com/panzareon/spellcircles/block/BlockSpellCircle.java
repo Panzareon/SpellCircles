@@ -10,57 +10,61 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityProvider
 {
+    AxisAlignedBB selectedBB;
+
     public BlockSpellCircle()
     {
         super();
         this.setUnlocalizedName("spell_circle");
-        this.setBlockBounds(0.0f, 0.0f, 0.0f , 1.0f, 0.015f, 1.0f);
+        selectedBB = new AxisAlignedBB(0.0f, 0.0f, 0.0f , 1.0f, 0.015f, 1.0f);
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {
         return null;
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {
         TileEntitySpellCircle te = (TileEntitySpellCircle) worldIn.getTileEntity(pos);
-        return new AxisAlignedBB((double)pos.getX() + this.minX - te.radius + 1, (double)pos.getY() + this.minY, (double)pos.getZ() + this.minZ - te.radius + 1, (double)pos.getX() + this.maxX + te.radius - 1, (double)pos.getY() + this.maxY, (double)pos.getZ() + this.maxZ + te.radius - 1);
+        return new AxisAlignedBB((double)pos.getX() + selectedBB.minX - te.radius + 1, (double)pos.getY() + selectedBB.minY, (double)pos.getZ() + selectedBB.minZ - te.radius + 1, (double)pos.getX() + selectedBB.maxX + te.radius - 1, (double)pos.getY() + selectedBB.maxY, (double)pos.getZ() + selectedBB.maxZ + te.radius - 1);
     }
 
     @Override
-    public boolean isOpaqueCube()
+    public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
 
     @Override
-    public boolean isFullCube()
+    public boolean isFullCube(IBlockState state)
     {
         return false;
     }
 
     @Override
-    public EnumWorldBlockLayer getBlockLayer() {
-        return EnumWorldBlockLayer.CUTOUT;
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-
-        ItemStack stack = playerIn.getCurrentEquippedItem();
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
+        ItemStack stack = playerIn.getHeldItemMainhand();
         boolean openGui = true;
         if (stack != null)
         {
@@ -94,16 +98,16 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     }
 
     @Override
-    public int getRenderType() {
-        return -1;
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.INVISIBLE;
     }
 
     @Override
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
     {
         if (!worldIn.isRemote)
         {
-            if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
+            if (!worldIn.isSideSolid(pos.down(), EnumFacing.UP))
             {
                 worldIn.destroyBlock(pos, false);
             }

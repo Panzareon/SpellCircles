@@ -1,29 +1,28 @@
 package com.panzareon.spellcircles.client.effects;
 
 import com.panzareon.spellcircles.utility.VectorUtil;
-import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EntityOverloadFX extends EntityFX
+public class EntityOverloadFX extends Particle
 {
     private Entity targetEntity;
-    private Vec3 localPos;
-    private Vec3 localSphereCenter;
+    private Vec3d localPos;
+    private Vec3d localSphereCenter;
 
     private double jitter;
 
     private boolean disapear = false;
 
-    public EntityOverloadFX(World worldIn, double posXIn, double posYIn, double posZIn, Entity target, Vec3 sphereCenter)
+    public EntityOverloadFX(World worldIn, double posXIn, double posYIn, double posZIn, Entity target, Vec3d sphereCenter)
     {
         super(worldIn, posXIn, posYIn, posZIn, 0.0, 0.0, 0.0);
         targetEntity = target;
         localSphereCenter = sphereCenter;
-        localPos = new Vec3(posXIn, posYIn, posZIn).subtract(target.getPositionVector());
+        localPos = new Vec3d(posXIn, posYIn, posZIn).subtract(target.getPositionVector());
         jitter = (Math.random() - 0.5) * 0.01;
-        noClip = true;
 
         this.particleRed = 0.1f;
         this.particleGreen = 0.1f;
@@ -43,20 +42,20 @@ public class EntityOverloadFX extends EntityFX
 
         if (this.particleAge++ >= this.particleMaxAge)
         {
-            this.setDead();
+            this.setExpired();
         }
         if(targetEntity == null)
         {
-            this.setDead();
+            this.setExpired();
             return;
         }
 
 
-        Vec3 targetPos = targetEntity.getPositionVector().addVector(0.0,0.05, 0.0);
+        Vec3d targetPos = targetEntity.getPositionVector().addVector(0.0,0.05, 0.0);
 
-        Vec3 particleToCenter = localSphereCenter.subtract(localPos);
+        Vec3d particleToCenter = localSphereCenter.subtract(localPos);
 
-        Vec3 toMove = particleToCenter.crossProduct(localPos);
+        Vec3d toMove = particleToCenter.crossProduct(localPos);
         if(!disapear || localPos.yCoord < 1.5)
         {
             if(disapear || localPos.xCoord * localPos.xCoord + localPos.zCoord * localPos.zCoord < 0.2)

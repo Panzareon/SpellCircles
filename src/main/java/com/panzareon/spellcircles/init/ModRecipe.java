@@ -12,7 +12,7 @@ public class ModRecipe
 
     public static void init()
     {
-        GameRegistry.addRecipe(new ShapelessOreRecipe(ModItems.chalk,"dyeWhite", Items.paper, Items.clay_ball));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(ModItems.chalk,"dyeWhite", Items.PAPER, Items.CLAY_BALL));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.spellRune, 1, 0),
                 " S ",
                 "SCS",

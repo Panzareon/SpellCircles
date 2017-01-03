@@ -6,7 +6,7 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import com.panzareon.spellcircles.utility.MagicDamageSource;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartDamage extends SpellPart
 {
@@ -40,7 +40,7 @@ public class SpellPartDamage extends SpellPart
         {
             if(nr < nr2)
                 nr = nr2;
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraMultiplier;
             float dmg;
             Entity target;

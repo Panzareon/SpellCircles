@@ -8,9 +8,9 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.projectile.EntitySmallFireball;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,17 +34,17 @@ public class EntityFireSpirit extends EntityTameable
     {
         super.applyEntityAttributes();
 
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
-        getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.8D);
-        getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(16.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.8D);
+        getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
     }
 
     @Override
     public EntityAgeable createChild(EntityAgeable ageable)
     {
         EntityFireSpirit ret = new EntityFireSpirit(worldObj);
-        ret.setOwnerId((getOwner()).getUniqueID().toString());
+        ret.setOwnerId((getOwner()).getUniqueID());
         return ret;
     }
 
@@ -161,7 +161,7 @@ public class EntityFireSpirit extends EntityTameable
 
                     this.timeToNextAttack = 50;
                     float f = MathHelper.sqrt_float(MathHelper.sqrt_double(d0)) * 0.5F;
-                    this.spirit.worldObj.playAuxSFXAtEntity(null, 1009, new BlockPos((int)this.spirit.posX, (int)this.spirit.posY, (int)this.spirit.posZ), 0);
+                    this.spirit.worldObj.playBroadcastSound(1009, new BlockPos((int)this.spirit.posX, (int)this.spirit.posY, (int)this.spirit.posZ), 0);
 
                     for (int i = 0; i < 1; ++i)
                     {

@@ -5,7 +5,7 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import com.panzareon.spellcircles.utility.VectorUtil;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import java.util.HashSet;
 
 public class SpellPartExpandPositionList extends SpellPart
@@ -37,7 +37,7 @@ public class SpellPartExpandPositionList extends SpellPart
     @Override
     protected SpellPartValue cast(SpellPartValue[] childValues) throws MissingAuraException
     {
-        HashSet<Vec3> positions = new HashSet<Vec3>();
+        HashSet<Vec3d> positions = new HashSet<Vec3d>();
         int nr = childValues[0].getPositionLength();
         int nr2 = childValues[1].getDirectionLength();
         int nr3 = childValues[2].getNumberLength();
@@ -49,9 +49,9 @@ public class SpellPartExpandPositionList extends SpellPart
             nr = nr2;
         if(nr < nr3)
             nr = nr3;
-        Vec3 addVector;
-        Vec3 pos;
-        Vec3 direction;
+        Vec3d addVector;
+        Vec3d pos;
+        Vec3d direction;
 
         for(int i = 0; i < nr; i++)
         {
@@ -64,7 +64,7 @@ public class SpellPartExpandPositionList extends SpellPart
         }
 
         SpellPartValue ret = new SpellPartValue();
-        ret.setPosition(positions.toArray(new Vec3[positions.size()]));
+        ret.setPosition(positions.toArray(new Vec3d[positions.size()]));
         return ret;
     }
 

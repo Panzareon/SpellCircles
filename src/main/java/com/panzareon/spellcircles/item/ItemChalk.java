@@ -8,7 +8,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -25,9 +27,9 @@ public class ItemChalk extends SpellCirclesItem
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        if(side == EnumFacing.UP && worldIn.isBlockFullCube(pos))
+        if(facing == EnumFacing.UP && worldIn.isBlockFullCube(pos))
         {
             int y = pos.getY() + 1;
             int yDown = pos.getY();
@@ -49,14 +51,14 @@ public class ItemChalk extends SpellCirclesItem
 
                     if(xSame ^ zSame)
                     {
-                        if(state.getBlock() != Blocks.lapis_block)
+                        if(state.getBlock() != Blocks.LAPIS_BLOCK)
                         {
                             increase = false;
                         }
                     }
                     if(!xSame && !zSame)
                     {
-                        if(state.getBlock() != Blocks.stonebrick || state.getValue(BlockStoneBrick.VARIANT) != BlockStoneBrick.EnumType.CHISELED)
+                        if(state.getBlock() != Blocks.STONEBRICK || state.getValue(BlockStoneBrick.VARIANT) != BlockStoneBrick.EnumType.CHISELED)
                         {
                             increase = false;
                         }
@@ -98,7 +100,7 @@ public class ItemChalk extends SpellCirclesItem
             te.isPlaced();
 
         }
-        return false;
+        return EnumActionResult.SUCCESS;
     }
 
     @Override

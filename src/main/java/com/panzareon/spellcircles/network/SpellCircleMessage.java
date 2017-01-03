@@ -2,7 +2,7 @@ package com.panzareon.spellcircles.network;
 
 import com.panzareon.spellcircles.tileentity.TileEntitySpellCircle;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -57,7 +57,7 @@ public class SpellCircleMessage implements IMessage
                     WorldServer world = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
                     TileEntitySpellCircle spellCircle = (TileEntitySpellCircle) (world.getTileEntity(message.spellCirclePos));
                     spellCircle.addSpellPart(message.newSpellText);
-                    world.markBlockForUpdate(message.spellCirclePos);
+//                    world.update.markBlockForUpdate(message.spellCirclePos);
                     spellCircle.markDirty();
                 }
             });

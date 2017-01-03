@@ -14,14 +14,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 
 public class SpellEnviron
 {
-    public Vec3 castPos;
+    public Vec3d castPos;
     protected EntityPlayer caster;
     public SpellCastWith castWith;
     public Entity entityHit;
@@ -202,7 +202,7 @@ public class SpellEnviron
         return lastSpell.getLastNodeWithSpace();
     }
 
-    public Vec3 getCastPosition()
+    public Vec3d getCastPosition()
     {
         if(castPos == null)
         {
@@ -221,7 +221,7 @@ public class SpellEnviron
     public void removeFromCastOrigin(EntitySpellCast e)
     {
         //Todo: if not created from equipped item of caster: remove from other origin
-        ItemStack stack = caster.getCurrentEquippedItem();
+        ItemStack stack = caster.getHeldItemMainhand();
         if(stack.getItem() instanceof ItemSpell)
         {
             if(stack.hasTagCompound())
@@ -236,7 +236,7 @@ public class SpellEnviron
     public void addToCastOrigin(EntitySpellCast e)
     {
         //Todo: if not created from equipped item of caster: remove from other origin
-        ItemStack stack = caster.getCurrentEquippedItem();
+        ItemStack stack = caster.getHeldItemMainhand();
         if(stack.getItem() instanceof ItemSpell)
         {
             if(stack.hasTagCompound())
@@ -252,7 +252,7 @@ public class SpellEnviron
     public boolean originStillCasting(EntitySpellCast entitySpellCast)
     {
         //Todo: if not created from equipped item of caster: remove from other origin
-        ItemStack stack = caster.getCurrentEquippedItem();
+        ItemStack stack = caster.getHeldItemMainhand();
         if(stack.getItem() instanceof ItemSpell)
         {
             if (stack.hasTagCompound())

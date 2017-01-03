@@ -7,7 +7,7 @@ import com.panzareon.spellcircles.init.ModEntity;
 import com.panzareon.spellcircles.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ClientProxy extends CommonProxy
@@ -41,15 +41,15 @@ public class ClientProxy extends CommonProxy
 
         World world = entity.worldObj;
 
-        Vec3 pos = entity.getPositionVector();
+        Vec3d pos = entity.getPositionVector();
         angleBase -= Math.random() * 0.02;
         double angle = angleBase + Math.random() * 0.5;
-        Vec3 newPos;
+        Vec3d newPos;
         for(int i = 0; i < 4; i++)
         {
             angle += Math.PI / 2;
-            newPos = new Vec3(pos.xCoord + Math.cos(angle) * 2.0, pos.yCoord + 0.5, pos.zCoord + Math.sin(angle) * 2.0);
-            EntityOverloadFX effect = new EntityOverloadFX(world,newPos.xCoord, newPos.yCoord, newPos.zCoord, entity, new Vec3(0.0, 1.0, 0.0));
+            newPos = new Vec3d(pos.xCoord + Math.cos(angle) * 2.0, pos.yCoord + 0.5, pos.zCoord + Math.sin(angle) * 2.0);
+            EntityOverloadFX effect = new EntityOverloadFX(world,newPos.xCoord, newPos.yCoord, newPos.zCoord, entity, new Vec3d(0.0, 1.0, 0.0));
             Minecraft.getMinecraft().effectRenderer.addEffect(effect);
         }
 

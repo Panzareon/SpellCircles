@@ -11,7 +11,7 @@ public class WorldData extends WorldSavedData
     public static WorldData forWorld(World world)
     {
         MapStorage storage = world.getPerWorldStorage();
-        WorldData result = (WorldData)storage.loadData(WorldData.class, Reference.MOD_ID);
+        WorldData result = (WorldData)storage.getOrLoadData(WorldData.class, Reference.MOD_ID);
         if (result == null) {
             result = new WorldData(Reference.MOD_ID);
             storage.setData(Reference.MOD_ID, result);
@@ -33,9 +33,9 @@ public class WorldData extends WorldSavedData
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound)
-    {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound){
         compound.setTag(Reference.MOD_ID, data);
+        return compound;
     }
 
     public NBTTagCompound getData()

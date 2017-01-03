@@ -5,7 +5,7 @@ import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartStopMotion extends SpellPart
 {
@@ -41,8 +41,8 @@ public class SpellPartStopMotion extends SpellPart
         int nr = childValues[0].getEntityLength();
         if(nr > 0)
         {
-            Vec3 castPos = environ.getCastPosition();
-            Vec3 movement;
+            Vec3d castPos = environ.getCastPosition();
+            Vec3d movement;
             Entity entity;
             float auraAdd;
             float speed;
@@ -51,7 +51,7 @@ public class SpellPartStopMotion extends SpellPart
                 entity = childValues[0].getEntity(i);
                 if(entity == null)
                     continue;
-                movement = new Vec3(entity.motionX, entity.motionY, entity.motionZ);
+                movement = new Vec3d(entity.motionX, entity.motionY, entity.motionZ);
                 speed = (float)movement.lengthVector();
                 auraAdd = (float) castPos.squareDistanceTo(entity.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraAdd * 20)*speed), environ.strength))

@@ -7,7 +7,7 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartEnhanceBareFist extends SpellPart
 {
@@ -42,7 +42,7 @@ public class SpellPartEnhanceBareFist extends SpellPart
         {
             if(nr < nr2)
                 nr = nr2;
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraMultiplier;
             float dmg;
             EntityLivingBase target;
@@ -56,7 +56,7 @@ public class SpellPartEnhanceBareFist extends SpellPart
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*dmg), environ.strength))
                 {
-                    target.addPotionEffect(new PotionEffect(ModPotions.enhanceBareFist.getId(), effectDuration, (int) dmg));
+                    target.addPotionEffect(new PotionEffect(ModPotions.enhanceBareFist, effectDuration, (int) dmg));
                 }
                 else
                 {

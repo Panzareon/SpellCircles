@@ -4,7 +4,7 @@ package com.panzareon.spellcircles.entity;
 import com.panzareon.spellcircles.spell.SpellEnviron;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class EntityThrowSpell extends EntityThrowable
@@ -31,15 +31,15 @@ public class EntityThrowSpell extends EntityThrowable
 
 
     @Override
-    protected void onImpact(MovingObjectPosition mop)
+    protected void onImpact(RayTraceResult mop)
     {
         if(!worldObj.isRemote)
         {
-            if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY)
+            if(mop.typeOfHit == RayTraceResult.Type.ENTITY)
             {
                 environ.entityHit = mop.entityHit;
             }
-            else if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+            else if(mop.typeOfHit == RayTraceResult.Type.BLOCK)
             {
                 environ.blockHit = mop.getBlockPos();
             }

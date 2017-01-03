@@ -1,12 +1,12 @@
 package com.panzareon.spellcircles.dimension;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
-public class BiomeGenPocketDim extends BiomeGenBase
+public class BiomeGenPocketDim extends Biome
 {
 
-    public BiomeGenPocketDim(int id, boolean register)
+    public BiomeGenPocketDim(BiomeProperties properties)
     {
-        super(id, register);
+        super(properties);
     }
 }

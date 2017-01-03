@@ -8,9 +8,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SpellPartPickupBlock extends SpellPart
@@ -52,7 +54,7 @@ public class SpellPartPickupBlock extends SpellPart
             IBlockState blockState;
             float blockHardness;
             EntityPlayer player = environ.getCaster();
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraAdd;
             World world = player.getEntityWorld();
 
@@ -63,11 +65,11 @@ public class SpellPartPickupBlock extends SpellPart
                     continue;
                 blockState = world.getBlockState(blockPos);
                 block = blockState.getBlock();
-                blockHardness = block.getBlockHardness(world,blockPos);
+                blockHardness = block.getBlockHardness(blockState, world,blockPos);
 
                 if(block.getHarvestLevel(blockState) <= environ.strength)
                 {
-                    auraAdd = (float) castPos.distanceTo(new Vec3(blockPos));
+                    auraAdd = (float) castPos.distanceTo(new Vec3d(blockPos));
                     if (environ.useAura((int) ((AuraUse + auraAdd) * blockHardness), environ.strength))
                     {
 
@@ -90,7 +92,7 @@ public class SpellPartPickupBlock extends SpellPart
                                         player.onItemPickup(entityItem, item.stackSize);
 
                                         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerItemPickupEvent(player, entityItem);
-                                        world.playSoundAtEntity(player, "random.pop", 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                        world.playSound((EntityPlayer)null, entityItem.posX, entityItem.posY, entityItem.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                                     }
                                     if (item.stackSize > 0)
                                         block.spawnAsEntity(world, blockPos, item);

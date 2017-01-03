@@ -1,4 +1,4 @@
-package com.panzareon.spellcircles.Potion;
+package com.panzareon.spellcircles.potion;
 
 
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -7,9 +7,9 @@ import net.minecraft.util.ResourceLocation;
 public class PotionEnhancer extends PotionSpellCircles
 {
     private EnhanceTypes type;
-    public PotionEnhancer(ResourceLocation location, boolean badEffect, int potionColor, EnhanceTypes t)
+    public PotionEnhancer(boolean badEffect, int potionColor, EnhanceTypes t)
     {
-        super(location, badEffect, potionColor);
+        super(badEffect, potionColor);
         type = t;
         switch (type)
         {
@@ -18,7 +18,7 @@ public class PotionEnhancer extends PotionSpellCircles
                 break;
             case FOOT:
                 setPotionName("enhance_foot");
-                registerPotionAttributeModifier(SharedMonsterAttributes.movementSpeed, "7b72a3d5-860a-4e22-8ffd-7341ea8d8f19", 0.5, 2);
+                registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "7b72a3d5-860a-4e22-8ffd-7341ea8d8f19", 0.5, 2);
                 break;
         }
     }

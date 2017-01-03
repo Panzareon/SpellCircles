@@ -3,19 +3,18 @@ package com.panzareon.spellcircles.dimension;
 import com.panzareon.spellcircles.init.ModBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ChunkProviderPocketDim implements IChunkProvider
+public class ChunkProviderPocketDim implements IChunkGenerator
 {
     private World worldObj;
     private Random random;
@@ -24,12 +23,6 @@ public class ChunkProviderPocketDim implements IChunkProvider
     {
         this.worldObj = worldIn;
         this.random = new Random(seed);
-    }
-
-    @Override
-    public boolean chunkExists(int x, int z)
-    {
-        return true;
     }
 
     @Override
@@ -57,52 +50,17 @@ public class ChunkProviderPocketDim implements IChunkProvider
         return new Chunk(this.worldObj, chunkprimer, x, z);
     }
 
-    @Override
-    public Chunk provideChunk(BlockPos blockPosIn)
-    {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
-    }
 
     @Override
-    public void populate(IChunkProvider p_73153_1_, int p_73153_2_, int p_73153_3_)
+    public void populate(int x, int z)
     {
         //NOOP
     }
 
     @Override
-    public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_)
+    public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
     {
-        return false;
-    }
-
-    @Override
-    public boolean saveChunks(boolean p_73151_1_, IProgressUpdate progressCallback)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean unloadQueuedChunks()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean canSave()
-    {
-        return true;
-    }
-
-    @Override
-    public String makeString()
-    {
-        return "PocketDimension";
-    }
-
-    @Override
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
-    {
-        return new ArrayList<BiomeGenBase.SpawnListEntry>();
+        return new ArrayList<Biome.SpawnListEntry>();
     }
 
     @Override
@@ -112,20 +70,16 @@ public class ChunkProviderPocketDim implements IChunkProvider
     }
 
     @Override
-    public int getLoadedChunkCount()
-    {
-        return 0;
-    }
-
-    @Override
     public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_)
     {
         //NOOP
     }
 
     @Override
-    public void saveExtraData()
-    {
+    public boolean generateStructures(Chunk chunkIn, int x, int z){
         //NOOP
+        return true;
     }
+
+
 }

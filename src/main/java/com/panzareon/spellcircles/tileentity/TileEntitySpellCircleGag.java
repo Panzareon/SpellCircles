@@ -4,16 +4,15 @@ import com.panzareon.spellcircles.reference.Reference;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class TileEntitySpellCircleGag extends TileEntity
 {
     //The coordinates of our primary block will be stored in these variables.
     public BlockPos primaryPos;
 
-    public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+    public NBTTagCompound writeToNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.writeToNBT(par1NBTTagCompound);
         NBTTagCompound scNBT = new NBTTagCompound();
@@ -21,6 +20,7 @@ public class TileEntitySpellCircleGag extends TileEntity
         scNBT.setInteger("py", primaryPos.getY());
         scNBT.setInteger("pz", primaryPos.getZ());
         par1NBTTagCompound.setTag(Reference.MOD_ID, scNBT);
+        return par1NBTTagCompound;
     }
     public void readFromNBT(NBTTagCompound par1NBTTagCompound)
     {
@@ -28,6 +28,7 @@ public class TileEntitySpellCircleGag extends TileEntity
         NBTTagCompound scNBT = par1NBTTagCompound.getCompoundTag(Reference.MOD_ID);
         primaryPos = new BlockPos(scNBT.getInteger("px"), scNBT.getInteger("py"), scNBT.getInteger("pz"));
     }
+    /*
     @Override
     public Packet getDescriptionPacket()
     {
@@ -41,5 +42,5 @@ public class TileEntitySpellCircleGag extends TileEntity
     {
         readFromNBT(pkt.getNbtCompound());
     }
-
+*/
 }

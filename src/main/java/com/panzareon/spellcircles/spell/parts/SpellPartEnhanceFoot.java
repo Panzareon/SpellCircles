@@ -7,7 +7,7 @@ import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 public class SpellPartEnhanceFoot extends SpellPart
 {
@@ -41,7 +41,7 @@ public class SpellPartEnhanceFoot extends SpellPart
         {
             if(nr < nr2)
                 nr = nr2;
-            Vec3 castPos = environ.getCastPosition();
+            Vec3d castPos = environ.getCastPosition();
             float auraMultiplier;
             float effectDuration;
             EntityLivingBase target;
@@ -55,7 +55,7 @@ public class SpellPartEnhanceFoot extends SpellPart
                 auraMultiplier = (float) castPos.squareDistanceTo(target.getPositionVector());
                 if(environ.useAura((int) ((AuraUse + auraMultiplier)*effectDuration), environ.strength))
                 {
-                    target.addPotionEffect(new PotionEffect(ModPotions.enhanceFoot.getId(), (int) effectDuration, 0));
+                    target.addPotionEffect(new PotionEffect(ModPotions.enhanceFoot, (int) effectDuration, 0));
                 }
                 else
                 {
