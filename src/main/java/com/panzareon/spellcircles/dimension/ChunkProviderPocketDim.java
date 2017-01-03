@@ -12,17 +12,14 @@ import net.minecraft.world.chunk.IChunkGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ChunkProviderPocketDim implements IChunkGenerator
 {
     private World worldObj;
-    private Random random;
 
     public ChunkProviderPocketDim(World worldIn, long seed)
     {
         this.worldObj = worldIn;
-        this.random = new Random(seed);
     }
 
     @Override

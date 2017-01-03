@@ -2,7 +2,6 @@ package com.panzareon.spellcircles.potion;
 
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.ResourceLocation;
 
 
 public class PotionOverloadExhaust extends PotionSpellCircles

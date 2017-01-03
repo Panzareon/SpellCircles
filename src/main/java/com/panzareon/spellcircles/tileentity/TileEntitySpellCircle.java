@@ -230,7 +230,7 @@ public class TileEntitySpellCircle extends TileEntity implements ITickable
             {
                 if(player.worldObj.isRemote)
                 {
-                    ((EntityPlayerSP)player).addChatMessage(new TextComponentTranslation("msg."+Reference.MOD_ID.toLowerCase()+":missing_spell_part.txt"));
+                    player.addChatMessage(new TextComponentTranslation("msg."+Reference.MOD_ID.toLowerCase()+":missing_spell_part.txt"));
                 }
             }
         }

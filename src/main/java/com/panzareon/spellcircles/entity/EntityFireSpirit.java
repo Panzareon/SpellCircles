@@ -26,7 +26,7 @@ public class EntityFireSpirit extends EntityTameable
         this.tasks.addTask(5, new EntityAIFlyToOwner(this, 0.1D, 5.0F, 2.0F));
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
     }
 
     @Override

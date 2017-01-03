@@ -4,9 +4,7 @@ import com.panzareon.spellcircles.potion.PotionAuraExhaust;
 import com.panzareon.spellcircles.potion.PotionEnhancer;
 import com.panzareon.spellcircles.potion.PotionOverload;
 import com.panzareon.spellcircles.potion.PotionOverloadExhaust;
-import com.panzareon.spellcircles.reference.Reference;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.ResourceLocation;
 
 
 public class ModPotions

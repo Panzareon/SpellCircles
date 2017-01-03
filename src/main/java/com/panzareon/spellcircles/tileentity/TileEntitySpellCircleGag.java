@@ -2,8 +2,6 @@ package com.panzareon.spellcircles.tileentity;
 
 import com.panzareon.spellcircles.reference.Reference;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 

@@ -16,6 +16,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -41,8 +42,13 @@ public class BlockSpellCircle extends SpellCirclesBlock implements ITileEntityPr
     @Override
     public AxisAlignedBB getSelectedBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {
-        TileEntitySpellCircle te = (TileEntitySpellCircle) worldIn.getTileEntity(pos);
-        return new AxisAlignedBB((double)pos.getX() + selectedBB.minX - te.radius + 1, (double)pos.getY() + selectedBB.minY, (double)pos.getZ() + selectedBB.minZ - te.radius + 1, (double)pos.getX() + selectedBB.maxX + te.radius - 1, (double)pos.getY() + selectedBB.maxY, (double)pos.getZ() + selectedBB.maxZ + te.radius - 1);
+        return getBoundingBox(blockState, worldIn, pos).offset(pos);
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos){
+        TileEntitySpellCircle te = (TileEntitySpellCircle) source.getTileEntity(pos);
+        return new AxisAlignedBB(selectedBB.minX - te.radius + 1, selectedBB.minY, selectedBB.minZ - te.radius + 1, selectedBB.maxX + te.radius - 1, selectedBB.maxY, selectedBB.maxZ + te.radius - 1);
     }
 
     @Override

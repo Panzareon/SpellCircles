@@ -88,17 +88,21 @@ public class BlockSpellCircleGag extends  SpellCirclesBlock implements ITileEnti
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos)     {
-        TileEntitySpellCircleGag te = (TileEntitySpellCircleGag) worldIn.getTileEntity(pos);
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+        return getBoundingBox(state, worldIn, pos);
+    }
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos){
+        TileEntitySpellCircleGag te = (TileEntitySpellCircleGag) source.getTileEntity(pos);
         if(te != null && te.primaryPos != null)
         {
-            TileEntitySpellCircle primaryTe = (TileEntitySpellCircle) worldIn.getTileEntity(te.primaryPos);
+            TileEntitySpellCircle primaryTe = (TileEntitySpellCircle) source.getTileEntity(te.primaryPos);
             if(primaryTe != null)
             {
-                return ModBlocks.spellCircle.getSelectedBoundingBox(getDefaultState(),worldIn, primaryTe.getPos());
+                return ModBlocks.spellCircle.getBoundingBox(getDefaultState(),source, primaryTe.getPos());
             }
         }
-        return super.getSelectedBoundingBox(getDefaultState(), worldIn, pos);
+        return super.getBoundingBox(getDefaultState(), source, pos);
     }
 
     @Override

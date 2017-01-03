@@ -1,9 +1,7 @@
 package com.panzareon.spellcircles.spell.parts;
 
 import com.panzareon.spellcircles.entity.EntityFireSpirit;
-import com.panzareon.spellcircles.entity.EntityThrowSpell;
 import com.panzareon.spellcircles.exception.MissingAuraException;
-import com.panzareon.spellcircles.spell.SpellEnviron;
 import com.panzareon.spellcircles.spell.SpellPart;
 import com.panzareon.spellcircles.spell.SpellPartValue;
 import com.panzareon.spellcircles.spell.SpellReturnTypes;

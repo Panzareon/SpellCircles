@@ -92,7 +92,7 @@ public class SpellPartPickupBlock extends SpellPart
                                         player.onItemPickup(entityItem, item.stackSize);
 
                                         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerItemPickupEvent(player, entityItem);
-                                        world.playSound((EntityPlayer)null, entityItem.posX, entityItem.posY, entityItem.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                        world.playSound(null, entityItem.posX, entityItem.posY, entityItem.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                                     }
                                     if (item.stackSize > 0)
                                         block.spawnAsEntity(world, blockPos, item);
